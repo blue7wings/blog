@@ -7,7 +7,7 @@ baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://blue7wings.github.io" # the base hostname & protocol for your site
 twitter_username: Liam_Hsia # your Twitter username
 github_username: blue7wings # your Github username
-disqus_username: itisbenjamin # your disqus username
+disqus_username: LiamHsia # your disqus username
 weibo_username: blue7wings
 
 # google-analytics: UA-75034651-1 # add it if you have one
