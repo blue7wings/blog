@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+- 2.4.0
+install:
+- "./bin/setup"
+script:
+- bundle exec jekyll build --trace
+- bundle exec htmlproofer ./_site --only-4xx --allow-hash-href
+after_success:
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && "./bin/automated"
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - USERNAME: blue7wings
+  - EMAIL: bruce@blue7wings.com
+  - secure: Ckw403Tb9GTTo6zdLSoTtEya/OOSIKN8JVYTfL3E8hj5rlkSWxcPxXxAzSbWjy6e1+55Sa3l16cpAUiN1CC1CXaKGRbOlWukuTkrh4V8ixmuy3hRLHAP+rcds/e89u+ugbx67f38mQQDC02FcSNCMJQh/CUA6RAYB2vRtD2p++k9zl0rGJDJVfEHXeBzejUOcmPFXoOVYwSXwArtYQeCBv5WgtUC9XbQ6+mktXTVr+e8piG/JGb0XsAa+Mom+O0sFrdWEwVUoJYOSom/W0UGRbBlO/PZG7Z8oLxxzJCtvxoY5zPTMM9BYv6O5u6I56/RC2nGGhLlYt3vBMC0jeBvs7VFmgnZq1LPSjV2vG9mFFYQAnAZoUtNYtsaajbY7MsExgstXcBEruuO+7vxGDs+8WpQt478+sScJuk1cdUfwXZsmaKLZ8Ec41VzRTeRQkrApUB0PynLLLP31KwTJNEFCur0KvIva40+4WsYzANZi3oyh+BeMjKOEkPoPZgoIirgNCH5MCjMj0piEkWgIt+HQe7c31brgqX0s9PsyUSj34DHJoO61aI7giEA0aiNnh5CDwRTkWxGvRwYZVGub4SzEeDEm0NVL/hxdatRW9Kaqnl/6Ji16RSYPbVPvgcMQJunZZM4dshwyzfZbS3enzFw/kSmCMmKB+UAJxAxo5b4vCQ=
