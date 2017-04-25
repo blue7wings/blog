@@ -1,5 +1,5 @@
 # Python 中级图书推荐
-原地址: [https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929]
+原地址: [https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929](https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929)
 
 Q: 大家好，我用Python开发也已经6个月了，我是通过下面几本书自学的:
 - Python for Informatics - Introduction to Programming
@@ -16,12 +16,12 @@ A：很多人说**中级**书市面上很少，可真是有意思，本人就已
 自学就像盖房子，书本和线上课程就是那些砖块，它们构成了房屋的结构，Stackoverflow和博客就像是砂浆，混合在一起才能让房屋稳固，如果全是砖块，房子容易倒，如果全是砂浆，房子不能成型，最最稳固的是将二者混合起来。
 我用这些技术和书从用PHP制作一个蹩脚的网站，到现在从事Python初级工程师的工作，仅仅用了4个月的时间。
 好了，废话了这么多，下面是这四本书：
-- [Problem Solving with Algorithms and Data Structures Using Python]
-- [Python 3 面向对象编程]
-- [Effective Python：编写高质量Python代码的59个有效方法]
-- [ Python Cookbook, 第三版]
+- [Problem Solving with Algorithms and Data Structures Using Python](http://interactivepython.org/runestone/static/pythonds/index.html)
+- [Python 3 面向对象编程](https://item.jd.com/11720061.html)
+- [Effective Python：编写高质量Python代码的59个有效方法](https://item.jd.com/11864820.html)
+- [ Python Cookbook, 第三版](https://item.jd.com/11681561.html)
 
 最后一本书是通用计算机读本，但是我还是强烈推荐，在阅读以上四本书之前，还是推荐你先看看这本书，这应该是你从**初级**到**中级**的第一本，不过不要过分担心书的内容太深奥，放松心态去阅读。
-- [编码：隐匿在计算机软硬件背后的语言]
+- [编码：隐匿在计算机软硬件背后的语言](https://item.jd.com/11116026.html)
 
 ::译者注：所有图书链接都已经替换成京东，方便中国朋友购买::
