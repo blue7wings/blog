@@ -89,6 +89,7 @@
 }
 
 .post-content {
+    font: $base-font-weight #{$base-font-size}/#{$base-line-height} "PT Serif", Georgia, "Times New Roman", sans-serif;
     margin-bottom: $spacing-unit;
 
     h1 {
