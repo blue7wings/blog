@@ -1,7 +1,4 @@
-# Python 中级图书推荐
-
 ---
-
 layout: post
 title: "Python 中级书本推荐"
 subtitle: "转自reddit的一片文章，现翻译部分，并将购买链接替换成京东"
@@ -9,7 +6,6 @@ date: 2017-04-01
 author: LiamHsia
 category: Python
 finished: true
-
 ---
 
 原地址: [can somebody suggest a good intermediate python?](https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929)
