@@ -3,16 +3,15 @@
   <channel>
     <title>LiamHsia's Blog</title>
     <description>A Simple Jekyll Blog Theme.</description>
-    <link>https://blue7wings.github.io/blog/</link>
-    <atom:link href="https://blue7wings.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Apr 2017 13:25:42 +0800</pubDate>
-    <lastBuildDate>Tue, 25 Apr 2017 13:25:42 +0800</lastBuildDate>
+    <link>http://localhost:4000/blog/</link>
+    <atom:link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 25 Apr 2017 16:35:02 +0800</pubDate>
+    <lastBuildDate>Tue, 25 Apr 2017 16:35:02 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
-        <title>Itermidia Python Book</title>
-        <description>&lt;h1 id=&quot;python-中级图书推荐&quot;&gt;Python 中级图书推荐&lt;/h1&gt;
-&lt;p&gt;原地址: [https://www.reddit.com/r/learnpython/comments/3du4y6/can_somebody_suggest_a_good_intermediate_python/?st=j1w4psef&amp;amp;sh=983a2929]&lt;/p&gt;
+        <title>Python 中级书本推荐</title>
+        <description>&lt;p&gt;原地址: &lt;a href=&quot;https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&amp;amp;sh=983a2929&quot;&gt;can somebody suggest a good intermediate python?&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Q: 大家好，我用Python开发也已经6个月了，我是通过下面几本书自学的:&lt;/p&gt;
 &lt;ul&gt;
@@ -33,35 +32,24 @@
 我用这些技术和书从用PHP制作一个蹩脚的网站，到现在从事Python初级工程师的工作，仅仅用了4个月的时间。
 好了，废话了这么多，下面是这四本书：&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;[Problem Solving with Algorithms and Data Structures Using Python]&lt;/li&gt;
-  &lt;li&gt;[Python 3 面向对象编程]&lt;/li&gt;
-  &lt;li&gt;[Effective Python：编写高质量Python代码的59个有效方法]&lt;/li&gt;
-  &lt;li&gt;[ Python Cookbook, 第三版]&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://interactivepython.org/runestone/static/pythonds/index.html&quot;&gt;Problem Solving with Algorithms and Data Structures Using Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://item.jd.com/11720061.html&quot;&gt;Python 3 面向对象编程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://item.jd.com/11864820.html&quot;&gt;Effective Python：编写高质量Python代码的59个有效方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://item.jd.com/11681561.html&quot;&gt; Python Cookbook, 第三版&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;最后一本书是通用计算机读本，但是我还是强烈推荐，在阅读以上四本书之前，还是推荐你先看看这本书，这应该是你从&lt;strong&gt;初级&lt;/strong&gt;到&lt;strong&gt;中级&lt;/strong&gt;的第一本，不过不要过分担心书的内容太深奥，放松心态去阅读。&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;[编码：隐匿在计算机软硬件背后的语言]&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://item.jd.com/11116026.html&quot;&gt;编码：隐匿在计算机软硬件背后的语言&lt;/a&gt;
+::译者注：所有图书链接都已经替换成京东，方便中国朋友购买::&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;::译者注：所有图书链接都已经替换成京东，方便中国朋友购买::&lt;/p&gt;
 </description>
-        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
-        <link>https://blue7wings.github.io/blog/itermidia-python-book.html</link>
-        <guid isPermaLink="true">https://blue7wings.github.io/blog/itermidia-python-book.html</guid>
+        <pubDate>Sat, 01 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/blog/python/itermidia-python-book.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/python/itermidia-python-book.html</guid>
         
         
-      </item>
-    
-      <item>
-        <title>Travis Cli</title>
-        <description>&lt;p&gt;#Travis
-Travis is a Scottish rock band formed in Glasgow in 1990, composed of Fran Healy (lead vocals, rhythm guitar), Dougie Payne (bass guitar, backing vocals), Andy Dunlop (lead guitar, banjo, backing vocals) and Neil Primrose (drums, percussion). The band’s name comes from the Harry Dean Stanton character Travis Henderson from the film Paris, Texas. The band is widely claimed by the media as having paved the way for other bands such as Keane and Coldplay to go onto achieve worldwide success throughout the 2000s, particularly through the band’s The Man Who (1999) album.[7]&lt;/p&gt;
-</description>
-        <pubDate>Tue, 25 Apr 2017 00:00:00 +0800</pubDate>
-        <link>https://blue7wings.github.io/blog/Travis-cli.html</link>
-        <guid isPermaLink="true">https://blue7wings.github.io/blog/Travis-cli.html</guid>
-        
+        <category>Python</category>
         
       </item>
     
@@ -698,8 +686,8 @@ Travis is a Scottish rock band formed in Glasgow in 1990, composed of Fran Healy
 
 </description>
         <pubDate>Thu, 01 Dec 1921 00:00:00 +0800</pubDate>
-        <link>https://blue7wings.github.io/blog/books/aqzhengzhuan.html</link>
-        <guid isPermaLink="true">https://blue7wings.github.io/blog/books/aqzhengzhuan.html</guid>
+        <link>http://localhost:4000/blog/books/aqzhengzhuan.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/books/aqzhengzhuan.html</guid>
         
         <category>chinese</category>
         
@@ -896,8 +884,8 @@ Travis is a Scottish rock band formed in Glasgow in 1990, composed of Fran Healy
 
 </description>
         <pubDate>Mon, 01 Apr 1918 00:00:00 +0800</pubDate>
-        <link>https://blue7wings.github.io/blog/books/kuangrenriji.html</link>
-        <guid isPermaLink="true">https://blue7wings.github.io/blog/books/kuangrenriji.html</guid>
+        <link>http://localhost:4000/blog/books/kuangrenriji.html</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/books/kuangrenriji.html</guid>
         
         <category>chinese</category>
         

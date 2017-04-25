@@ -322,6 +322,7 @@ table, th {
   color: #ededed; }
 
 .post-content {
+  font: 400 15px/1.5 "PT Serif", Georgia, "Times New Roman", sans-serif;
   margin-bottom: 30px; }
   .post-content h1 {
     font-size: 28px; }
