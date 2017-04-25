@@ -1,5 +1,18 @@
 # Python 中级图书推荐
-原地址: [https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929](https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929)
+
+---
+
+layout: post
+title: "Python 中级书本推荐"
+subtitle: "转自reddit的一片文章，现翻译部分，并将购买链接替换成京东"
+date: 2017-04-01
+author: LiamHsia
+category: Python
+finished: true
+
+---
+
+原地址: [can somebody suggest a good intermediate python?](https://www.reddit.com/r/learnpython/comments/3du4y6/can\_somebody\_suggest\_a\_good\_intermediate\_python/?st=j1w4psef&sh=983a2929)
 
 Q: 大家好，我用Python开发也已经6个月了，我是通过下面几本书自学的:
 - Python for Informatics - Introduction to Programming
@@ -23,5 +36,4 @@ A：很多人说**中级**书市面上很少，可真是有意思，本人就已
 
 最后一本书是通用计算机读本，但是我还是强烈推荐，在阅读以上四本书之前，还是推荐你先看看这本书，这应该是你从**初级**到**中级**的第一本，不过不要过分担心书的内容太深奥，放松心态去阅读。
 - [编码：隐匿在计算机软硬件背后的语言](https://item.jd.com/11116026.html)
-
 ::译者注：所有图书链接都已经替换成京东，方便中国朋友购买::
