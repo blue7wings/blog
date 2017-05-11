@@ -20,7 +20,7 @@ finished: true
 1. 代码构建工具 - [Travis-ci](https://travis-ci.org/) (免费)
 2. 能够发布到Github的写作软件 - [Wordmark](http://wordmarkapp.com/) (收费) 
 
-主要原理就是，当我们使用Wordmark这款软件，写完文章提交到Github, Travis会自动构建博客，简单点说就是将本地构建放到了云端。
+主要原理就是，当我们使用 `Wordmark` 这款软件，写完文章提交到 `Github` , `Travis` 会自动构建博客，简单点说就是将本地构建放到了云端。
 
 ## 步骤
 ### 添加自动构建脚本
@@ -53,7 +53,8 @@ finished: true
 
 ![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/KO0v0)
 
-### Done
-当我们写完一篇文章之后，点击左下角的发布，选择发布的博客，`WordMark` 就会把文章提交到 `_posts` 文件夹下，`Travis` 会为我们重新构建项目，一篇静态的博文就会被**动态**的生成好了
+## Done
+当我们写完一篇文章之后，点击左下角的发布，选择发布的博客，`WordMark` 就会把文章提交到 `_posts` 文件夹下，`Travis` 会为我们重新构建项目，一篇**静态**的博文就会被**动态**的生成好了
 
-![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/A7zGw)
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/7hKqs)
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/Jdehs)
