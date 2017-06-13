@@ -5,6 +5,7 @@ subtitle: "想要写个小程序，需要什么？"
 date: 2017-04-06
 author: LiamHsia
 category: Turtorial
+tags: 微信小程序 前端开发
 finished: true
 ---
 
