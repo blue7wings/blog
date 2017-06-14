@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "微信小程序开发教程[part 1]"
+title: "微信小程序开发教程[Part 1]"
 subtitle: "想要写个小程序，需要什么？"
 date: 2017-04-06
 author: LiamHsia
-category: Turtorial
+category: Tutorial
 tags: 微信小程序 前端开发
 finished: true
 ---
