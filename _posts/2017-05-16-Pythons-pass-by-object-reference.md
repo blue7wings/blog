@@ -2,7 +2,7 @@
 layout: post
 title: "Python变量赋值方式"
 subtitle: "Python的变量赋值既不是值传递，也不是引用传递，而是对象引用传递"
-date: 2017-04-06
+date: 2017-03-07
 author: LiamHsia
 category: Python
 finished: true
