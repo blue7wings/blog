@@ -2,7 +2,7 @@
 layout: post
 title: "动态使用Jekyll博客"
 subtitle: "静态博客有很多好处，轻，巧，但是我不是那么想去每次都编译"
-date: 2017-04-01
+date: 2017-02-11
 author: LiamHsia
 category: Tutorial
 finished: true
