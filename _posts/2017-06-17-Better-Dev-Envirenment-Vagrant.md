@@ -110,7 +110,12 @@ config.vm.synced_folder "./code", "/home/code"
 ```
 config.vm.network "private_network", ip: "192.168.33.10"
 ```
-保存，`vagrant reload`命令重启虚拟机，Done。
+保存，`vagrant reload`命令重启虚拟机。如果你已经装完Nginx，直接访问`192.168.33.10`即可看到成功页面了。出现拒绝访问的话，关闭开发环境的防火墙即可。
+```
+systemctl disable firewalld
+```
+
+![Nginx成功页面](http://ooyc2y4k2.bkt.clouddn.com/TRWMT)
 
 ## 备份和分发
 你安装完LNMP环境，甚至还装了Redis和Python，作为开发环境用得很是顺畅，旁边的小张也受够了WampServer这种不专业的东西，但他懒到都不愿意花半个小时读一下这篇文章，仅仅想要你的开发环境。
