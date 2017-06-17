@@ -150,7 +150,8 @@ code {
 
 pre {
   padding: 8px 12px;
-  overflow-x: auto; }
+  overflow-x: auto;
+  margin-left: 1.5em; }
   pre > code {
     border: 0;
     padding-right: 0;
