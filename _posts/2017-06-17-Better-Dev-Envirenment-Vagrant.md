@@ -1,0 +1,127 @@
+---
+layout: post
+title: "更好的PHP开发环境-Vagrant篇"
+subtitle: "装开发环境就想搬家，重新布置房间可真让人不爽啊"
+date: 2017-06-01
+author: LiamHsia
+category: PHP Tutorial
+tags: PHP 开发环境
+finished: true
+---
+
+还记得，我们第一次学PHP是干嘛么？我想大部人都是从安装PHP运行环境开始的吧。
+> 学习PHP第一步，就要先理解PHP的运行环境 -- 韩老师
+
+然后就开始哼哧哼哧地开始在Windows上安装环境，先PHP，然后Apache，再装MySQL，从安装到最后调试通，足足花了一周。
+
+后来，我们也明白，Apache是干嘛的，流量是怎么交给PHP处理的，就别这么费劲一步一步装了，来一套集成的安装环境，[WampServer](http://www.wampserver.com/en/) 成了最好的选择。
+
+![Wampserver 官网截图](http://ooyc2y4k2.bkt.clouddn.com/UE7k3)
+
+好学而且有好奇心的我们，成长的总是那么快，很快我们便知道有一种操作系统比Windows更适合开发，有一种服务器比Apache更优秀，便开始在Linux上安装LNMP架构的环境，大学实验室里那几台电脑，被我们装了又装，Linux发行版也换了好几茬，然后就毕业了，第一天上班就是要装开发环境，你得用QQ和PHPStorm，不能在那么优秀的操作系统上开发了，无奈换回了WampServer，冷气吹得你发冷和难受，你开始怀念那段大学不受拘束的时光，和实验室那几台LNMP架构的开发环境。
+
+![Vagrant](http://ooyc2y4k2.bkt.clouddn.com/K7nJ6)
+
+时光一去不复返，但我们即可以使用QQ和PHPStorm，同时也能使用我们心爱的LNMP环境开发了，就是我们今天的主角：[Vagrant](https://www.vagrantup.com/)。
+
+## Vagrant 是什么 & 可以做什么
+Vagrant是一套对虚拟系统进行配置，管理，分发的一套系统，依赖虚拟机环境，比如Virtualbox和VMWare。
+
+这和直接使用Virtualbox等虚拟机软件有什么不同呢？本质上是没有什么不同的，Vagrant只是一套工具，我们可以更加方便配置，和使用这个虚拟机，想想一条命令就能保存现运行的虚拟环境，远比你去拷贝虚拟机文件简单地多吧。
+
+## 安装
+在[下载页面](https://www.vagrantup.com/downloads.html)，选择你的操作系统对应的版本，然后安装。
+
+安装完毕，尝试在终端中输入：
+```
+> vagrant --version
+```
+此外还需要安装Virtualbox或者VMWare，Virtualbox开源且免费，默认我选择此虚拟机，可以在 [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads) 选择合适的版本。
+## 选择合适的镜像
+我们把镜像称之为box，添加一个镜像也很简单。
+```
+> vagrant box add centos/7
+```
+很简单就添加了centos7的开发镜像，当然你还可以选择其他的镜像，在 [https://atlas.hashicorp.com/boxes/search](https://atlas.hashicorp.com/boxes/search) 选择适合你的。
+
+由于国内网络的原因，直接使用`add`命名，下载镜像的速度实在太慢(Fuck GFW)，我们不妨事先下载好镜像，然后再`add`进去，我们在 [http://www.vagrantbox.es/](http://www.vagrantbox.es/)选择和下载镜像。
+
+我们下载好镜像，放在目录下，执行：
+```
+> vagrant box add [名称] [镜像地址]
+```
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/udvKh)
+
+我们再运行`vagrant box list`命令，便能看到一个名为server的镜像。
+
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/n5J5G)
+
+## 启动开发环境
+首先要初始化此开发环境，在任意文件夹下执行：
+```
+> vagrant init [镜像名称]
+```
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/llgLq)
+
+初始化完成之后，会在当前文件夹下创建一个`Vagrantfile`的配置文件，至于有哪些配置项，先放在一边，先启动我们的开发镜像，在**此文件夹**下执行：
+```
+> vagrant up
+```
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/6BHhy)
+
+成功启动，如果你打开Virtualbox，还可以发现vagrant镜像正在运行。
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/39erQ)
+
+通过SSH来连接开发环境，如果你是Mac或Linux用户，可以直接用命令`vagrant ssh`来连接。
+
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/fp2La)
+
+由于Windows原生不支持SSH，使用`vagrant ssh-config`来取得SSH配置，用第三方的SSH软件来连接。
+
+连接上我们的开发环境，执行命令：
+```
+> uname -a 
+```
+![Untitled Image](http://ooyc2y4k2.bkt.clouddn.com/ApRkM)
+
+wow，熟悉的Linux系统又回来了，我啰啰嗦嗦写了这么多，其实简单几步就创建好了一个开发环境，你现在便可以在本地用着QQ，而在开发环境装LNMP，进行开发工作了。
+
+## 配置
+只是搭建好了开发环境，还是不够，还需要有共享文件夹，把本地网络和开发环境网络调通，以便我们后续的开发和调试。
+
+### 共享文件夹配置
+打开`Vagrantfile`，在42至46行告诉我们，共享文件夹是在这里配置，第一个配置参数是本地目录，第二个参数是开发环境要同步的目录。在本地新建`code/`文件夹，并且在开发环境新建文件夹`/home/code`，想要本地和开发环境共享文件，便可以这么写：
+```
+config.vm.synced_folder "./code", "/home/code"
+```
+取消该行代码的注释，保存，`vagrant reload` 命令重新启动虚拟机。
+
+![文件挂载成功](http://ooyc2y4k2.bkt.clouddn.com/BC4Dn)
+
+挂载共享文件夹成功，在本地code文件夹新建一个文件试试吧，开发环境的code文件夹下也一定有该文件了，awesome！
+
+### 网络配置
+本地和开发开发环境网络连接共有三种方式
+1. 端口转发：将指定端口的网络转接到开发环境
+2. 公开网络：将所有网络转接到开发环境，是一种桥接
+3. 私有网络：将指定IP的网络转接到开发环境
+
+我比较偏向于第三种私有网络的方式，修改配置文件：
+```
+config.vm.network "private_network", ip: "192.168.33.10"
+```
+保存，`vagrant reload`命令重启虚拟机，Done。
+
+## 备份和分发
+你安装完LNMP环境，甚至还装了Redis和Python，作为开发环境用得很是顺畅，旁边的小张也受够了WampServer这种不专业的东西，但他懒到都不愿意花半个小时读一下这篇文章，仅仅想要你的开发环境。
+
+大可不用去拷贝虚拟机文件，Vagrant为我们准备好了备份的工具。
+```
+> vagrant package
+```
+vagrant会将我们现在运行的开发环境打包成一个新的box，此镜像包含我们已经安装的所有的东西，再把Vagrantfile拷贝过去，两条命令就可以重现当前的开发环境，
+```
+> vagrant box add server package.box
+> vagrant up
+```
+BOOM！你的开发环境完整的就移植过去了。此方法也可以用作你开发系统的备份，想要一份祖传的开发环境？打包一份传到网盘，随时随地任何机器都可以使用。
