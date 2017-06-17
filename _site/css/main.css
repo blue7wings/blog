@@ -137,6 +137,9 @@ hr {
 /**
  * Code formatting
  */
+highlighter-rouge {
+  margin-left: 1.5em;
+}
 pre,
 code {
   font-size: 15px;
@@ -150,8 +153,7 @@ code {
 
 pre {
   padding: 8px 12px;
-  overflow-x: auto;
-  margin-left: 1.5em; }
+  overflow-x: auto;}
   pre > code {
     border: 0;
     padding-right: 0;
