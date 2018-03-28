@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/Weixin-MiniApp-Turtorial-Part1.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>微信小程序开发教程[Part 1]</title>
+  <meta name="description" content="微信小程序发布也有相当长的一段时间了，前段时间终于开放了个人开发者注册，闲来无事，觉得这东西还挺好玩，便自己写了一个，现在把这个小程序开源，并佐以文章，希望能够各位给予入门的帮助。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">微信小程序开发教程[Part 1]</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="06 Apr 2017" itemprop="datePublished">Apr 6 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">微信小程序</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">前端开发</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>想要写个小程序，需要什么？</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <p>微信小程序发布也有相当长的一段时间了，前段时间终于开放了个人开发者注册，闲来无事，觉得这东西还挺好玩，便自己写了一个，现在把这个小程序开源，并佐以文章，希望能够各位给予入门的帮助。</p>
+
+<h2 id="开发前准备">开发前准备</h2>
+<h3 id="把玩一下">把玩一下</h3>
+<p>如果你甚至还没有用过一款小程序，那么你可以稍微把玩一下，扫描下面二维码，或者搜索「Emojiary」即可。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/5zXjn" alt="Untitled Image" /></p>
+
+<h3 id="下载代码">下载代码</h3>
+<p>项目托管在全球最大的同性交友平台 Github 上，地址：<a href="https://github.com/blue7wings/Emojiary">https://github.com/blue7wings/Emojiary</a></p>
+
+<h3 id="选择合适的编辑器">选择合适的编辑器</h3>
+<p>使用微信官方的「微信web开发者工具」对于初学者也是够用了，但是我还是比较喜欢用它作调试，而使用「Visual Code」作为开发工具。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/C6A9m" alt="Untitled Image" /></p>
+
+<h2 id="前置技能">前置技能</h2>
+<p>小程序的开发，其实和前端开发栈需要的技能是差不多，基本上就是<code class="highlighter-rouge">html</code>, <code class="highlighter-rouge">css</code>, <code class="highlighter-rouge">javascript</code>, 还有微信小程序自带的框架的知识。相信很多人对网页开发三剑客已经很是熟悉，至于小程序框架的学习，可以参考官方文档，但是我推荐新手能够学习一下<code class="highlighter-rouge">Vuejs</code>就更加好了，毕竟小程序的框架大部分都是借鉴<code class="highlighter-rouge">Vuejs</code>，小程序玩腻了，但是<code class="highlighter-rouge">Vuejs</code>以后会大有用处。还想做一点设计，那就从Sketch这款软件开始吧，移动端的PS，相当的容易上手。</p>
+
+<p>这些准备工作做好之后，下一节我会介绍微信小程序的思路，和开发过程。</p>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=微信小程序开发教程[Part 1]@Liam_Hsia&amp;url=http://localhost:4000/tutorial/Weixin-MiniApp-Turtorial-Part1.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/Weixin-MiniApp-Turtorial-Part1.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/Weixin-MiniApp-Turtorial-Part1.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/Weixin-MiniApp-Turtorial-Part1.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/Weixin-MiniApp-Turtorial-Part1"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

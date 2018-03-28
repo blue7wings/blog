@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/Wechat-MiniApp-Tutorial-Part2.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>微信小程序开发教程[Part 2]</title>
+  <meta name="description" content="  前端程序员是最为「贪婪」的，他们不满足前端开发，便弄出了Nodejs，不满足后端开发，便开始「染指」移动端。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">微信小程序开发教程[Part 2]</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="12 Apr 2017" itemprop="datePublished">Apr 12 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">微信小程序</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">前端开发</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>动手写你的第一个小程序</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>前端程序员是最为「贪婪」的，他们不满足前端开发，便弄出了Nodejs，不满足后端开发，便开始「染指」移动端。</p>
+</blockquote>
+
+<p>我们把微信小程序类比成「自带后端逻辑」的网页栈是比较合适的，视图层是前端表现部分，逻辑层则包括网页的两个部分，网页显示逻辑和服务器交互逻辑，如果你懂一点MVC的话，逻辑层是包含Controller和Model两个部分，逻辑层一方面控制页面的渲染(C)，一方面将数据处理(M)。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/Sr38p" alt="逻辑" /></p>
+
+<h2 id="文件结构">文件结构</h2>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/NehEN" alt="文件结构" /></p>
+
+<p>打开我们的项目，微信小程序的结构和我们网页开发很是相像，<code class="highlighter-rouge">asset</code>文件夹用来放资源文件，<code class="highlighter-rouge">pages</code>用来放置页面文件，<code class="highlighter-rouge">utils</code>用来放一些工具文件。</p>
+
+<p>除此之外，在根目录下还有有三个配置文件，功能如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/nhIuw" alt="配置文件" /></p>
+
+<h3 id="appjs">app.js</h3>
+<p>当小程序启动时，我们想注册哪些参数，进行哪些操作，我们在此文件中完成。</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'/utils/util.js'</span><span class="p">)</span>
+<span class="nx">App</span><span class="p">({</span>
+  <span class="na">openid</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">nickname</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">avatar_url</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">emojis</span><span class="p">:</span> <span class="nx">util</span><span class="p">.</span><span class="nx">get_emojis</span><span class="p">()</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+<p>因为Emoji表情我想在启动之时便注册到全局，以便后续页面使用，如何使用这个全局变量，我们后续再做说明。</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">emojis</span><span class="err">:</span> <span class="nx">util</span><span class="p">.</span><span class="nx">get_emojis</span><span class="p">()</span>
+</code></pre>
+</div>
+<h3 id="appjson">app.json</h3>
+
+<p>json文件不用想，那肯定是全局配置文件了，决定页面文件的路径、窗口表现、设置网络超时时间、设置多 tab 等。</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"pages"</span><span class="err">:</span><span class="p">[</span>
+    <span class="s2">"pages/landing_page/index"</span><span class="p">,</span>
+    <span class="s2">"pages/home/index"</span>
+  <span class="p">],</span>
+  <span class="s2">"window"</span><span class="err">:</span><span class="p">{</span>
+    <span class="s2">"backgroundTextStyle"</span><span class="err">:</span><span class="s2">"light"</span><span class="p">,</span>
+    <span class="s2">"navigationBarBackgroundColor"</span><span class="err">:</span> <span class="s2">"#fff"</span><span class="p">,</span>
+    <span class="s2">"navigationBarTitleText"</span><span class="err">:</span> <span class="s2">"Emojiary"</span><span class="p">,</span>
+    <span class="s2">"navigationBarTextStyle"</span><span class="err">:</span><span class="s2">"black"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>用不到那么多配置，现在只用到<code class="highlighter-rouge">pages</code>和<code class="highlighter-rouge">window</code>两个配置项，<code class="highlighter-rouge">pages</code>用来表示整个小程序由多少个页面组成，默认第一条为启动页面，<code class="highlighter-rouge">window</code>用于设置小程序的状态栏、导航条、标题、窗口背景色，具体设置项的意义就不一一赘述了。</p>
+
+<h3 id="appswxss">apps.wxss</h3>
+
+<p>全局的样式，一些全局共用的样式可以写在这里。</p>
+
+<h2 id="页面">页面</h2>
+<p>我们打开<code class="highlighter-rouge">pages</code>文件夹，可以发现，两个页面就是对应的我们两个目录，以启动页<code class="highlighter-rouge">landing_page</code>为例，来剖析整个代码。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/0F0VF" alt="目录结构" /></p>
+
+<h3 id="indexwxml--indexwxss">index.wxml &amp; index.wxss</h3>
+
+<blockquote>
+  <p>WXML（WeiXin Markup Language）是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。</p>
+</blockquote>
+
+<blockquote>
+  <p>WXSS(WeiXin Style Sheets)是一套样式语言，用于描述 WXML 的组件样式。</p>
+</blockquote>
+
+<p>通过官方描述我们可以知道，WXML和WXSS其实就是HTML和CSS的变种，WXML集成了组件和一些事件处理，而WXSS保持CSS大部分特性的同时，增加了样式导入，和尺寸单位以此来保证不同分辨率设备能够得到统一的显示效果。</p>
+
+<p>和前端开发一样，我偏向于先用WXML和WXSS实现页面，至于逻辑处理则放到最后再实现。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/Dopi0" alt="登陆页" /></p>
+
+<h3 id="indexjs">index.js</h3>
+<p>当我们实现完页面，就该考虑一下，需要什么的逻辑功能呢？我这个登陆页逻辑很简单：</p>
+<ul>
+  <li>Emoji图片是随机的，加载时有动效</li>
+  <li>拿到微信用户的授权信息</li>
+  <li>跳转到主页面</li>
+</ul>
+
+<p>在WXML中，标签我们称之为组件，<code class="highlighter-rouge">view</code>为最基本的组件：视图容器，你可以理解为，所有可视元素的载体，还有很多其他组件，比如我们要用到的展示Emoji图片的<code class="highlighter-rouge">image</code>组件。</p>
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"userinfo-box"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">class=</span><span class="s">"userinfo-avatar ripple rotateIn"</span> <span class="na">src=</span><span class="s">""</span> <span class="na">background-size=</span><span class="s">"cover"</span><span class="nt">&gt;&lt;/image&gt;</span>
+<span class="nt">&lt;/view&gt;</span>
+</code></pre>
+</div>
+<p>因为Emoji图片的地址是随机的，所以这个地址需要逻辑层处理完给我们，就用到了双向数据绑定，如果你看了<code class="highlighter-rouge">Vuejs</code>一定对此不会陌生。</p>
+
+<p>好的，去<code class="highlighter-rouge">index.js</code>编写我们的这个逻辑。</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">getApp</span><span class="p">()</span>
+</code></pre>
+</div>
+<p>还记得我们在初始化<code class="highlighter-rouge">app.js</code>中注册的全局实例么？我们可以用上面的方法来取得这个全局实例。</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">data</span><span class="err">:</span> <span class="p">{</span>
+		<span class="nl">emoji_url</span> <span class="p">:</span> <span class="s1">'/asset/emojis/slightly-smiling-face.svg'</span>
+	<span class="p">},</span>
+</code></pre>
+</div>
+<p>双向数据绑定，视图层中<code class="highlighter-rouge">emoji_url</code>和这里的<code class="highlighter-rouge">emoji_url</code>是互相绑定的，视图层变量数据发生变化，同时逻辑层的变量值也会随之改变，反之亦然。这里，我给了Emoji图片一个默认的值，会在接下来的页面加载时进行改变。</p>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">emojis</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">emojis</span>
+<span class="kd">let</span> <span class="nx">positive_emojis</span> <span class="o">=</span> <span class="nx">emojis</span><span class="p">[</span><span class="s1">'positive'</span><span class="p">]</span>
+<span class="kd">let</span> <span class="nx">emoji_name</span> <span class="o">=</span> <span class="nx">positive_emojis</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">positive_emojis</span><span class="p">.</span><span class="nx">length</span><span class="p">)]</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">setData</span><span class="p">({</span>
+	<span class="na">emoji_url</span> <span class="p">:</span> <span class="s1">'/asset/emojis/'</span> <span class="o">+</span> <span class="nx">emoji_name</span> <span class="o">+</span> <span class="s1">'.svg'</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">emoji_url</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>第1行代码就是拿到全局实例中的<code class="highlighter-rouge">emojis</code>变量，第2，3行取得一个随机的表情名。第4行，我们借助<code class="highlighter-rouge">this.setData()</code>这个函数，来改变<code class="highlighter-rouge">emoji_url</code>的值，log一下该变量的值，没问题。</p>
+
+<p>接下来的代码就是实现我们第二个逻辑：拿到用户的授权信息，这部分代码就不细讲了，如果你不知道此部分的内容，可以参考<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316518&amp;token=&amp;lang=zh_CN">微信公众平台相关文档</a>。</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">complete</span><span class="err">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="c1">// 一秒后跳转到主页面</span>
+	<span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'jump'</span><span class="p">)</span>
+		<span class="nx">wx</span><span class="p">.</span><span class="nx">redirectTo</span><span class="p">({</span>
+			<span class="na">url</span><span class="p">:</span> <span class="s1">'/pages/home/index'</span>
+		<span class="p">})</span>
+	<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>                    
+</code></pre>
+</div>
+
+<p>获取到用户的授权信息后，跳转到主页面，大功告成，我们的小程序启动页就搞定了，很简单吧。</p>
+
+<p>后面主页面代码，就不再做过多解释，毕竟该教程还只是一个偏向新手的初级教程，仔细阅读我主页面的代码(并不复杂)，和多看官方文档，很容易就上手了。</p>
+
+<p>在下一部分，我会说一说微信小程序开发应该注意什么，哪些Trick，还有我对小程序的看法。</p>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=微信小程序开发教程[Part 2]@Liam_Hsia&amp;url=http://localhost:4000/tutorial/Wechat-MiniApp-Tutorial-Part2.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/Wechat-MiniApp-Tutorial-Part2.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/Wechat-MiniApp-Tutorial-Part2.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/Wechat-MiniApp-Tutorial-Part2.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/Wechat-MiniApp-Tutorial-Part2"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

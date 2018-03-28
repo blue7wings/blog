@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/Xcode-Use-Vim-Mode.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Xcode 安装 vim 插件</title>
+  <meta name="description" content="Xcode 安装 Vim 插件Xcode 没有自带Vim模式，我们需要安装第三方插件，来实现此功能。该文章基本翻译自该插件的文档，插件的地址：https://github.com/XVimProject/XVim2">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">Xcode 安装 vim 插件</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="06 Mar 2018" itemprop="datePublished">Mar 6 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <h1 id="xcode-安装-vim-插件">Xcode 安装 Vim 插件</h1>
+<p>Xcode 没有自带Vim模式，我们需要安装第三方插件，来实现此功能。该文章基本翻译自该插件的文档，插件的地址：https://github.com/XVimProject/XVim2</p>
+
+<h2 id="系统要求">系统要求</h2>
+<p>该插件满足Xcode 9 ，如果你使用的是9以下的版本，请访问<a href="https://github.com/XVimProject/XVim">GitHub - XVimProject/XVim: Xcode plugin for Vim keybindings</a>，下面是我的系统配置的相关信息，仅供参考。</p>
+<ul>
+  <li>MacOS版本： 10.13.3 (17D102)</li>
+  <li>Xcode版本： 9.2 (9C40b)</li>
+</ul>
+
+<h2 id="重新对xcode进行签名">重新对Xcode进行签名</h2>
+<p>Xcode 8以上就已经不再支持第三方插件，我们需要重新对Xcode进行重新签名来实现。</p>
+
+<ol>
+  <li>关闭Xcode</li>
+  <li>准备代码签名证书
+    <ul>
+      <li>打开<code class="highlighter-rouge">钥匙串</code>选择<code class="highlighter-rouge">登录</code>选项，在菜单栏选择<code class="highlighter-rouge">证书助手</code>，创建证书
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-06-Keychain1.png" alt="" /></li>
+    </ul>
+  </li>
+</ol>
+
+<ul>
+  <li>在弹出的创建窗口中，输入<code class="highlighter-rouge">XcodeSigner</code>，证书类型选择<code class="highlighter-rouge">Code Signing</code>，然后点击创建。
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-06-Keychain2.png" alt="" /></li>
+</ul>
+
+<ol>
+  <li>对Xcode进行重新签名
+打开命令行，输入如下代码：
+<code class="highlighter-rouge">sudo codesign -f -s XcodeSigner /Applications/Xcode.app</code>
+等待重新签名完成，这可能需要很长一段时间，不要以为是程序卡住而关闭命令行程序。</li>
+</ol>
+
+<h2 id="安装插件">安装插件</h2>
+<ol>
+  <li>
+    <p>下载插件的源码
+<code class="highlighter-rouge">git clone https://github.com/XVimProject/XVim2.git</code></p>
+  </li>
+  <li>
+    <p>确认 <code class="highlighter-rouge">xcode-select</code>是指向Xcode
+在命令行中输入<code class="highlighter-rouge">xcode-select -p</code>，会返回<code class="highlighter-rouge">/Applications/Xcode.app/Contents/Developer</code>，如果没有显示该路径，请使用<code class="highlighter-rouge">xcode-select -s</code>命令进行设置。</p>
+  </li>
+  <li>
+    <p>进入插件源码目录，进行编译。
+在源码目录下，一条<code class="highlighter-rouge">make</code>命令即可，稍作等待，编译完成。
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-06-build-succeeded.png" alt="" />
+出现如下<code class="highlighter-rouge">Build Succeeded</code>的编译信息即表示已经编译成功，如果出现<code class="highlighter-rouge">XVim hasn't confirmed the compatibility with your Xcode, Version X.X
+Do you want to compile XVim with support Xcode Version X.X at your own risk?</code>的提示信息，请输入<code class="highlighter-rouge">y</code>来确认。</p>
+  </li>
+  <li>
+    <p>重新打开Xcode，会提示是否加载<code class="highlighter-rouge">XVim</code>插件，点击<code class="highlighter-rouge">是</code>即可。如果，错误点击了<code class="highlighter-rouge">否</code>则无法加载插件，此时需要卸载该插件，在终端中输入如下命令：
+<code class="highlighter-rouge">defaults delete  com.apple.dt.Xcode DVTPlugInManagerNonApplePlugIns-Xcode-X.X</code>，<code class="highlighter-rouge">X.X</code>是你的Xcode版本号，在Xcode的菜单栏，点击<code class="highlighter-rouge">关于Xcode</code>即可看到。
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-06-xcode-version.png" alt="" /></p>
+  </li>
+  <li>
+    <p>卸载XVim
+如果想要卸载该插件，进入该源码目录，<code class="highlighter-rouge">make uninstall</code>即可。</p>
+  </li>
+</ol>
+
+<h2 id="捐助--其他">捐助 &amp; 其他</h2>
+<p>如果你觉得这个插件非常有用，可以为作者进行捐助，捐助地址是：<a href="https://www.bountysource.com/teams/xvim">Bountysource</a>，想要了解更多相关信息，可以访问该项目Github主页，<a href="https://github.com/XVimProject/XVim2">XVim</a></p>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=Xcode 安装 vim 插件@Liam_Hsia&amp;url=http://localhost:4000/tutorial/Xcode-Use-Vim-Mode.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/Xcode-Use-Vim-Mode.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/Xcode-Use-Vim-Mode.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/Xcode-Use-Vim-Mode.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/Xcode-Use-Vim-Mode"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

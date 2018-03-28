@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/MySQL-Union-Tutorial.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>MySQL UNION用法</title>
+  <meta name="description" content="原文地址：MySQL UNION">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">MySQL UNION用法</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="28 Mar 2018" itemprop="datePublished">Mar 28 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <p>原文地址：<a href="http://www.mysqltutorial.org/sql-union-mysql.aspx">MySQL UNION</a></p>
+
+<h2 id="前言">前言</h2>
+<p>在此教程中，你将会学到如何用<code class="highlighter-rouge">UNION</code>操作符来合并两个甚至多个<code class="highlighter-rouge">SELECT</code>的查询结果至一个结果集中。</p>
+
+<h2 id="用法">用法</h2>
+<p>在MySQL数据库中，<code class="highlighter-rouge">UNION</code>操作符允许你合并多个查询结果集，下面是<code class="highlighter-rouge">UNION</code>操作符的语法：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT column_list
+UNION [DISTINCT | ALL]
+SELECT column_list
+UNION [DISTINCT | ALL]
+SELECT column_list
+</code></pre>
+</div>
+
+<p>想要使用<code class="highlighter-rouge">UNIOIN</code>合并多个查询结果集，下面是必须遵守的规则：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">SELECT</code>查询的列的个数必须是相同的，比如：第一个查询有两列，第二个必须也是两列。</li>
+  <li>列的数据类型必须是相同的，或者是可以相互转换的。</li>
+</ul>
+
+<p>默认情况下，<code class="highlighter-rouge">UNION</code>运算符会删除重复的数据，因为缺省默认是使用<code class="highlighter-rouge">DISTINCT</code>，但你可以使用<code class="highlighter-rouge">UNIOIN ALL</code>来解决这个问题。</p>
+
+<p>好了，让我们看看下面的例子，表：<code class="highlighter-rouge">t1</code>和<code class="highlighter-rouge">t2</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DROP TABLE IF EXISTS t1;
+DROP TABLE IF EXISTS t2;
+ 
+CREATE TABLE t1 (
+    id INT PRIMARY KEY
+);
+ 
+CREATE TABLE t2 (
+    id INT PRIMARY KEY
+);
+ 
+INSERT INTO t1 VALUES (1),(2),(3);
+INSERT INTO t2 VALUES (2),(3),(4);
+</code></pre>
+</div>
+
+<p>下面的<code class="highlighter-rouge">UNION</code>就会合并从<code class="highlighter-rouge">t1</code>和<code class="highlighter-rouge">t2</code>中取得的数据：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT id
+FROM t1
+UNION
+SELECT id
+FROM t2;
+</code></pre>
+</div>
+
+<p>但最终的结果是去重的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+----+
+| id |
++----+
+|  1 |
+|  2 |
+|  3 |
+|  4 |
++----+
+4 rows in set (0.00 sec)
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">UNIOIN</code>去掉了<code class="highlighter-rouge">2</code>,<code class="highlighter-rouge">3</code>，只会保留一个有效的值，诚如上面所说的，你可以加上<code class="highlighter-rouge">UNION ALL</code>来避免。</p>
+
+<p>可能下面的韦恩图能更好的解释整个操作：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION.png" alt="" /></p>
+
+<p>如果你使用<code class="highlighter-rouge">UNION ALL</code>，重复的数据便会保留下来，由于不处理重复数据，它的速度会比<code class="highlighter-rouge">UNIOIN DISTINCT</code>快很多。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT id
+FROM t1
+UNION ALL
+SELECT id
+FROM t2;
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>+----+
+| id |
++----+
+|  1 |
+|  2 |
+|  3 |
+|  2 |
+|  3 |
+|  4 |
++----+
+6 rows in set (0.00 sec)
+</code></pre>
+</div>
+
+<p>看到了吧，在使用<code class="highlighter-rouge">UNIOIN ALL</code>语句之后，重复的数据又重新回来了。</p>
+
+<h2 id="unioin-vs-join">UNIOIN vs. JOIN</h2>
+<p>同样的联合两张表的数据，那么<code class="highlighter-rouge">UNION</code>和<code class="highlighter-rouge">JOIN</code>又有什么区别呢？简单的说：</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">UNION</code>是垂直合并，而<code class="highlighter-rouge">JOIN</code>是水平合并</p>
+</blockquote>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION-vs-JOIN.png" alt="" /></p>
+
+<h2 id="列别名">列别名</h2>
+<p>我们下面使用<code class="highlighter-rouge">customers</code>和<code class="highlighter-rouge">employees</code>这两张表来做演示，表结构如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-employees_table.png" alt="" /></p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-customers_table.png" alt="" /></p>
+
+<p>假如你想要查询出雇员和顾客的名字，并且合并姓和名到一个结果集中，<code class="highlighter-rouge">UNIOIN</code>此时便可以很好的解决。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+    firstName, 
+    lastName
+FROM
+    employees 
+UNION 
+SELECT 
+    contactFirstName, 
+    contactLastName
+FROM
+    customers;
+</code></pre>
+</div>
+
+<p>结果如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION-example.png" alt="" /></p>
+
+<p>正如你所见，<code class="highlighter-rouge">UNION</code>会使用第一个<code class="highlighter-rouge">SELECT</code>语句的列名作为输出的名字，如果你想使用自己的别名，也很简单，在第一个<code class="highlighter-rouge">SELECT</code>语句中设置即可。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+    concat(firstName,' ',lastName) fullname
+FROM
+    employees 
+UNION SELECT 
+    concat(contactFirstName,' ',contactLastName)
+FROM
+    customers;
+</code></pre>
+</div>
+
+<p>新的结果：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION-with-column-alias-example.png" alt="" /></p>
+
+<h2 id="对结果排序">对结果排序</h2>
+<p>在最后一个<code class="highlighter-rouge">SELECT</code>语句之后，使用<code class="highlighter-rouge">ORDER BY</code>便可以对整个得到的结果集进行排序。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+    concat(firstName,' ',lastName) fullname
+FROM
+    employees 
+UNION SELECT 
+    concat(contactFirstName,' ',contactLastName)
+FROM
+    customers
+ORDER BY fullname;
+</code></pre>
+</div>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION-and-ORDER-BY-example.png" alt="" /></p>
+
+<p>需要我们注意的是，如果你在每一个<code class="highlighter-rouge">SELECT</code>语句之后都加上<code class="highlighter-rouge">ORDER BY</code>并不会影响最后一个<code class="highlighter-rouge">SELECT</code>语句之后的<code class="highlighter-rouge">ORDER BY</code>，所以说，只有最后一个才是有效的。</p>
+
+<p>MySQL同样支持通过数据集所在位置排序的功能，如下使用<code class="highlighter-rouge">ORDER BY</code>即可：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+    concat(firstName,' ',lastName) fullname
+FROM
+    employees 
+UNION SELECT 
+    concat(contactFirstName,' ',contactLastName)
+FROM
+    customers
+ORDER BY 1;
+</code></pre>
+</div>
+
+<p>通过这个教程，你一定学会和如何用<code class="highlighter-rouge">UNION</code>指令来合并多个查询语句的结果.</p>
+
+<p>:)</p>
+
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=MySQL UNION用法@Liam_Hsia&amp;url=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/MySQL-Union-Tutorial.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/MySQL-Union-Tutorial"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>更好的PHP开发环境-Docker篇</title>
+  <meta name="description" content="如果你看了Vagrant篇的内容，可能会想「我也不像做第一个装开发环境的人，把别人的镜像拿过来用就好了」，恭喜你，偷懒使人成长，你已经有成为开发大师的思路了，但是只不过有人稍早实现了你的idea，而且稍作改进成了现在的Docker，所以呐，有想法就去实现吧，不然就让别人占了先机咯（:">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">更好的PHP开发环境-Docker篇</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="03 Jun 2017" itemprop="datePublished">Jun 3 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">开发环境</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>装开发环境就想搬家，重新布置房间可真让人不爽啊</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <p>如果你看了Vagrant篇的内容，可能会想「我也不像做第一个装开发环境的人，把别人的镜像拿过来用就好了」，恭喜你，偷懒使人成长，你已经有成为开发大师的思路了，但是只不过有人稍早实现了你的idea，而且稍作改进成了现在的Docker，所以呐，有想法就去实现吧，不然就让别人占了先机咯（:</p>
+
+<p>如果说Vagrant是将整个操作系统虚拟化，然后打包成镜像，分发使用，那么我们就可以把Docker简单理解为粒度更细的Vagrant，Docker可以将例如PHP，Nginx，MySQL这类服务打包成镜像，然后我们可以像拼积木一样组合他们，来实现我们想要的架构。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/wiC0h" alt="架构图" /></p>
+
+<h2 id="安装docker">安装Docker</h2>
+<p>在<a href="https://www.docker.com/">官方网站</a>直接下载符合你操作系统的版本，安装即可。由于国内的网络下载Docker镜像实在是太慢，我们不妨使用国内的加速服务，教程可以参见：<a href="https://yeasy.gitbooks.io/docker_practice/content/install/mirror.html">https://yeasy.gitbooks.io/docker_practice/content/install/mirror.html</a></p>
+
+<h2 id="nginx">Nginx</h2>
+<p>如果你还没有来得及看Docker的文档，当然也没关系，我们通过第一个服务，Nginx的搭建来边做边学。</p>
+
+<p>首先，我们先拉取一个Nginx镜像，很简单：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker pull nginx
+</code></pre>
+</div>
+<p>使用<code class="highlighter-rouge">docker images</code>查看一下我们刚刚拉取下来的镜像：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/VCBia" alt="Untitled Image" /></p>
+
+<p><strong>实例化</strong>该镜像，我们把<strong>实例化</strong>的镜像称之为容器，镜像和容器的关系就好比类和实例的关系。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -p 80:80 nginx
+</code></pre>
+</div>
+<p>Nginx容器启动之后，访问localhost，熟悉的欢迎页面出现了吧，不用我们下载，编译，安装，直接实例化然后启动就好了，多么让人幸福的一件事。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/wmvzy" alt="Untitled Image" /></p>
+
+<p>切回命终端，发现终端打印出了一堆log信息，我可不想整天盯着这些无趣的信息看，让Nginx进入守护运行吧。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -p 80:80 --name cool_nginx -d nginx
+</code></pre>
+</div>
+<p><code class="highlighter-rouge">-p</code>是端口参数，给上<code class="highlighter-rouge">-d</code>参数表示容器是守护程序会进入后台运行，<code class="highlighter-rouge">--name</code>则是重新给容器命名。成功之后，用<code class="highlighter-rouge">docker ps</code>来查看当前已经启动的容器。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/hsEm0" alt="Untitled Image" /></p>
+
+<p>现在我们进入这个容器，并修改这个Nginx默认网页。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker exec -it cool_nginx bash
+&gt; echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html
+</code></pre>
+</div>
+<p>挂载一个本地目录到容器，就不用每次都进入到容器中修改代码了，当然的将<code class="highlighter-rouge">/Users/bruce/Documents/Workspace/Docker/src/</code>替换成你自己的文件目录。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -p 80:80 \
+--name cool_nginx -d \
+-v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
+nginx
+</code></pre>
+</div>
+
+<h1 id="php">PHP</h1>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker pull php:7.0-fpm
+</code></pre>
+</div>
+<p>使用7.0版本的PHP，你可以选择其他版本的PHP。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -d \
+--name cool_php_fpm \
+-v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
+php:7.0-fpm
+</code></pre>
+</div>
+<p>使用<code class="highlighter-rouge">docker ps</code>可以看到，Nginx和FPM都已经启动了。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/3Z1Kc" alt="Untitled Image" /></p>
+
+<p>那么PHP如何和Nginx链接起来呢？很简单，Docker为我们做好了一切，只需要一个参数就可以将两个容器链接起来。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>--link cool_php_fpm 
+</code></pre>
+</div>
+<p>我们都知道，Nginx默认是不解析PHP文件的，所以还需要修改一下配置，不需要进入Nginx容器里去修改，我们在当前文件夹下，新建一个<code class="highlighter-rouge">default_nginx.conf</code>文件，写入如下内容：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>server {
+    listen 80;
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html index.php;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    access_log off;
+    error_log  /var/log/nginx/error.log error;
+
+    sendfile off;
+
+    client_max_body_size 100m;
+
+    location ~ \.php?$ {
+        fastcgi_pass cool_php_fpm:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /usr/share/nginx/html$fastcgi_script_name;
+        fastcgi_intercept_errors off;
+        fastcgi_buffer_size 16k;
+        fastcgi_buffers 4 16k;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+</code></pre>
+</div>
+<p>然后用<code class="highlighter-rouge">docker rm cool_nginx</code>命令删除掉原先的Nginx容器，挂载该配置文件重新实例化：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -p 80:80 \
+--name cool_nginx -d \
+-v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
+-v /Users/bruce/Documents/Workspace/Docker/default_nginx.conf:/etc/nginx/conf.d/default.conf:ro \
+--link cool_php_fpm \
+nginx
+</code></pre>
+</div>
+<p>在本地<code class="highlighter-rouge">src/</code>目录下，新建一个<code class="highlighter-rouge">test.php</code>文件，写入熟悉的内容：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+echo phpinfo();
+</code></pre>
+</div>
+<p>Boom!!! PHP和Nginx就搭建好了，足够简单吧。
+<img src="http://ooyc2y4k2.bkt.clouddn.com/k2XcB" alt="phpinfo" /></p>
+
+<h2 id="mysql">MySQL</h2>
+<p>和之前的安装一样，先拉取MySQL镜像：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker pull mysql
+</code></pre>
+</div>
+<p>然后启动：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -d \
+--name cool_mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+mysql
+</code></pre>
+</div>
+<p><code class="highlighter-rouge">-e</code>参数是给给定环境变量，这里我们设定MySQL的密码是<code class="highlighter-rouge">123456</code>。</p>
+
+<p>链接到MySQL容器：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker exec -it cool_mysql bash
+</code></pre>
+</div>
+<p>登陆MySQL:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; mysql -uroot -p123456
+</code></pre>
+</div>
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/d3Duk" alt="MySQL" /></p>
+
+<p>PHP如何链接到MySQL，相信你也知道了，对的还是使用<code class="highlighter-rouge">--link</code>参数，我们删除掉<code class="highlighter-rouge">cool_php_fpm</code>容器，重新构建</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker run -d \
+--name cool_php_fpm \
+-v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
+--link cool_mysql \
+php:7.0-fpm
+</code></pre>
+</div>
+<p>链接之后，PHP容器和MySQL容器能够通信了，但是还是不够呢(坚持一下，最后一步了)，初始PHP是没有安装MySQL扩展的，安装扩张也极其容易，先进入到PHP容器：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker exec -it cool_php bash
+</code></pre>
+</div>
+<p>然后用<code class="highlighter-rouge">docker-php-ext-install</code>命令安装：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker-php-ext-install mysqli
+&gt; exit
+</code></pre>
+</div>
+<p>ok，我们重启PHP容器:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker restart cool_php_fpm
+</code></pre>
+</div>
+<p>来测试一下，新建一个测试脚本：</p>
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$servername</span> <span class="o">=</span> <span class="s2">"cool_mysql"</span><span class="p">;</span>
+<span class="nv">$username</span> <span class="o">=</span> <span class="s2">"root"</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s2">"123456"</span><span class="p">;</span>
+
+<span class="c1">// Create connection
+</span><span class="nv">$conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mysqli</span><span class="p">(</span><span class="nv">$servername</span><span class="p">,</span> <span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">);</span>
+
+<span class="c1">// Check connection
+</span><span class="k">if</span> <span class="p">(</span><span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">connect_error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">"Connection failed: "</span> <span class="o">.</span> <span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">connect_error</span><span class="p">);</span>
+<span class="p">}</span> 
+<span class="k">echo</span> <span class="s2">"Connected successfully"</span><span class="p">;</span>
+</code></pre>
+</div>
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/qsMdH" alt="test mysql success" /></p>
+
+<h2 id="docker-compose">docker-compose</h2>
+<p>每次都用Dokcer命令实在是太过麻烦，引用<code class="highlighter-rouge">docker-compose</code>这个工具更方便构建容器，配置容器等工作。</p>
+
+<p>好的，我们重新开始，使用下面两条命令让你忘掉一切：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker stop $(docker ps -a -q)
+&gt; docker rm $(docker ps -a -q)
+</code></pre>
+</div>
+<p>我们新建一个名为<code class="highlighter-rouge">nginx</code>的目录，用来存放<code class="highlighter-rouge">nginx</code>容器相关的配置文件，把前面我们使用的Nginx配置文件<code class="highlighter-rouge">default_nginx.conf</code>移动到这里，并新建名为<code class="highlighter-rouge">Dockerfille</code>的文件，写入如下内容：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>FROM nginx
+
+COPY ./default_nginx.conf /etc/nginx/conf.d/default.conf
+</code></pre>
+</div>
+<p>在<strong>此文件夹</strong>外新建<code class="highlighter-rouge">docker-compose.yml</code>的文件，并写入：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>cool_nginx:
+  build: ./nginx
+  ports:
+    - "80:80"
+  volumes:
+    # source
+    - ./src/:/usr/share/nginx/htm
+</code></pre>
+</div>
+<p>想要重新构建Nginx容器就变得很简单：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker-compose build
+</code></pre>
+</div>
+<p>启动Nginx容器也非常容易：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker-compose up -d
+</code></pre>
+</div>
+<p>或者干脆两者结合起来：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; docker-compose up -d --build
+</code></pre>
+</div>
+<p>将配置写入文件，不仅不容易出错，而且更加容易分发，谁也不想在终端上输入那么一长串的命令。</p>
+
+<p>至于MySQL和PHP容器的构建，就不详细说明了，他们的构建都是一样的，全部的代码你可以在如下地址查阅：<a href="https://github.com/blue7wings/lnmp_in_docker">https://github.com/blue7wings/lnmp_in_docker</a>。</p>
+
+<h2 id="后续">后续</h2>
+<p>毕竟此教程是一个新手向的教程，不准确表达在所难免，如果对某些问题还是比较疑惑，可以留言询问，除此之外，我最为推荐的还是先去查阅官方文档，或者是去stackoverflow上去看一看。以下两个资源非常适合新手入门，希望所有朋友都能以此为入门，掌握这门优秀的技术。</p>
+
+<ul>
+  <li><a href="https://yeasy.gitbooks.io/docker_practice/content/">Docker — 从入门到实践</a></li>
+  <li><a href="https://docs.docker.com/">官方文档</a></li>
+</ul>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=更好的PHP开发环境-Docker篇@Liam_Hsia&amp;url=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial/Better-Dev-Envirenment-Docker"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

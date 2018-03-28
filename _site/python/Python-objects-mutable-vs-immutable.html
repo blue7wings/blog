@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/python/Python-objects-mutable-vs-immutable.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Python对象：可变和不可变对象类型</title>
+  <meta name="description" content="  并不是所有的Python对象处理方式都是一样的，有的对象是可变的(mutable)，此类对象可以被改变，其余的对象则是不可变的(immutable)，它们无法被修改，并且当我们尝试更新此类对象的时候，会返回一个新的对象。知道这些对我们写Python代码有什么意义呢？我们来一探究竟。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">Python对象：可变和不可变对象类型</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="19 May 2017" itemprop="datePublished">May 19 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>可变和不可变对象类型的理解，运用和坑</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>并不是所有的Python对象处理方式都是一样的，有的对象是可变的(mutable)，此类对象可以被改变，其余的对象则是不可变的(immutable)，它们无法被修改，并且当我们尝试更新此类对象的时候，会返回一个新的对象。知道这些对我们写Python代码有什么意义呢？我们来一探究竟。</p>
+</blockquote>
+
+<h2 id="不可变immutable对象类型">不可变(immutable)对象类型</h2>
+<ul>
+  <li>int</li>
+  <li>float</li>
+  <li>decimal</li>
+  <li>complex</li>
+  <li>bool</li>
+  <li>string</li>
+  <li>tuple</li>
+  <li>range</li>
+  <li>frozenset</li>
+  <li>bytes</li>
+</ul>
+
+<h2 id="可变mutable对象类型">可变(mutable)对象类型</h2>
+<ul>
+  <li>list</li>
+  <li>dict</li>
+  <li>set</li>
+  <li>bytearray</li>
+  <li>user-defined classes (unless specifically made immutable)</li>
+</ul>
+
+<p>怎么记忆这些可变或者不可变的对象类型呢？很简单，容器（containers）和自定义（user-defined）类型都是可变的，最典型的就是<code class="highlighter-rouge">list</code>，列表类型相当于一个容器，数据可以放进去，可以取出来，所以是可变对象类型。标量类型（scalar type）的对象基本上都是不可变，比如，<code class="highlighter-rouge">int</code>，<code class="highlighter-rouge">string</code>。但是，有一个例外，<code class="highlighter-rouge">tuple</code>是一种不可变对象类型，其实也很好理解，元组声明完成之后，就无法再进行修改，自然是不可变对象类型。</p>
+
+<h2 id="不可变和可变对象带来的小思考">不可变和可变对象带来的小思考</h2>
+<p>理解不可变对象和可变对象看似是无关痛痒的知识点，如果我们能够灵活运用，能有效提高我们代码运行的效率，我们看下面合并字符串的例子：</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">string_build</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
+    <span class="n">string_build</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>实际上，这段代码效率是非常低下的，字符串是不可变对象类型，当合并两个字符串的时候，会创建第三个字符串，迭代次数过多或者数据量很大的字符串合并，就会在创建第三个字符串的时候浪费掉很多的内存空间，不仅如此，在迭代最后一次，为最后的结果还会开辟更大的空间来存储，实在是太浪费。</p>
+
+<p>下面是更加有效和哲学（pythonic）的方式：</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">builder_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
+    <span class="n">builder_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">builder_list</span><span class="p">)</span>
+ 
+<span class="c">### 另一种使用list实现的方法</span>
+<span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">container</span><span class="p">])</span>
+ 
+<span class="c">### 或者使用map函数</span>
+<span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">container</span><span class="p">))</span>
+</code></pre>
+</div>
+<p>上面的代码，就充分利用了可变对象特点，当数据要更新的时候，不开辟新的空间，而是在原先的空间上增加，大大减少了空间的使用，提高了代码执行的效率。</p>
+
+<p>我们再看一个可变类型对象的坑。</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"thing"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">param</span>
+ 
+<span class="n">my_function</span><span class="p">()</span> <span class="c"># returns ["thing"]</span>
+<span class="n">my_function</span><span class="p">()</span> <span class="c"># returns ["thing", "thing"]</span>
+</code></pre>
+</div>
+<p>对于刚接触python的人来说，看到这个结果可能是一脸懵逼，what？为什么两次函数调用使用的是一个默认参数？这是因为，默认参数在函数声明的时候就已经被定义，此时变量<code class="highlighter-rouge">param</code>指向<code class="highlighter-rouge">[]</code>，在以后的调用，这种指向关系都不会改变，直到被重新赋值，python的这种值传递方式，叫对象引用传递，如果听起来有点模糊，可以读一读我上一篇文章，<a href="http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html">Python变量赋值方式</a>。</p>
+
+<p>所以说，我们尽量不要使用可变类型对象作为函数的参数，如果想要使用，应当给予判断：</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"thing"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">param</span>
+</code></pre>
+</div>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://codehabitude.com/2013/12/24/python-objects-mutable-vs-immutable/">PYTHON OBJECTS: MUTABLE VS. IMMUTABLE</a></li>
+  <li><a href="http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html">Python变量赋值方式</a></li>
+</ul>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=Python对象：可变和不可变对象类型@Liam_Hsia&amp;url=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/python/Python-objects-mutable-vs-immutable.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/python/Python-objects-mutable-vs-immutable"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

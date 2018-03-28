@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/Dynamic-Jekyll.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>动态使用Jekyll博客</title>
+  <meta name="description" content="喜欢折腾的人好像总是「喜新厌旧」的，从Wordpress那种动态博客中逃离出来，用了本地编译mardwon生成文章的Jekyll，总觉得哪里不对，如果不需要每次都编译，直接用markdown写完就能生效该多好啊。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">动态使用Jekyll博客</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="11 Feb 2017" itemprop="datePublished">Feb 11 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>静态博客有很多好处，轻，巧，但是我不是那么想去每次都编译</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <p>喜欢折腾的人好像总是「喜新厌旧」的，从Wordpress那种动态博客中逃离出来，用了本地编译mardwon生成文章的Jekyll，总觉得哪里不对，如果不需要每次都编译，直接用markdown写完就能生效该多好啊。</p>
+
+<h2 id="解决方案">解决方案</h2>
+
+<p>当然是可以的，想要实现，总是能实现的，是在不行我们还可以造轮子，不过，已经有比较好的解决方案，不用我们非那么大的劲去写代码造轮子了。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/LLWNZ" alt="发布博文" /></p>
+
+<p>主要依赖两个工具：</p>
+<ol>
+  <li>代码构建工具 - <a href="https://travis-ci.org/">Travis-ci</a> (免费)</li>
+  <li>能够发布到Github的写作软件 - <a href="http://wordmarkapp.com/">Wordmark</a> (收费)</li>
+</ol>
+
+<p>主要原理就是，当我们使用 <code class="highlighter-rouge">Wordmark</code> 这款软件，写完文章提交到 <code class="highlighter-rouge">Github</code> , <code class="highlighter-rouge">Travis</code> 会自动构建博客，简单点说就是将本地构建放到了云端。</p>
+
+<h2 id="步骤">步骤</h2>
+<h3 id="添加自动构建脚本">添加自动构建脚本</h3>
+<ol>
+  <li>将 <a href="https://github.com/blue7wings/blog/tree/master/bin">bin</a> 目录完成拷贝到jekyll根目录下，并给可执行权限。</li>
+  <li>
+    <p>拷贝 <a href="https://github.com/nielsenramon/kickster/blob/master/snippets/travis/.travis.yml">.travis.yml</a> 文件至jekyll根目录下，并在以下两行中添加自己的信息。</p>
+
+    <p><code class="highlighter-rouge">
+ USERNAME: &lt;your-github-username&gt;
+ </code></p>
+
+    <p><code class="highlighter-rouge">
+ EMAIL: &lt;your-github-email&gt;
+ </code></p>
+  </li>
+  <li>
+    <p>打开Github, 在<code class="highlighter-rouge">settings &gt; Personal access tokens</code>中，勾选<code class="highlighter-rouge">repo</code>，创建新的<code class="highlighter-rouge">access token</code>，并复制。返回至jekyll项目目录，在终端中输入：</p>
+
+    <p><code class="highlighter-rouge">&gt; gem install travis</code></p>
+
+    <p><code class="highlighter-rouge">&gt; travis encrypt GITHUB_TOKEN=复制的token --add</code></p>
+
+    <p>此操作会在<code class="highlighter-rouge">.travis.yml</code>中添加一行</p>
+
+    <p><code class="highlighter-rouge">secure: &lt;encrypted token&gt;
+ </code></p>
+  </li>
+  <li>在 <a href="https://travis-ci.org/">Travis CI</a> 中启用博客所在仓库。</li>
+</ol>
+
+<h3 id="wordmark发布设置">WordMark发布设置</h3>
+<p>设置 -&gt; 发布
+<img src="http://ooyc2y4k2.bkt.clouddn.com/kvz1A" alt="Untitled Image" />
+文件路径选择 <code class="highlighter-rouge">_post</code> ，图床不建议勾选，可以使用单独添加七牛的图床，更加方便。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/KO0v0" alt="Untitled Image" /></p>
+
+<h2 id="done">Done</h2>
+<p>当我们写完一篇文章之后，点击左下角的发布，选择发布的博客，<code class="highlighter-rouge">WordMark</code> 就会把文章提交到 <code class="highlighter-rouge">_posts</code> 文件夹下，<code class="highlighter-rouge">Travis</code> 会为我们重新构建项目，一篇<strong>静态</strong>的博文就会被<strong>动态</strong>的生成好了</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/7hKqs" alt="Untitled Image" />
+<img src="http://ooyc2y4k2.bkt.clouddn.com/Jdehs" alt="Untitled Image" /></p>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=动态使用Jekyll博客@Liam_Hsia&amp;url=http://localhost:4000/tutorial/Dynamic-Jekyll.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/Dynamic-Jekyll.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/Dynamic-Jekyll.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/Dynamic-Jekyll.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/Dynamic-Jekyll"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

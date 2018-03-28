@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/tutorial/Wechat_MiniApp-Tutorial-Part3.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>微信小程序开发教程[Part 3]</title>
+  <meta name="description" content="  微信小程序对大部分人是没有价值的">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">微信小程序开发教程[Part 3]</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="19 Apr 2017" itemprop="datePublished">Apr 19 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">微信小程序</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">前端开发</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>微信小程序对大部分人是没有价值的</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>微信小程序对大部分人是没有价值的</p>
+</blockquote>
+
+<p>看到副标题，是不是有点难受呢，可能花了一天时间来看这个教程，却对你说微信小程序没有什么价值，如果你还有点耐心，把接下来的开发中的Trick看完，如果真的想放弃，那就拉到文章最后吧。:)</p>
+
+<h2 id="布局">布局</h2>
+<p>如果你仔细看我的WXSS代码，你就会发现，微信小程序布局和现在网页中盒子布局是不一样的，这里使用了Flex布局方式，Flex布局在2009年就已经推出，由于浏览器兼容的问题，并没有那么普及，但是你可以在微信小程序中放心使用，因为微信小程序解析引擎倒是统一的，这里推荐阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">Flex 布局教程</a>。随着浏览器的统一，我相信Flex布局会和当年的Box布局一样流行的，可以趁着这个机会学习一下。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/A1f8Z" alt="Untitled Image" /></p>
+
+<p>除了Flex布局之外，微信小程序还引进了尺寸单位，让我们可以适配不同分辨率的设备，所以开发的过程中一定要使用rpx作为单位，能够避免不少麻烦。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/8DjH6" alt="Untitled Image" /></p>
+
+<h2 id="动画组件">动画组件</h2>
+<p>你稍微细心一点的话，我登陆页中Emoji旋转的效果并不是使用官方的动画组件来完成的，而是使用一个<strong>第三方CSS动画库</strong>，所以CSS的动画效果可以用在微信小程序中，官方的动画组件真的是太难用了，权当Trick方法吧。</p>
+
+<h2 id="设计">设计</h2>
+<p>我觉得这个小程序还是能看得过去的，作为一个审美匮乏的人，能够作出这样的设计，并且把设计实现，主要得力于Sketch这款软件，足够简单和好用，打开<code class="highlighter-rouge">asset/images</code>文件夹，你可以发现全都是矢量图形，都是用Sketch设计完之后，直接导出成<code class="highlighter-rouge">svg</code>文件，便直接可以在WXML中使用，足够简单和方便。</p>
+
+<h2 id="鄙人拙见">鄙人拙见</h2>
+<p>为什么我会说<strong>微信小程序对大部分人是没有价值的</strong>，因为这是应用场景所决定的，就拿我所写的日记类小程序说，没有人会想写日记的时候还去开一下微信，恐怕开了微信就想着聊天去了，有的人可能说了，为什么不将这个小程序添加成桌面快捷方式呢？且不说IOS设备不支持此功能，这么做和一个普通APP又有何区别呢？Weex和Ionic等一系列优秀的框架，都是跨平台成熟的解决方案，如此一比微信小程序恐怕没有任何优势吧？</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/rtEtn" alt="ionic框架" /></p>
+
+<p>所以我们要弄清微信小程序的理念是什么？就是微信小程序发布时所说的「即走即用」，举一个栗子，当我们使用摩拜单车时，用微信直接扫描二维码，弹出摩拜单车微信小程序，开始使用，用完直接关闭，没有推送，没有其他入口，这才是「即走即用」理念体现的地方。</p>
+
+<p>没有直接的入口，大部分的小程序我觉得都是没有意义的，这直接的入口包括，二维码扫描，微信公众平台转接，硬件接入，仅仅靠Appstore式的统一入口，恐怕大部分的微信小程序都是要死的。</p>
+
+<p>让我还有一点忧虑的是，我是不希望一个公司垄断所有的东西的，有苹果的IOS，还有谷歌的Android，这个世界不才有意思嘛？如果，看电视在腾讯，聊天在腾讯，各种APP也在腾讯，这可太无趣了，这也是我个人的一点私心吧。</p>
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=微信小程序开发教程[Part 3]@Liam_Hsia&amp;url=http://localhost:4000/tutorial/Wechat_MiniApp-Tutorial-Part3.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/Wechat_MiniApp-Tutorial-Part3.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/Wechat_MiniApp-Tutorial-Part3.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/tutorial/Wechat_MiniApp-Tutorial-Part3.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/tutorial/Wechat_MiniApp-Tutorial-Part3"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
