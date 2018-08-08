@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/swoole/Swoole-Autoload.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Swoole如何实现热加载(autoload)</title>
+  <meta name="description" content="Swoole的确是一款非常优秀的PHP框架，在性能上给予了PHP质的飞跃，在将部分业务逻辑嫁接到Swoole上之后，性能就提升了将近4倍，这还仅仅是没有使用异步等操作的情况下，如果有兴趣，可以查看对比视频。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">Swoole如何实现热加载(autoload)</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="13 Jun 2018" itemprop="datePublished">Jun 13 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<p>Swoole的确是一款非常优秀的PHP框架，在性能上给予了PHP质的飞跃，在将部分业务逻辑嫁接到Swoole上之后，性能就提升了将近4倍，这还仅仅是没有使用异步等操作的情况下，如果有兴趣，可以查看<a href="https://www.youtube.com/watch?v=IKF5IdBPlWY">对比视频</a>。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2016%E6%97%B609%E5%88%8622%E7%A7%92.png" alt="" />
+但是Swoole现有的文档非常之匮乏，你可以把现有的文档看成API文档，而不是面向新手的教程，在使用Swoole的过程中，遇到的第一个问题，Swoole如何才能热加载呢？每次修改完代码还需要关闭服务然后重启，才能让新的文件加载进去，非常之不友好，在接下来的的内容中，便会解决这个问题。</p>
+
+<h2 id="swoole的加载机制">Swoole的加载机制</h2>
+<p>Swoole性能之所以如此优秀，很大原因是改变了以往每次请求便加载一遍文件的模式，而改成在服务器启动的时候统一加载所有的文件，在每次请求的时候不会进行再次加载和初始化，从而大大减少了请求的消耗。如果你已经了解一点Swoole的实现，可以知道Swoole在启动的时候，Manager进程会创建N个Worker进程来接受/发送数据，实现业务逻辑，当Worker进程因为致命错误而关闭，Manager进程会重新创建，便会重新加载文件。</p>
+
+<h2 id="热加载实现">热加载实现</h2>
+<p>在实现热加载之前我们先看一看代码，主文件<code class="highlighter-rouge">index.php</code>，加载的文件<code class="highlighter-rouge">greet.php</code>。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Server</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Response</span><span class="p">;</span>
+
+<span class="nv">$http</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="mi">9501</span><span class="p">);</span>
+
+<span class="nv">$http</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s2">"request"</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nx">Response</span> <span class="nv">$response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">include_once</span> <span class="s1">'greet.php'</span><span class="p">;</span>
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">header</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span> <span class="s2">"text/plain"</span><span class="p">);</span>
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">end</span><span class="p">(</span><span class="nx">hello</span><span class="p">());</span>
+<span class="p">});</span>
+
+<span class="nv">$http</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">function</span> <span class="nf">hello</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="s2">"Hello"</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>请注意<code class="highlighter-rouge"> include_once 'greet.php';</code>这句并没有像我们以前写PHP代码放在文件的第一句，而是放在<code class="highlighter-rouge">$http-&gt;on()</code>的回调函数中，这是因为Worker进程因为致命错误而重启，但是Manager进程可不会，如果放在代码第一行，就表示只有Manager进程重启才会生效，这显然不是我们需要的。</p>
+
+<p>知道上面的加载机制，我们就可以想办法让Worker进程重启。</p>
+
+<h3 id="方法一">方法一</h3>
+<p>向Master进程发送<code class="highlighter-rouge">USR1信号</code>，<code class="highlighter-rouge">USR1信号</code>通过Manager进程转发给Worker进程，Worker进程便会重启，我们如下实现：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>kill -USR1 master_pid 
+</code></pre>
+</div>
+
+<p>查看Swoole的进程信息：
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2017%E6%97%B607%E5%88%8629%E7%A7%92.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">30322</code>便是我们的主进程ID，<code class="highlighter-rouge">kill -USR1 30322</code> Woker进程会关闭，并被Manager重启，通过下面的图可以看到，Worker进程已经改变，但主进程进程却没有任何变化。
+<img src="http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2017%E6%97%B610%E5%88%8604%E7%A7%92.png" alt="" /></p>
+
+<p>每次在<code class="highlighter-rouge">greet.php</code>中修改完代码，用<code class="highlighter-rouge">kill -USR1 30322</code> 重启Worker进程，代码便会重新加载进去。这种方法缺陷也很明显，需要手动去给主进程发送信号，如果想要实现监听文件改动，自动发送信号，还需要继续编写代码，倒是有点得不偿失了。</p>
+
+<h3 id="方法二">方法二</h3>
+<p>可以同配置<code class="highlighter-rouge">max_request</code>来控制Worker进程的最大任务数。</p>
+
+<blockquote>
+  <p>一个Worker进程在处理完超过此数值的任务后将自动退出，进程退出后会释放所有内存和资源。</p>
+</blockquote>
+
+<p>这也变向地实现了Worker进程的自动重启，给<code class="highlighter-rouge">max_request</code>设置值为1，也就是说当一次请求之后，Worker进程便会重启。</p>
+
+<p>修改<code class="highlighter-rouge">index.php</code>如下：</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Server</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Response</span><span class="p">;</span>
+
+<span class="nv">$http</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="mi">9501</span><span class="p">);</span>
+
+<span class="nv">$http</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">([</span>
+    <span class="s1">'max_request'</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="p">]);</span>
+
+<span class="nv">$http</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s2">"request"</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nx">Response</span> <span class="nv">$response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">include_once</span> <span class="s1">'greet.php'</span><span class="p">;</span>
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">header</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span> <span class="s2">"text/plain"</span><span class="p">);</span>
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">end</span><span class="p">(</span><span class="nx">hello</span><span class="p">());</span>
+<span class="p">});</span>
+
+<span class="nv">$http</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<p>修改<code class="highlighter-rouge">greet.php</code>的内容，重新刷新页面，内容已经改变，我们的热加载功能也实现了。</p>
+
+<h2 id="参考">参考</h2>
+<p><a href="http://www.catplanet.me/?id=10">Swoole编程指南-2.6 热加载</a>
+<a href="https://wiki.swoole.com/wiki/page/300.html">max_request</a></p>
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=Swoole如何实现热加载(autoload)@Liam_Hsia&amp;url=http://localhost:4000/swoole/Swoole-Autoload.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/swoole/Swoole-Autoload.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/swoole/Swoole-Autoload.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/swoole/Swoole-Autoload.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/swoole/Swoole-Autoload"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

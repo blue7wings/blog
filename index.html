@@ -34,4 +34,7 @@ layout: default
 	]
 	var string = slogans[parseInt(Math.random() * slogans.length)]
 	document.getElementsByClassName('index-content')[0].innerHTML = string
+	setTimeout(function(){
+		location.href = '/archive/'	
+	}, 2000)
 </script>
