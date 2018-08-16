@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>从头开始搭建Web框架（一）- 路由</title>
+  <meta name="description" content="  能够熟练地使用一个框架是远远不够的，还需要了解她的内心。—— J.J Terry">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">从头开始搭建Web框架（一）- 路由</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="07 Aug 2018" itemprop="datePublished">Aug 7 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">Laravel</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<blockquote>
+  <p>能够熟练地使用一个框架是远远不够的，还需要了解她的内心。—— J.J Terry</p>
+</blockquote>
+
+<h2 id="为什么要自己搭建web框架">为什么要自己搭建Web框架</h2>
+
+<p>如果跟你周围的工程师说「我要自己搭建一款web框架」，他们可能会说「疯了吧，何必自己造轮子呢？」，大多数情况下他们是对的，完全没必要自己重新造轮子，这是一件吃力而且不讨好的事情，但是总有人想尝试点新东西，他们的原因可能有：</p>
+
+<ul>
+  <li>想简单了解一些Web框架的构架</li>
+  <li>对Web框架有独特的需求，比如：完全不想要视图层</li>
+  <li>好玩</li>
+</ul>
+
+<p>如果其中有一个原因命中你，那么就跟着这几篇文章，来构建你自己的一个Web框架吧，放轻松，我们不会从源码开始。</p>
+
+<h2 id="概览">概览</h2>
+
+<p>如果你稍微看过<code class="highlighter-rouge">Laravel</code>的组成结构，可以发现，<code class="highlighter-rouge">Laravel</code>也是由很多个组件所组成的，并不是所有部分都是自己完成，其中大部分都是<code class="highlighter-rouge">Symfony</code>的组件，我们同样用<code class="highlighter-rouge">Symfony</code>的组件来完成这个简易的Web框架。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-111753%402x.jpg" alt="" /></p>
+
+<h2 id="http-foundation">HTTP-Foundation</h2>
+
+<p>试想一下，我们第一次接触到PHP，没用任何框架的时候，代码是怎样的？</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-114300%402x.jpg" alt="" /></p>
+
+<p>接收到参数，逻辑处理，然后做出响应，所有框架都是在此基础上扩展而来，这是框架最基本的功能。</p>
+
+<p>我们使用<code class="highlighter-rouge">http-foundation</code>这个组件对这个最基本的功能进行扩展。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/http-foundation
+</code></pre>
+</div>
+
+<p>代码就可以修改为如下内容：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-124401%402x.jpg" alt="" /></p>
+
+<p><code class="highlighter-rouge">$request = Request::createFromGlobals();</code>表示创建的<code class="highlighter-rouge">Request</code>对象是基于PHP全局变量(<code class="highlighter-rouge">$_GET</code>, <code class="highlighter-rouge">$_POST</code>, <code class="highlighter-rouge">$_FILE</code>, <code class="highlighter-rouge">$_COOKIE</code>, <code class="highlighter-rouge">$_SESSION</code>等等)的，<code class="highlighter-rouge">send()</code>方法则将<code class="highlighter-rouge">Response</code>对象返回给客户端，这种面向对象类型的编程方式，大大改善了代码可用性和稳健性。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>
+// 获取URL中路径
+$request-&gt;getPathInfo();
+
+// 获取GET或POST请求中的参数对应的值
+$request-&gt;query-&gt;get('foo');
+$request-&gt;request-&gt;get('bar', 'default value if bar does not exist');
+
+// 获取 SERVER 的变量信息
+$request-&gt;server-&gt;get('HTTP_HOST');
+
+// 获取上传的文件
+$request-&gt;files-&gt;get('foo');
+
+// 获取Cookie的值
+$request-&gt;cookies-&gt;get('PHPSESSID');
+
+// 获取header头相关的信息
+$request-&gt;headers-&gt;get('host');
+$request-&gt;headers-&gt;get('content_type');
+
+$request-&gt;getMethod();    // 获取请求方式：GET, POST, PUT, DELETE, HEAD
+$request-&gt;getLanguages(); // 获取接受的语言
+
+</code></pre>
+</div>
+
+<h2 id="routing">Routing</h2>
+
+<p>要知道，我们不可能用一个PHP文件只处理来自一个URL的请求，这时候还需要用路由做分发，这时候，我们需要第二个模块<code class="highlighter-rouge">http-kernel</code>。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/routing
+</code></pre>
+</div>
+
+<p>则将我们的代码修改成如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-111657.png" alt="" /></p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>$routes-&gt;add('hello', new Route('/hello/{name}', array('name' =&gt; 'World')));
+</code></pre>
+</div>
+
+<p>这是我们添加的第一个路由规则，<code class="highlighter-rouge">hello</code>为路由名，而<code class="highlighter-rouge">name</code>则为匹配到的变量名，默认值为<code class="highlighter-rouge">World</code>。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>$attributes = $matcher-&gt;match($request-&gt;getPathInfo());
+</code></pre>
+</div>
+
+<p>经过路由匹配器的匹配之后，会分解出包含<code class="highlighter-rouge">_route</code>和<code class="highlighter-rouge">name</code>的数组。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code> [
+        '_route' =&gt; 'hello',
+        'name'   =&gt; 'World'
+ ]
+</code></pre>
+</div>
+
+<p>知道路由名和取得的参数，我们便可以实现业务逻辑：</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>        extract($attributes);
+        if($_route == 'hello') {
+            $content = 'Hello ' . $name;
+        }
+        $response = new Response($content, 200);
+</code></pre>
+</div>
+
+<p>在终端中运行<code class="highlighter-rouge">php -S 127.0.0.1:7777</code>,  在浏览器中访问对应的路由可得到如下的结果：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://127.0.0.1:7777/hello =&gt; Hello World
+
+http://127.0.0.1:7777/hello/Liam =&gt; Hello Liam
+
+http://127.0.0.1:7777/foo =&gt; Not Found
+
+</code></pre>
+</div>
+
+<p>至此，使用<code class="highlighter-rouge">http-foundation</code>和<code class="highlighter-rouge">http-routing</code>这两个组件就基本上实现了我们的路由功能，在下个部分，会带大家使用控制器去实现逻辑代码。</p>
+
+<h2 id="代码片段">代码片段</h2>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/vendor/autoload.php'</span><span class="p">;</span>
+
+    <span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\RouteCollection</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Route</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\RequestContext</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Matcher\UrlMatcher</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Exception\ResourceNotFoundException</span><span class="p">;</span>
+
+    <span class="c1">// 增加路由
+</span>    <span class="nv">$routes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+    <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">'/hello/{name}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'World'</span><span class="p">)));</span>
+
+    <span class="nv">$request</span> <span class="o">=</span> <span class="nx">Request</span><span class="o">::</span><span class="na">createFromGlobals</span><span class="p">();</span>
+
+    <span class="c1">// 初始化路由上下文
+</span>    <span class="nv">$context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RequestContext</span><span class="p">();</span>
+    <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">fromRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+
+    <span class="c1">// URL匹配器
+</span>    <span class="nv">$matcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UrlMatcher</span><span class="p">(</span><span class="nv">$routes</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nv">$attributes</span> <span class="o">=</span> <span class="nv">$matcher</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPathInfo</span><span class="p">());</span>
+
+        <span class="c1">// 匹配的数组分解为变量
+</span>        <span class="nb">extract</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$_route</span> <span class="o">==</span> <span class="s1">'hello'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$content</span> <span class="o">=</span> <span class="s1">'Hello '</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ResourceNotFoundException</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">'Not Found'</span><span class="p">,</span> <span class="mi">404</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">'An error occurred'</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</code></pre>
+</div>
+
+<h2 id="参考">参考</h2>
+<p><a href="https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component">https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component</a></p>
+
+<p><a href="https://symfony.com/doc/current/create_framework/routing.html">https://symfony.com/doc/current/create_framework/routing.html</a></p>
+
+<p><a href="http://php.net/manual/zh/function.extract.php">http://php.net/manual/zh/function.extract.php</a></p>
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（一）- 路由@Liam_Hsia&amp;url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial%20laravel/从头开始搭建自己的框架（一）- 路由"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

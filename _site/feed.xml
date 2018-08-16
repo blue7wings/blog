@@ -5,9 +5,259 @@
     <description>A Simple Jekyll Blog Theme.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 08 Aug 2018 14:09:11 +0800</pubDate>
-    <lastBuildDate>Wed, 08 Aug 2018 14:09:11 +0800</lastBuildDate>
+    <pubDate>Thu, 16 Aug 2018 11:42:16 +0800</pubDate>
+    <lastBuildDate>Thu, 16 Aug 2018 11:42:16 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>从头开始搭建Web框架（一）- 路由</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;能够熟练地使用一个框架是远远不够的，还需要了解她的内心。—— J.J Terry&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;为什么要自己搭建web框架&quot;&gt;为什么要自己搭建Web框架&lt;/h2&gt;
+
+&lt;p&gt;如果跟你周围的工程师说「我要自己搭建一款web框架」，他们可能会说「疯了吧，何必自己造轮子呢？」，大多数情况下他们是对的，完全没必要自己重新造轮子，这是一件吃力而且不讨好的事情，但是总有人想尝试点新东西，他们的原因可能有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;想简单了解一些Web框架的构架&lt;/li&gt;
+  &lt;li&gt;对Web框架有独特的需求，比如：完全不想要视图层&lt;/li&gt;
+  &lt;li&gt;好玩&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果其中有一个原因命中你，那么就跟着这几篇文章，来构建你自己的一个Web框架吧，放轻松，我们不会从源码开始。&lt;/p&gt;
+
+&lt;h2 id=&quot;概览&quot;&gt;概览&lt;/h2&gt;
+
+&lt;p&gt;如果你稍微看过&lt;code class=&quot;highlighter-rouge&quot;&gt;Laravel&lt;/code&gt;的组成结构，可以发现，&lt;code class=&quot;highlighter-rouge&quot;&gt;Laravel&lt;/code&gt;也是由很多个组件所组成的，并不是所有部分都是自己完成，其中大部分都是&lt;code class=&quot;highlighter-rouge&quot;&gt;Symfony&lt;/code&gt;的组件，我们同样用&lt;code class=&quot;highlighter-rouge&quot;&gt;Symfony&lt;/code&gt;的组件来完成这个简易的Web框架。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-111753%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;http-foundation&quot;&gt;HTTP-Foundation&lt;/h2&gt;
+
+&lt;p&gt;试想一下，我们第一次接触到PHP，没用任何框架的时候，代码是怎样的？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-114300%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接收到参数，逻辑处理，然后做出响应，所有框架都是在此基础上扩展而来，这是框架最基本的功能。&lt;/p&gt;
+
+&lt;p&gt;我们使用&lt;code class=&quot;highlighter-rouge&quot;&gt;http-foundation&lt;/code&gt;这个组件对这个最基本的功能进行扩展。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/http-foundation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;代码就可以修改为如下内容：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-15-Jietu20180815-124401%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$request = Request::createFromGlobals();&lt;/code&gt;表示创建的&lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;对象是基于PHP全局变量(&lt;code class=&quot;highlighter-rouge&quot;&gt;$_GET&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_POST&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_FILE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_COOKIE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_SESSION&lt;/code&gt;等等)的，&lt;code class=&quot;highlighter-rouge&quot;&gt;send()&lt;/code&gt;方法则将&lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;对象返回给客户端，这种面向对象类型的编程方式，大大改善了代码可用性和稳健性。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+// 获取URL中路径
+$request-&amp;gt;getPathInfo();
+
+// 获取GET或POST请求中的参数对应的值
+$request-&amp;gt;query-&amp;gt;get('foo');
+$request-&amp;gt;request-&amp;gt;get('bar', 'default value if bar does not exist');
+
+// 获取 SERVER 的变量信息
+$request-&amp;gt;server-&amp;gt;get('HTTP_HOST');
+
+// 获取上传的文件
+$request-&amp;gt;files-&amp;gt;get('foo');
+
+// 获取Cookie的值
+$request-&amp;gt;cookies-&amp;gt;get('PHPSESSID');
+
+// 获取header头相关的信息
+$request-&amp;gt;headers-&amp;gt;get('host');
+$request-&amp;gt;headers-&amp;gt;get('content_type');
+
+$request-&amp;gt;getMethod();    // 获取请求方式：GET, POST, PUT, DELETE, HEAD
+$request-&amp;gt;getLanguages(); // 获取接受的语言
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;routing&quot;&gt;Routing&lt;/h2&gt;
+
+&lt;p&gt;要知道，我们不可能用一个PHP文件只处理来自一个URL的请求，这时候还需要用路由做分发，这时候，我们需要第二个模块&lt;code class=&quot;highlighter-rouge&quot;&gt;http-kernel&lt;/code&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/routing
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;则将我们的代码修改成如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-111657.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$routes-&amp;gt;add('hello', new Route('/hello/{name}', array('name' =&amp;gt; 'World')));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这是我们添加的第一个路由规则，&lt;code class=&quot;highlighter-rouge&quot;&gt;hello&lt;/code&gt;为路由名，而&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;则为匹配到的变量名，默认值为&lt;code class=&quot;highlighter-rouge&quot;&gt;World&lt;/code&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$attributes = $matcher-&amp;gt;match($request-&amp;gt;getPathInfo());
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;经过路由匹配器的匹配之后，会分解出包含&lt;code class=&quot;highlighter-rouge&quot;&gt;_route&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;的数组。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; [
+        '_route' =&amp;gt; 'hello',
+        'name'   =&amp;gt; 'World'
+ ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;知道路由名和取得的参数，我们便可以实现业务逻辑：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        extract($attributes);
+        if($_route == 'hello') {
+            $content = 'Hello ' . $name;
+        }
+        $response = new Response($content, 200);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在终端中运行&lt;code class=&quot;highlighter-rouge&quot;&gt;php -S 127.0.0.1:7777&lt;/code&gt;,  在浏览器中访问对应的路由可得到如下的结果：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:7777/hello =&amp;gt; Hello World
+
+http://127.0.0.1:7777/hello/Liam =&amp;gt; Hello Liam
+
+http://127.0.0.1:7777/foo =&amp;gt; Not Found
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;至此，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;http-foundation&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;http-routing&lt;/code&gt;这两个组件就基本上实现了我们的路由功能，在下个部分，会带大家使用控制器去实现逻辑代码。&lt;/p&gt;
+
+&lt;h2 id=&quot;代码片段&quot;&gt;代码片段&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;require_once&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;__DIR__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/vendor/autoload.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\HttpFoundation\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\HttpFoundation\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\Routing\RouteCollection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\Routing\Route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\Routing\RequestContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\Routing\Matcher\UrlMatcher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\Routing\Exception\ResourceNotFoundException&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 增加路由
+&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;$routes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RouteCollection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/hello/{name}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createFromGlobals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 初始化路由上下文
+&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;$context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RequestContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;fromRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// URL匹配器
+&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;$matcher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;UrlMatcher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$attributes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$matcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPathInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 匹配的数组分解为变量
+&lt;/span&gt;        &lt;span class=&quot;nb&quot;&gt;extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_route&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ResourceNotFoundException&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Not Found'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'An error occurred'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component&quot;&gt;https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://symfony.com/doc/current/create_framework/routing.html&quot;&gt;https://symfony.com/doc/current/create_framework/routing.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://php.net/manual/zh/function.extract.php&quot;&gt;http://php.net/manual/zh/function.extract.php&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 07 Aug 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
+        
+        <category>PHP</category>
+        
+        <category>Laravel</category>
+        
+        
+        <category>PHP Tutorial Laravel</category>
+        
+      </item>
+    
+      <item>
+        <title>Node.js 创始人 ryan dahl 专访（二）</title>
+        <description>
+&lt;hr /&gt;
+&lt;p&gt;layout: post
+title: “Node.JS 创始人 Ryan Dahl 专访（二）”
+date: 2018-07-11
+author: LiamHsia
+category: 译文
+finished: true
+—&lt;/p&gt;
+
+&lt;p&gt;原文链接：&lt;a href=&quot;https://www.mappingthejourney.com/single-post/2017/08/31/episode-8-interview-with-ryan-dahl-creator-of-nodejs/&quot;&gt;Episode 8: Interview with Ryan Dahl, Creator of Node.js - Mapping The Journey&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：你在Node之旅结束之后，你又什么新的打算呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;: 在Node之后，我离开了Joyent并且退出了Node项目，我搬到了纽约，把工作的一些时间用到了个人项目上，所以，我启动了一大堆的项目，与此同时，Instagram横空出世，作为一个全新的搅局者，它看起来却如此简单，所有人都说，这太简单了，我也能构建一个。我情不自禁地也有如此的想法，所以呢，我创建了一个社交网络的项目，还有为C++创建的构建系统，另一个是HTML的构建系统，有点像Browserify，可以更加方便地打包Javascript和HTML。&lt;/p&gt;
+
+&lt;p&gt;我有非常多的个人项目，但我认为没一个是成功的，其中有很多放在现在也是无关紧要的东西，比如社交网络的项目。后来我了解了卷积网络和图片分类，这使我对机器学习非常感兴趣。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Pramod&lt;/strong&gt;:你也参加了谷歌大脑的常驻计划，这段经历是怎么样的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，我在山景城度过了一年的时间，所以，回头看看，TensorFlow两年前就发布了。&lt;/p&gt;
+
+&lt;p&gt;随之，他们宣布了谷歌大脑的常驻计划，他们邀请了大概20个人来到谷歌大脑，谷歌机器学习研究实验室的一部分。我认为这个计划并不是让那些研究机器学习的人来参与，而是让一些有数学和编程经验并且对机器学习感兴趣的人去发现新的点子，因为机器学习实在是变化太快了，需要非常大的工作量。&lt;/p&gt;
+
+&lt;p&gt;但是现在整个社区都致力于在机器学习最有用的部分：神经网络，也吸引了非常多的人参与其中，新的机器学习框架TensorFlow也带来了很多很有意思的点子。我在那里度过了一年的时光，基本上都是在写编程模型和相关的论文，主要工作的内容是图像之间的转换问题，比如，如果你输入一些图片，你想预测输出的图片是什么。我发现这个问题非常有意思。&lt;/p&gt;
+
+&lt;p&gt;比如，彩色化问题，你可以用一张黑白照片作为输入，然后就可以预测作为输出图片的色彩，这个问题酷的地方在于你可以有无限的训练数据，随便取一张彩色照片，然后降低其饱和度，这就是你可以输入的图片了。&lt;/p&gt;
+
+&lt;p&gt;主持人：TensorFlow对于机器学习来说是非常好的平台，可以解决比如图像分类，图像转换等问题，我虽然知之甚少，但是我相信这一定是非常美妙的。你会接着为机器学习贡献你的力量吗？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，至少目前是这样，我仍然在谷歌工作，解决这一系列的问题，并且尝试帮助更多的研究者去构建下一代系统，下一代的模型。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Pramod&lt;/strong&gt;：研究机器学习模型和Javascript, Node或者网络开发有非常大的不同吧。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：我想是这样的，但是我是从数学开始的，我又非常坚实的数学基础，人们总是把自己固定在某一个领域，我是非常不认同的，我不认为自己会是一个专门写Javascript的人，也不会是一个专门从事机器学习的人，兴趣会带来无限的可能，最让人兴奋的是创建一些自己从未做过的并且能够让人类收益的事。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：是啊，机器学习需要非常好的数学背景。你在Optimistic Nihilism上发表的最近的文章写到，我们有可能在将来的某一天模拟大脑，并且构建出能够理解人类行为的系统，距离这些还有多远能够达到？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，我必须对此类的预言必须小心谨慎，在我看来，我们永远都无法到达与人类的智力程度，我们使用的机器学习系统是非常非常简单的，根本无法工作。事实上，我有一篇关于我的实习的博客文章，其中列举了开发这些模型的所有困难。我认为不从事这一领域工作的人会有这样的想法，你可以利用这个模型并通过它推送一些数据，它就会起作用。但事实并非如此。这些事情都是非常挑剔的，而且不容易理解，并且需要花费很多、很多个月的仔细调整和实验才能得到哪怕是最差的结果。&lt;/p&gt;
+
+&lt;p&gt;所以说，我们离那还差得很远很远，但是作为基础，最近一些非常有前途的技术得到了很大的改进，比如卷积网络，一些传播法等等。这些东西都是建立在训练模型上的，神经网络模型并不像我们的大脑，大脑是可以受到启发而学习，这才是真正迷人的地方。当然了我们也有大量的GPU，可以通过分布式GPU来进行训练的扩展，所以我认为基础构建越大，系统也会越智能。就我个人而言，作为一个无神论者，我相信我们大脑里面除了化学物质和神经元之外没有其他的什么东西。我认为我们的意识都是以编码的方式，在神经元之间传播互动，所以，在这个领域有足够多的研究，去模仿这种行为，也是有可能的实现的。但这实在是太遥远了，也无法预测多久能够实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：在接下来的20年，你希望科技发展有哪些变革？&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：我对机器学习和它所带来的可能性感到兴奋，即使在人工智能真正开始之前，机器学习仍然有非常多应用前景。比如，智能眼镜都会给你带来非常大的帮助，我们可以从中获益颇多。因此，有无数的工业过程可以利用机器学习来改善，比如回收中心，拥有电脑视觉处理的分类回收，等等。会有很多很多的系统会从机器学习中受益，这将对科技领域产生重大影响，对全人类都产生重大影响。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：机器学习的确非常让人兴奋，当我在山景城看到无人驾驶汽车的时候，我觉得非常新奇。总有一天，我就仅仅坐在车里，然后完全让车自己控制。谢谢你，Ryan，为我们带来了Node，同样感谢你今天的采访。希望你再以后的项目里能够越来越好。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;: 好的，谢谢你邀请我来，跟你讨论这些非常的有趣。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 Jul 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Node.JS 创始人 Ryan Dahl 专访（一）</title>
@@ -612,403 +862,6 @@ Do you want to compile XVim with support Xcode Version X.X at your own risk?&lt;
         
         
         <category>随笔</category>
-        
-      </item>
-    
-      <item>
-        <title>更好的PHP开发环境-Docker篇</title>
-        <description>&lt;p&gt;如果你看了Vagrant篇的内容，可能会想「我也不像做第一个装开发环境的人，把别人的镜像拿过来用就好了」，恭喜你，偷懒使人成长，你已经有成为开发大师的思路了，但是只不过有人稍早实现了你的idea，而且稍作改进成了现在的Docker，所以呐，有想法就去实现吧，不然就让别人占了先机咯（:&lt;/p&gt;
-
-&lt;p&gt;如果说Vagrant是将整个操作系统虚拟化，然后打包成镜像，分发使用，那么我们就可以把Docker简单理解为粒度更细的Vagrant，Docker可以将例如PHP，Nginx，MySQL这类服务打包成镜像，然后我们可以像拼积木一样组合他们，来实现我们想要的架构。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/wiC0h&quot; alt=&quot;架构图&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;安装docker&quot;&gt;安装Docker&lt;/h2&gt;
-&lt;p&gt;在&lt;a href=&quot;https://www.docker.com/&quot;&gt;官方网站&lt;/a&gt;直接下载符合你操作系统的版本，安装即可。由于国内的网络下载Docker镜像实在是太慢，我们不妨使用国内的加速服务，教程可以参见：&lt;a href=&quot;https://yeasy.gitbooks.io/docker_practice/content/install/mirror.html&quot;&gt;https://yeasy.gitbooks.io/docker_practice/content/install/mirror.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;nginx&quot;&gt;Nginx&lt;/h2&gt;
-&lt;p&gt;如果你还没有来得及看Docker的文档，当然也没关系，我们通过第一个服务，Nginx的搭建来边做边学。&lt;/p&gt;
-
-&lt;p&gt;首先，我们先拉取一个Nginx镜像，很简单：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker pull nginx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt;查看一下我们刚刚拉取下来的镜像：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/VCBia&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;实例化&lt;/strong&gt;该镜像，我们把&lt;strong&gt;实例化&lt;/strong&gt;的镜像称之为容器，镜像和容器的关系就好比类和实例的关系。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -p 80:80 nginx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Nginx容器启动之后，访问localhost，熟悉的欢迎页面出现了吧，不用我们下载，编译，安装，直接实例化然后启动就好了，多么让人幸福的一件事。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/wmvzy&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;切回命终端，发现终端打印出了一堆log信息，我可不想整天盯着这些无趣的信息看，让Nginx进入守护运行吧。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -p 80:80 --name cool_nginx -d nginx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt;是端口参数，给上&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt;参数表示容器是守护程序会进入后台运行，&lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt;则是重新给容器命名。成功之后，用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;来查看当前已经启动的容器。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/hsEm0&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;现在我们进入这个容器，并修改这个Nginx默认网页。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker exec -it cool_nginx bash
-&amp;gt; echo '&amp;lt;h1&amp;gt;Hello, Docker!&amp;lt;/h1&amp;gt;' &amp;gt; /usr/share/nginx/html/index.html
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;挂载一个本地目录到容器，就不用每次都进入到容器中修改代码了，当然的将&lt;code class=&quot;highlighter-rouge&quot;&gt;/Users/bruce/Documents/Workspace/Docker/src/&lt;/code&gt;替换成你自己的文件目录。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -p 80:80 \
---name cool_nginx -d \
--v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
-nginx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;php&quot;&gt;PHP&lt;/h1&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker pull php:7.0-fpm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;使用7.0版本的PHP，你可以选择其他版本的PHP。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -d \
---name cool_php_fpm \
--v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
-php:7.0-fpm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;可以看到，Nginx和FPM都已经启动了。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/3Z1Kc&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;那么PHP如何和Nginx链接起来呢？很简单，Docker为我们做好了一切，只需要一个参数就可以将两个容器链接起来。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--link cool_php_fpm 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;我们都知道，Nginx默认是不解析PHP文件的，所以还需要修改一下配置，不需要进入Nginx容器里去修改，我们在当前文件夹下，新建一个&lt;code class=&quot;highlighter-rouge&quot;&gt;default_nginx.conf&lt;/code&gt;文件，写入如下内容：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
-    listen 80;
-    server_name localhost;
-    root /usr/share/nginx/html;
-    index index.html index.php;
-
-    charset utf-8;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    access_log off;
-    error_log  /var/log/nginx/error.log error;
-
-    sendfile off;
-
-    client_max_body_size 100m;
-
-    location ~ \.php?$ {
-        fastcgi_pass cool_php_fpm:9000;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /usr/share/nginx/html$fastcgi_script_name;
-        fastcgi_intercept_errors off;
-        fastcgi_buffer_size 16k;
-        fastcgi_buffers 4 16k;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;然后用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker rm cool_nginx&lt;/code&gt;命令删除掉原先的Nginx容器，挂载该配置文件重新实例化：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -p 80:80 \
---name cool_nginx -d \
--v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
--v /Users/bruce/Documents/Workspace/Docker/default_nginx.conf:/etc/nginx/conf.d/default.conf:ro \
---link cool_php_fpm \
-nginx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;在本地&lt;code class=&quot;highlighter-rouge&quot;&gt;src/&lt;/code&gt;目录下，新建一个&lt;code class=&quot;highlighter-rouge&quot;&gt;test.php&lt;/code&gt;文件，写入熟悉的内容：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
-echo phpinfo();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Boom!!! PHP和Nginx就搭建好了，足够简单吧。
-&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/k2XcB&quot; alt=&quot;phpinfo&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;mysql&quot;&gt;MySQL&lt;/h2&gt;
-&lt;p&gt;和之前的安装一样，先拉取MySQL镜像：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker pull mysql
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;然后启动：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -d \
---name cool_mysql \
--e MYSQL_ROOT_PASSWORD=123456 \
-mysql
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e&lt;/code&gt;参数是给给定环境变量，这里我们设定MySQL的密码是&lt;code class=&quot;highlighter-rouge&quot;&gt;123456&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;链接到MySQL容器：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker exec -it cool_mysql bash
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;登陆MySQL:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; mysql -uroot -p123456
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/d3Duk&quot; alt=&quot;MySQL&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;PHP如何链接到MySQL，相信你也知道了，对的还是使用&lt;code class=&quot;highlighter-rouge&quot;&gt;--link&lt;/code&gt;参数，我们删除掉&lt;code class=&quot;highlighter-rouge&quot;&gt;cool_php_fpm&lt;/code&gt;容器，重新构建&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker run -d \
---name cool_php_fpm \
--v /Users/bruce/Documents/Workspace/Docker/src/:/usr/share/nginx/html/ \
---link cool_mysql \
-php:7.0-fpm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;链接之后，PHP容器和MySQL容器能够通信了，但是还是不够呢(坚持一下，最后一步了)，初始PHP是没有安装MySQL扩展的，安装扩张也极其容易，先进入到PHP容器：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker exec -it cool_php bash
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;然后用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-php-ext-install&lt;/code&gt;命令安装：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker-php-ext-install mysqli
-&amp;gt; exit
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;ok，我们重启PHP容器:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker restart cool_php_fpm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;来测试一下，新建一个测试脚本：&lt;/p&gt;
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$servername&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cool_mysql&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;root&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;123456&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// Create connection
-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mysqli&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$servername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// Check connection
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$conn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;connect_error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Connection failed: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$conn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;connect_error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
-&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connected successfully&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/qsMdH&quot; alt=&quot;test mysql success&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;docker-compose&quot;&gt;docker-compose&lt;/h2&gt;
-&lt;p&gt;每次都用Dokcer命令实在是太过麻烦，引用&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose&lt;/code&gt;这个工具更方便构建容器，配置容器等工作。&lt;/p&gt;
-
-&lt;p&gt;好的，我们重新开始，使用下面两条命令让你忘掉一切：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker stop $(docker ps -a -q)
-&amp;gt; docker rm $(docker ps -a -q)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;我们新建一个名为&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx&lt;/code&gt;的目录，用来存放&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx&lt;/code&gt;容器相关的配置文件，把前面我们使用的Nginx配置文件&lt;code class=&quot;highlighter-rouge&quot;&gt;default_nginx.conf&lt;/code&gt;移动到这里，并新建名为&lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfille&lt;/code&gt;的文件，写入如下内容：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM nginx
-
-COPY ./default_nginx.conf /etc/nginx/conf.d/default.conf
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;在&lt;strong&gt;此文件夹&lt;/strong&gt;外新建&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt;的文件，并写入：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cool_nginx:
-  build: ./nginx
-  ports:
-    - &quot;80:80&quot;
-  volumes:
-    # source
-    - ./src/:/usr/share/nginx/htm
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;想要重新构建Nginx容器就变得很简单：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker-compose build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;启动Nginx容器也非常容易：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker-compose up -d
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;或者干脆两者结合起来：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; docker-compose up -d --build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;将配置写入文件，不仅不容易出错，而且更加容易分发，谁也不想在终端上输入那么一长串的命令。&lt;/p&gt;
-
-&lt;p&gt;至于MySQL和PHP容器的构建，就不详细说明了，他们的构建都是一样的，全部的代码你可以在如下地址查阅：&lt;a href=&quot;https://github.com/blue7wings/lnmp_in_docker&quot;&gt;https://github.com/blue7wings/lnmp_in_docker&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;后续&quot;&gt;后续&lt;/h2&gt;
-&lt;p&gt;毕竟此教程是一个新手向的教程，不准确表达在所难免，如果对某些问题还是比较疑惑，可以留言询问，除此之外，我最为推荐的还是先去查阅官方文档，或者是去stackoverflow上去看一看。以下两个资源非常适合新手入门，希望所有朋友都能以此为入门，掌握这门优秀的技术。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://yeasy.gitbooks.io/docker_practice/content/&quot;&gt;Docker — 从入门到实践&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 03 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html</link>
-        <guid isPermaLink="true">http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Docker.html</guid>
-        
-        <category>PHP</category>
-        
-        <category>开发环境</category>
-        
-        
-        <category>PHP Tutorial</category>
-        
-      </item>
-    
-      <item>
-        <title>更好的PHP开发环境-Vagrant篇</title>
-        <description>&lt;p&gt;还记得，我们第一次学PHP是干嘛么？我想大部人都是从安装PHP运行环境开始的吧。&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;学习PHP第一步，就要先理解PHP的运行环境 – 韩老师&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;然后就开始哼哧哼哧地开始在Windows上安装环境，先PHP，然后Apache，再装MySQL，从安装到最后调试通，足足花了一周。&lt;/p&gt;
-
-&lt;p&gt;后来，我们也明白，Apache是干嘛的，流量是怎么交给PHP处理的，就别这么费劲一步一步装了，来一套集成的安装环境，&lt;a href=&quot;http://www.wampserver.com/en/&quot;&gt;WampServer&lt;/a&gt; 成了最好的选择。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/UE7k3&quot; alt=&quot;Wampserver 官网截图&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;好学而且有好奇心的我们，成长的总是那么快，很快我们便知道有一种操作系统比Windows更适合开发，有一种服务器比Apache更优秀，便开始在Linux上安装LNMP架构的环境，大学实验室里那几台电脑，被我们装了又装，Linux发行版也换了好几茬，然后就毕业了，第一天上班就是要装开发环境，你得用QQ和PHPStorm，不能在那么优秀的操作系统上开发了，无奈换回了WampServer，冷气吹得你发冷和难受，你开始怀念那段大学不受拘束的时光，和实验室那几台LNMP架构的开发环境。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/K7nJ6&quot; alt=&quot;Vagrant&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;时光一去不复返，但我们即可以使用QQ和PHPStorm，同时也能使用我们心爱的LNMP环境开发了，就是我们今天的主角：&lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;vagrant-是什么--可以做什么&quot;&gt;Vagrant 是什么 &amp;amp; 可以做什么&lt;/h2&gt;
-&lt;p&gt;Vagrant是一套对虚拟系统进行配置，管理，分发的一套系统，依赖虚拟机环境，比如Virtualbox和VMWare。&lt;/p&gt;
-
-&lt;p&gt;这和直接使用Virtualbox等虚拟机软件有什么不同呢？本质上是没有什么不同的，Vagrant只是一套工具，我们可以更加方便配置，和使用这个虚拟机，想想一条命令就能保存现运行的虚拟环境，远比你去拷贝虚拟机文件简单地多吧。&lt;/p&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-&lt;p&gt;在&lt;a href=&quot;https://www.vagrantup.com/downloads.html&quot;&gt;下载页面&lt;/a&gt;，选择你的操作系统对应的版本，然后安装。&lt;/p&gt;
-
-&lt;p&gt;安装完毕，尝试在终端中输入：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant --version
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;此外还需要安装Virtualbox或者VMWare，Virtualbox开源且免费，默认我选择此虚拟机，可以在 &lt;a href=&quot;https://www.virtualbox.org/wiki/Downloads&quot;&gt;https://www.virtualbox.org/wiki/Downloads&lt;/a&gt; 选择合适的版本。&lt;/p&gt;
-&lt;h2 id=&quot;选择合适的镜像&quot;&gt;选择合适的镜像&lt;/h2&gt;
-&lt;p&gt;我们把镜像称之为box，添加一个镜像也很简单。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant box add centos/7
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;很简单就添加了centos7的开发镜像，当然你还可以选择其他的镜像，在 &lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot;&gt;https://atlas.hashicorp.com/boxes/search&lt;/a&gt; 选择适合你的。&lt;/p&gt;
-
-&lt;p&gt;由于国内网络的原因，直接使用&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;命名，下载镜像的速度实在太慢(Fuck GFW)，我们不妨事先下载好镜像，然后再&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;进去，我们在 &lt;a href=&quot;http://www.vagrantbox.es/&quot;&gt;http://www.vagrantbox.es/&lt;/a&gt;选择和下载镜像。&lt;/p&gt;
-
-&lt;p&gt;我们下载好镜像，放在目录下，执行：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant box add [名称] [镜像地址]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/udvKh&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们再运行&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant box list&lt;/code&gt;命令，便能看到一个名为server的镜像。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/n5J5G&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;启动开发环境&quot;&gt;启动开发环境&lt;/h2&gt;
-&lt;p&gt;首先要初始化此开发环境，在任意文件夹下执行：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant init [镜像名称]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/llgLq&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;初始化完成之后，会在当前文件夹下创建一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Vagrantfile&lt;/code&gt;的配置文件，至于有哪些配置项，先放在一边，先启动我们的开发镜像，在&lt;strong&gt;此文件夹&lt;/strong&gt;下执行：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant up
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/6BHhy&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;成功启动，如果你打开Virtualbox，还可以发现vagrant镜像正在运行。
-&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/39erQ&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;通过SSH来连接开发环境，如果你是Mac或Linux用户，可以直接用命令&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant ssh&lt;/code&gt;来连接。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/fp2La&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;由于Windows原生不支持SSH，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant ssh-config&lt;/code&gt;来取得SSH配置，用第三方的SSH软件来连接。&lt;/p&gt;
-
-&lt;p&gt;连接上我们的开发环境，执行命令：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; uname -a 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/ApRkM&quot; alt=&quot;Untitled Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;wow，熟悉的Linux系统又回来了，我啰啰嗦嗦写了这么多，其实简单几步就创建好了一个开发环境，你现在便可以在本地用着QQ，而在开发环境装LNMP，进行开发工作了。&lt;/p&gt;
-
-&lt;h2 id=&quot;配置&quot;&gt;配置&lt;/h2&gt;
-&lt;p&gt;只是搭建好了开发环境，还是不够，还需要有共享文件夹，把本地网络和开发环境网络调通，以便我们后续的开发和调试。&lt;/p&gt;
-
-&lt;h3 id=&quot;共享文件夹配置&quot;&gt;共享文件夹配置&lt;/h3&gt;
-&lt;p&gt;打开&lt;code class=&quot;highlighter-rouge&quot;&gt;Vagrantfile&lt;/code&gt;，在42至46行告诉我们，共享文件夹是在这里配置，第一个配置参数是本地目录，第二个参数是开发环境要同步的目录。在本地新建&lt;code class=&quot;highlighter-rouge&quot;&gt;code/&lt;/code&gt;文件夹，并且在开发环境新建文件夹&lt;code class=&quot;highlighter-rouge&quot;&gt;/home/code&lt;/code&gt;，想要本地和开发环境共享文件，便可以这么写：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config.vm.synced_folder &quot;./code&quot;, &quot;/home/code&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;取消该行代码的注释，保存，&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant reload&lt;/code&gt; 命令重新启动虚拟机。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/BC4Dn&quot; alt=&quot;文件挂载成功&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;挂载共享文件夹成功，在本地code文件夹新建一个文件试试吧，开发环境的code文件夹下也一定有该文件了，awesome！&lt;/p&gt;
-
-&lt;h3 id=&quot;网络配置&quot;&gt;网络配置&lt;/h3&gt;
-&lt;p&gt;本地和开发开发环境网络连接共有三种方式&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;端口转发：将指定端口的网络转接到开发环境&lt;/li&gt;
-  &lt;li&gt;公开网络：将所有网络转接到开发环境，是一种桥接&lt;/li&gt;
-  &lt;li&gt;私有网络：将指定IP的网络转接到开发环境&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;我比较偏向于第三种私有网络的方式，修改配置文件：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;保存，&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant reload&lt;/code&gt;命令重启虚拟机。如果你已经装完Nginx，直接访问&lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.33.10&lt;/code&gt;即可看到成功页面了。出现拒绝访问的话，关闭开发环境的防火墙即可。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl disable firewalld
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/TRWMT&quot; alt=&quot;Nginx成功页面&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;备份和分发&quot;&gt;备份和分发&lt;/h2&gt;
-&lt;p&gt;你安装完LNMP环境，甚至还装了Redis和Python，作为开发环境用得很是顺畅，旁边的小张也受够了WampServer这种不专业的东西，但他懒到都不愿意花半个小时读一下这篇文章，仅仅想要你的开发环境。&lt;/p&gt;
-
-&lt;p&gt;大可不用去拷贝虚拟机文件，Vagrant为我们准备好了备份的工具。&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant package
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;vagrant会将我们现在运行的开发环境打包成一个新的box，此镜像包含我们已经安装的所有的东西，再把Vagrantfile拷贝过去，两条命令就可以重现当前的开发环境，&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; vagrant box add server package.box
-&amp;gt; vagrant up
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;BOOM！你的开发环境完整的就移植过去了。此方法也可以用作你开发系统的备份，想要一份祖传的开发环境？打包一份传到网盘，随时随地任何机器都可以使用。&lt;/p&gt;
-</description>
-        <pubDate>Thu, 01 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html</link>
-        <guid isPermaLink="true">http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html</guid>
-        
-        <category>PHP</category>
-        
-        <category>开发环境</category>
-        
-        
-        <category>PHP Tutorial</category>
         
       </item>
     
