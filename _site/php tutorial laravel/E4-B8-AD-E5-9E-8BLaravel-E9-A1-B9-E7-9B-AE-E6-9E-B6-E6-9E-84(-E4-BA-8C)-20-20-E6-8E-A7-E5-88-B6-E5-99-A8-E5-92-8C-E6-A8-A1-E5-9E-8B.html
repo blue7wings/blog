@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>中型Laravel项目架构(二) - 控制器和模型</title>
+  <meta name="description" content="在上篇文章中，我介绍了路由层和中间件层可以优化的地方，此篇便开始介绍中型Laravel架构中普遍存在的问题：控制器和模型">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">中型Laravel项目架构(二) - 控制器和模型</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="18 Jul 2018" itemprop="datePublished">Jul 18 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">开发环境</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<p>在上篇文章中，我介绍了路由层和中间件层可以优化的地方，此篇便开始介绍中型Laravel架构中普遍存在的问题：控制器和模型</p>
+
+<p>很多人在初次接触到Laravel此类MVC框架的时候，开发没有任何规范，完全靠着Laravel项目路径在走，控制器写逻辑代码，模型写数据层代码，刚开始的逻辑代码可能全部都堆积在控制器，后来日益增加的复用压力，让很多人把代码写到了模型层，导致无论是控制器还是模型里，都堆积着大量冗余的代码，给复用，重构，都带来不小的压力和不便。</p>
+
+<p>User的Model里面包含着非常多的逻辑代码：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-Jietu20180813-235521.png" alt="" /></p>
+
+<h2 id="service-和-repository">Service 和 Repository</h2>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-service-repository-pattern.png" alt="" /></p>
+
+<p>为了解决代码过于冗余的问题，最简单的方法就是将代码逻辑分更多的层，只有更细的粒度，才能更好的复用，所以，引入了 <code class="highlighter-rouge">Service</code> 和 <code class="highlighter-rouge">Repository</code>，那么既然都是 <code class="highlighter-rouge">Controller</code> 和 <code class="highlighter-rouge">Model</code> 之间一层，那么这两层有什么区别呢？正如上图所表示的：</p>
+
+<ul>
+  <li>Service 层更加贴近业务逻辑，复杂的逻辑在这里开始分解，组合。</li>
+  <li>Repository 层更加贴近数据逻辑，对数据库的读写操作。</li>
+</ul>
+
+<p>有了<code class="highlighter-rouge">Service</code>和<code class="highlighter-rouge">Repository</code>，那么<code class="highlighter-rouge">Controller</code>，<code class="highlighter-rouge">Model</code>功能就大大弱化了，但还是有非常重要的作用。</p>
+
+<ul>
+  <li>Controller 用来接收通过路由传递过来的数据，并对数据进行清洗和整理，递交给 Service</li>
+  <li>Model 仅仅当做Eloquent的类，无其他实质作用。</li>
+</ul>
+
+<p>整个结构划分的过程中，我们要谨记<a href="https://www.wikiwand.com/en/SOLID">SOLID原则</a>中的两个原则：<code class="highlighter-rouge">单一职责</code>和<code class="highlighter-rouge">依赖注入</code>。<code class="highlighter-rouge">单一职责</code>前面已经说过，<code class="highlighter-rouge">依赖注入</code>是通过Laravel特性完成。</p>
+
+<h2 id="代码示例">代码示例</h2>
+<p>通过一个简单的用户创建的例子，来说明<code class="highlighter-rouge">Controller</code> <code class="highlighter-rouge">Repository</code> <code class="highlighter-rouge">Service</code> 和 <code class="highlighter-rouge">Model</code>如何配合起来的。</p>
+
+<p>在接受到从路由传递过来的参数，<code class="highlighter-rouge">Controller</code>对参数进行接受和处理，并调用<code class="highlighter-rouge">Service</code>实现逻辑：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-105903.png" alt="" /></p>
+
+<p>我们可以看到，<code class="highlighter-rouge">Service</code> 的调用，并不是通过实例化来实现的，而是通过<a href="https://laravel.com/docs/5.3/container">依赖注入</a>的方式，后面 <code class="highlighter-rouge">Service</code> 调用 <code class="highlighter-rouge">Repository</code>也是同样的方式。</p>
+
+<p>可以看到，<code class="highlighter-rouge">Controller</code> 里面基本是没什么逻辑代码的，仅仅只作接受和响应的处理。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-110854.png" alt="" /></p>
+
+<p>在 <code class="highlighter-rouge">Service</code> 中，所有的逻辑代码都是在这里，首先检查一下手机已经注册，如果没注册就进行创建操作，这里只是实现逻辑，而具体数据层的实现，则放在 <code class="highlighter-rouge">Repository</code>中。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-140926.png" alt="" /></p>
+
+<h2 id="小结">小结</h2>
+<p>知道如此对代码分层，这就需要我们写代码的时候，要有一定的构思，更低粒度的数据层操作放在 <code class="highlighter-rouge">Repostory</code>，代码逻辑放在<code class="highlighter-rouge">Service</code>，围绕这两点，代码则会越来越精简，复用性更加地好。</p>
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=中型Laravel项目架构(二) - 控制器和模型@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial%20laravel/%E4%B8%AD%E5%9E%8BLaravel%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84(%E4%BA%8C)%20-%20%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8C%E6%A8%A1%E5%9E%8B"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

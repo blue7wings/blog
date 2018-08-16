@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>更好的PHP开发环境-Valet篇</title>
+  <meta name="description" content="前言">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">更好的PHP开发环境-Valet篇</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="11 May 2018" itemprop="datePublished">May 11 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">开发环境</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>Mac用户最为方便的开发环境</p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<h2 id="前言">前言</h2>
+
+<p>在前面的文章里，我介绍了<a href="http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html">Vagrant</a>和<a href="http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Docker.html">Docker</a>这两种开发环境的搭建，归根到底这两种开发环境都是基于虚拟环境的技术来实现的，对于一个Mac用户来说，本身系统就是类Linux的Unix操作系统，差异不大，完全没必要去安装一个虚拟机，在Mac上使用Linux操作系统。而大多数人的痛点就是，我不关心究竟用的是什么技术，只想把项目运行起来，而整个开发环境配置过于麻烦，<code class="highlighter-rouge">Nginx</code> + <code class="highlighter-rouge">PHP</code> 这一套从安装到配置就得不少时间。</p>
+
+<p><code class="highlighter-rouge">Valet</code>的出现就解决了这一痛点。<code class="highlighter-rouge">Valet</code>是一套PHP开发套件，基于本地的PHP，<code class="highlighter-rouge">Valet</code>解决了配置难的问题，一条指令就能完成所有的配置，非常之方便。</p>
+
+<h2 id="安装">安装</h2>
+
+<p>默认你的Mac电脑上已经安装完<code class="highlighter-rouge">PHP</code>和<code class="highlighter-rouge">Composer</code>，使用<code class="highlighter-rouge">Composer</code>来安装<code class="highlighter-rouge">Valet</code>：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>composer global require laravel/valet
+</code></pre>
+</div>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-171418%402x.jpg" alt="" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>valet install 
+</code></pre>
+</div>
+
+<p>安装和配置所需要的组件，并且注册开机启动。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-172924%402x.jpg" alt="" /></p>
+
+<p>如果安装成功，可以发现，<code class="highlighter-rouge">.test</code>后缀的域名可以Ping通。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-173152%402x.jpg" alt="" /></p>
+
+<h2 id="使用">使用</h2>
+<p>使用简单是<code class="highlighter-rouge">Valet</code>的最大的特色，进入我们Laravel项目所在的项目，使用<code class="highlighter-rouge">valet link app-name</code>来启动这个项目，然后用<code class="highlighter-rouge">valet links</code>可以查看所有已经启动的项目，和关联的文件目录。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-174549%402x.jpg" alt="" /></p>
+
+<p>访问<code class="highlighter-rouge">la.test</code>，可以发现这个项目已经成功部署了。如果想要取消关联此项目，使用<code class="highlighter-rouge">valet unlink app-name</code>即可。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-174832%402x.jpg" alt="" /></p>
+
+<p>可以看到，<code class="highlighter-rouge">valet</code>大大简化了我们配置一个项目的过程，尤其是<code class="highlighter-rouge">Nginx</code>和<code class="highlighter-rouge">PHP</code>的配置，只需要使用<code class="highlighter-rouge">valet link</code>即可完成替我们完成所有的配置项。但需要注意的是，<code class="highlighter-rouge">Valet</code>现在只支持特定的PHP框架，如果，你使用的框架不再下面的列表中，可以参见<a href="https://laravel.com/docs/5.6/valet#custom-valet-drivers">https://laravel.com/docs/5.6/valet#custom-valet-drivers</a> 来进行自定义配置。</p>
+
+<ul>
+  <li>Laravel</li>
+  <li>Lumen</li>
+  <li>Bedrock</li>
+  <li>CakePHP 3</li>
+  <li>Concrete5</li>
+  <li>Contao</li>
+  <li>Craft</li>
+  <li>Drupal</li>
+  <li>Jigsaw</li>
+  <li>Joomla</li>
+  <li>Katana</li>
+  <li>Kirby</li>
+  <li>Magento</li>
+  <li>OctoberCMS</li>
+  <li>Sculpin</li>
+  <li>Slim</li>
+  <li>Statamic</li>
+  <li>Static HTML</li>
+  <li>Symfony</li>
+  <li>WordPress</li>
+  <li>Zend</li>
+</ul>
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=更好的PHP开发环境-Valet篇@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial/Better-Dev-Envirentment-Valet"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

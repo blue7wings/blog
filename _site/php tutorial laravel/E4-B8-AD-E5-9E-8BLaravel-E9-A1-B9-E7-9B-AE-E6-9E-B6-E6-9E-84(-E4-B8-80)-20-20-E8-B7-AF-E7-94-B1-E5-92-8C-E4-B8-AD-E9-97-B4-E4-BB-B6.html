@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>中型Laravel项目架构(一) - 路由和中间件</title>
+  <meta name="description" content="对于像Laravel此类的MVC框架来说，初学者或者没有架构概念的使用者，一般会有几个问题：">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">中型Laravel项目架构(一) - 路由和中间件</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="18 Jul 2018" itemprop="datePublished">Jul 18 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">开发环境</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<p>对于像Laravel此类的MVC框架来说，初学者或者没有架构概念的使用者，一般会有几个问题：</p>
+
+<ul>
+  <li>所以逻辑都写在Controller，导致Controller臃肿</li>
+  <li>所有逻辑都写在Model，导致Model臃肿</li>
+  <li>代码过于分散，不能很好的复用</li>
+</ul>
+
+<p>这其实都不能算得上是错误，对于一个小微型的应用来说，如此实现很快很好用，并且维护简单，但是如果代码量到了一定程度，就非常痛苦，Controller或者Model总是一坨一坨的代码，写到Model里倒也还行，如果总是在Controller中，还没办法复用，下次遇到相似逻辑就直接复制过来，然后修修改改，这一坨代码变成那一坨。</p>
+
+<blockquote>
+  <p>作为一个Coder，我的要求是: 「代码要有洁癖」</p>
+</blockquote>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-12-Jietu20180812-125217.png" alt="" /></p>
+
+<p>知道问题出在哪里，我们开始重构我的代码。</p>
+
+<h2 id="路由-中间件">路由-中间件</h2>
+<p>虽然路由这方面的优化不大，但我还是想从这个项目的开始来谈起，路由的命名，以及中间件的使用，值得我去稍作注意。</p>
+
+<h3 id="路由命名">路由命名</h3>
+<p>路由的命名，很多人都用<a href="https://www.wikiwand.com/en/Representational_state_transfer">RESTful</a>的方式来做为标准，在开发过程和前端同事协作的过程中，前端的工程师并不喜欢使用此类标准。</p>
+
+<blockquote>
+  <p>既然都是HTTP请求，区分POST和GET请求本身就十分麻烦，更别提GET请求参数放在URL上了。- 前端工程师</p>
+</blockquote>
+
+<p>如果按照标准的<code class="highlighter-rouge">RESTful</code>的开发标准，对于用户的某个接口，可能是如下：</p>
+
+<blockquote>
+  <p>GET: /User 列出所有用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>POST: /User 新建一个用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>PATCH: /User/ID 更新一个用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>Delete: /User/ID 删除一个用户</p>
+</blockquote>
+
+<p>同样的URI定义，不同的是协议(动作)的不同，如果沟通不善，或者开发不注意很可能就导致接口的错误调用，<strong>更新操作变删除，列表操作变新建</strong>，给开发造成非常大的困扰。</p>
+
+<p>我们采用RESTful的<a href="https://www.infoq.com/articles/rest-anti-patterns">反模式</a>来重新设计整个API，全部采用POST请求，URI中包含动作，所以上面的接口地址就改写为：</p>
+
+<blockquote>
+  <p>GET: /Users 列出所有用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>GET: /User/Create 新建一个用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>GET: /User/Update 更新一个用户信息</p>
+</blockquote>
+
+<blockquote>
+  <p>GET: /User/Delete 删除一个用户</p>
+</blockquote>
+
+<p>上面的改写可以说是，完全不符合RESTful标准的，但是也不必拘泥于此标准，适合整个团队的方案就是最好的方案。</p>
+
+<h3 id="中间件的使用">中间件的使用</h3>
+<p>路由的下一层就到达了中间件，很多初级的开发者都会忽略掉这一层，认为逻辑控制应该放在控制器，对于一些对于请求和相应需要处理的统一操作，都可以放在中间件里来实现，比如：用户权限的验证，Log服务等等。</p>
+
+<p>具体中间件的使用不做介绍，举一个小例子，每次API接口请求都包含着Token，我们是同过Token来获取某个用户的信息，验证用户的合法性，那么这个操作就可以放到中间件。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-Jietu20180813-232148.png" alt="" /></p>
+
+<p>而且还可以使用Laravel中的容器注入，将验证后的用户信息放入，以便在控制器中使用，非常之方便。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-Jietu20180813-232430.png" alt="" /></p>
+
+<p>所以说，中间件是介于请求和响应之间的一层，非常适合做统一的请求，响应处理，这些统一的逻辑切记不要放在控制器中。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-middleware.png" alt="" /></p>
+
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=中型Laravel项目架构(一) - 路由和中间件@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial%20laravel/%E4%B8%AD%E5%9E%8BLaravel%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84(%E4%B8%80)%20-%20%E8%B7%AF%E7%94%B1%E5%92%8C%E4%B8%AD%E9%97%B4%E4%BB%B6"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
