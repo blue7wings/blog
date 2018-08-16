@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>从头开始搭建Web框架（二）- 控制器</title>
+  <meta name="description" content="在上一篇，介绍了路由的实现，有了路由做请求流量的分发，现在需要在控制器取得请求数据，并进一步实现我们的业务逻辑。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">从头开始搭建Web框架（二）- 控制器</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="15 Aug 2018" itemprop="datePublished">Aug 15 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<p>在上一篇，介绍了路由的实现，有了路由做请求流量的分发，现在需要在控制器取得请求数据，并进一步实现我们的业务逻辑。</p>
+
+<p>这时候需要我们使用到另一个模块：<code class="highlighter-rouge">http-kernel</code>。</p>
+
+<h2 id="http-kernel">http-kernel</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/http-kernel
+</code></pre>
+</div>
+
+<p>安装完此模块之后，我们先不着急使用，先新建出我们控制器所在的目录，并在<code class="highlighter-rouge">composer.json</code>中将此目录添加到<code class="highlighter-rouge">autoload</code>。</p>
+
+<p>我在<code class="highlighter-rouge">index.php</code>的同级新建一个<code class="highlighter-rouge">Controller</code>目录，用来存放控制器文件，并在<code class="highlighter-rouge">composer.json</code>中添加如下内容：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="s2">"autoload"</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Controller\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"controller/"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>然后运行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer dump-autoload
+</code></pre>
+</div>
+
+<p>修改<code class="highlighter-rouge">index.php</code>文件，修改原来的路由添加的代码如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-150749.png" alt="" /></p>
+
+<p>只是增加控制器所在路径，和对应的函数，这里需要注意，控制器的路径一定是要包含命名空间的全路径，并且每层命名空间是以<code class="highlighter-rouge">\</code>分隔，而不是<code class="highlighter-rouge">/</code>，在后面调用的时候，我会稍作解释实现原理。</p>
+
+<p>最后修改后面的部分代码如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-151833.png" alt="" /></p>
+
+<p>在初始化<code class="highlighter-rouge">ControllerResolver</code>和<code class="highlighter-rouge">ArgumentResolver</code>之后，将路由匹配的参数添加到<code class="highlighter-rouge">Request</code>对象中，也就是：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$request-&gt;attributes-&gt;add($attributes);
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">controller</code>和<code class="highlighter-rouge">arguments</code>便是由此解析而来。如果你点到<code class="highlighter-rouge">getController()</code>里面看一看，就可以发现，源码也是如此的简单。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-153025.png" alt="" /></p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-152819.png" alt="" /></p>
+
+<p>在创建控制器的时候，会将<code class="highlighter-rouge">Controller\IndexController::index</code>用<code class="highlighter-rouge">::</code>分隔为两个部分，第一分部为类路径，另一个部分为函数名，在调用初始化控制器的时候，将第一部分的类路径<code class="highlighter-rouge">Controller\IndexController</code>直接作为参数传递给<code class="highlighter-rouge">instantiateController()</code>，而直接<code class="highlighter-rouge">new</code>就完成了实例化过程。</p>
+
+<h2 id="控制器">控制器</h2>
+<p>完成所有路由部分的代码，在我们新建<code class="highlighter-rouge">Controller</code>目录下，新建<code class="highlighter-rouge">IndexController</code>:</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-154659.png" alt="" /></p>
+
+<p>我们可以发现，不仅可以将<code class="highlighter-rouge">$name</code>做为<code class="highlighter-rouge">index()</code>方法的参数传递过来，而且甚至可以将<code class="highlighter-rouge">Request</code>对象注入其中，甚至两个变量的位置都可以颠倒，但必须要注意的是必须要加上类型约束，这种方式的实现得益于PHP原生的<a href="http://php.net/manual/zh/class.reflection.php">Reflection类</a>，具体实现可以查阅部分源码，这里不赘述。</p>
+
+<p>重新刷新页面，我们可以看到如下的结果：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://127.0.0.1:7777/hello =&gt; Hello World and your Languages is zh_CN
+</code></pre>
+</div>
+
+<p>至此，就完成路由到控制器的流程，整个过程是非常简单的，但是如果你想深入，也是可以通过阅读里面的部分源码来深入了解整个解析器模块，如何解析出控制器实力，如何解析出参数等等。</p>
+
+<p>在下面的一章，我不会接着MVC的逻辑去实现Model层。Model层和整个框架没什么<strong>强关联</strong>，仅仅是安装指定的包罢了，你可能喜欢Laravel的<code class="highlighter-rouge">Eloquent</code>，或者其他的第三方的包，比如：<code class="highlighter-rouge">Doctrine ORM</code>，即装即用。</p>
+
+<p>我会讨论更加有意思的事件分发模块<code class="highlighter-rouge">symfony/event-dispatcher</code>，让我们的框架更容易扩展，更加灵活。</p>
+
+<h2 id="代码片段">代码片段</h2>
+<div class="language-php highlighter-rouge"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+    <span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/vendor/autoload.php'</span><span class="p">;</span>
+
+    <span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\RouteCollection</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Route</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\RequestContext</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Matcher\UrlMatcher</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\Routing\Exception\ResourceNotFoundException</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Symfony\Component\HttpKernel</span><span class="p">;</span>
+
+    <span class="c1">// 增加路由
+</span>    <span class="nv">$routes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+    <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">'/hello/{name}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'World'</span><span class="p">,</span>
+        <span class="s1">'_controller'</span> <span class="o">=&gt;</span> <span class="s1">'Controller\IndexController::index'</span>
+    <span class="p">)));</span>
+
+    <span class="nv">$request</span> <span class="o">=</span> <span class="nx">Request</span><span class="o">::</span><span class="na">createFromGlobals</span><span class="p">();</span>
+
+    <span class="c1">// 初始化路由上下文
+</span>    <span class="nv">$context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RequestContext</span><span class="p">();</span>
+    <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">fromRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+
+    <span class="c1">// URL匹配器
+</span>    <span class="nv">$matcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UrlMatcher</span><span class="p">(</span><span class="nv">$routes</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+
+    <span class="c1">// 控制器解释器和参数解释器
+</span>    <span class="nv">$controllerResolver</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpKernel\Controller\ControllerResolver</span><span class="p">();</span>
+    <span class="nv">$argumentResolver</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpKernel\Controller\ArgumentResolver</span><span class="p">();</span>
+
+
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nv">$attributes</span> <span class="o">=</span> <span class="nv">$matcher</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPathInfo</span><span class="p">());</span>
+
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">);</span>
+
+        <span class="nv">$controller</span> <span class="o">=</span> <span class="nv">$controllerResolver</span><span class="o">-&gt;</span><span class="na">getController</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+        <span class="nv">$arguments</span> <span class="o">=</span> <span class="nv">$argumentResolver</span><span class="o">-&gt;</span><span class="na">getArguments</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$controller</span><span class="p">);</span>
+
+        <span class="nv">$content</span> <span class="o">=</span> <span class="nb">call_user_func_array</span><span class="p">(</span><span class="nv">$controller</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">);</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">ResourceNotFoundException</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">'Not Found'</span><span class="p">,</span> <span class="mi">404</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">'An error occurred'</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+
+</code></pre>
+</div>
+
+<h2 id="参考">参考</h2>
+<p><a href="https://symfony.com/doc/current/create_framework/http_kernel_controller_resolver.html">https://symfony.com/doc/current/create_framework/http_kernel_controller_resolver.html</a></p>
+
+<p><a href="http://php.net/manual/zh/class.reflection.php">http://php.net/manual/zh/class.reflection.php</a></p>
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（二）- 控制器@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial%20laravel/从头开始搭建Web框架（二）- 控制器"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
