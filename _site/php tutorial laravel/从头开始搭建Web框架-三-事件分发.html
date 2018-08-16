@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>从头开始搭建Web框架（三）- 事件分发</title>
+  <meta name="description" content="在上一篇文章中，介绍了MVC框架部分的最后一个部分：控制器，在这篇文章中，因为不讨论Model层的实现，所以介绍一下事件分发。">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">从头开始搭建Web框架（三）- 事件分发</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="11 Aug 2018" itemprop="datePublished">Aug 11 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<p>在上一篇文章中，介绍了MVC框架部分的最后一个部分：控制器，在这篇文章中，因为不讨论Model层的实现，所以介绍一下事件分发。</p>
+
+<p>事件的分发，好比给软件系统预留的插孔，当我们需要增加部分逻辑时，则不需要修改整个整体部分，而是通过这个预留的插孔，插入对应的逻辑来实现，可以大大降低了代码的耦合性。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Screen-Shot-2013-10-11-at-11.50.55-AM.png" alt="" /></p>
+
+<h2 id="event-dispatcher">event-dispatcher</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/event-dispatcher
+</code></pre>
+</div>
+
+<p>事件分发器，相当于整个流程中的一个调度员，通过监听注册的事件，然后触发对应的逻辑，中间件是一个比较好的例子，监听HTTP的请求，以处理对应的逻辑，比如：用户的验证，Log服务，响应数据的同一格式化处理等等。</p>
+
+<p>下面的简易的例子，是判断用户IP，如果是<code class="highlighter-rouge">127.0.0.1</code>就显示被屏蔽的提示信息，这个逻辑放在控制器也是非常容易实现的，考虑到以后的扩展性，我们就正好使用事件分发的相关知识来实现这个功能。</p>
+
+<p>在使用之前，新建两个目录<code class="highlighter-rouge">Events</code>和<code class="highlighter-rouge">Listeners</code>，分别对应触发事件和监听器，不要忘了在<code class="highlighter-rouge">composer.json</code>中添加对应的<code class="highlighter-rouge">autoload</code>配置项。</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="s2">"autoload"</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Controller\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Controller/"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Listeners\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Listeners/"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Events\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Events/"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>现在开始新建我们的第一个事件，请求事件，在<code class="highlighter-rouge">Events</code>中新建<code class="highlighter-rouge">RequestEvent.php</code>内容如下：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-214336.png" alt="" /></p>
+
+<p>代码内容很简单，构造函数包含两个参数<code class="highlighter-rouge">Request</code>和<code class="highlighter-rouge">Response</code>，然后包含两个<code class="highlighter-rouge">get</code>方法。</p>
+
+<p>接着创建监听器，在<code class="highlighter-rouge">Listeners</code>中新建<code class="highlighter-rouge">AuthListener.php</code>文件：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-214758.png" alt="" /></p>
+
+<p>这里就是包含着我们的业务逻辑代码，写在<code class="highlighter-rouge">handle()</code>函数之中。</p>
+
+<p>有了触发事件和监听器，接下来我们便可以在<code class="highlighter-rouge">index.php</code>的入口文件中，进行事件的分发。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-215313.png" alt="" /></p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+ <span class="nv">$dispatcher</span><span class="o">-&gt;</span><span class="na">addListener</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">\Events\RequestEvent</span> <span class="nv">$requestEvent</span><span class="p">){</span>
+        <span class="nv">$listeners</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nx">\Listeners\AuthListener</span><span class="o">::</span><span class="na">class</span>
+        <span class="p">];</span>
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$requestEvent</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$requestEvent</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
+
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$listeners</span> <span class="k">as</span> <span class="nv">$listener</span><span class="p">){</span>
+            <span class="nb">call_user_func_array</span><span class="p">([</span><span class="k">new</span> <span class="nv">$listener</span><span class="p">,</span> <span class="s1">'handle'</span><span class="p">],</span> <span class="p">[</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$response</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+</code></pre>
+</div>
+
+<p>此段代码很容易理解，表示增加一个监听<code class="highlighter-rouge">request</code>事件的监听器，如果接收到，则通过回调函数将<code class="highlighter-rouge">RequestEvent</code>递交过来处理，为了保持可扩展性，并没有直接实例化<code class="highlighter-rouge">AuthListener</code>，而是将其放在数组中，遍历调用，当然你可以将其放在某个配置文件中读取过来，则是更加灵活的方式。</p>
+
+<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$dispatcher</span><span class="o">-&gt;</span><span class="na">dispatch</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">\Events\RequestEvent</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="nv">$request</span><span class="p">));</span>
+
+</code></pre>
+</div>
+
+<p>这里是显而易见的分发<code class="highlighter-rouge">request</code>事件，第一个参数是事件名，第二参数则是分发内容。需要注意的是，分发的操作一定要放在<code class="highlighter-rouge">$response-&gt;send()</code>之前，不在此之前整个生命周期就已经结束，再也无法触发了。</p>
+
+<p>不出意外，重新刷新浏览器，会出现如下结果：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>You have been banned
+</code></pre>
+</div>
+
+<p>整个事件分发的开发就已经结束了，也非常之简单吧。</p>
+
+<h2 id="小结">小结</h2>
+<p>至此，整个「从头开始搭建Web框架」的教程就已经结束，本教程不是对源代码的解析，只是粗略的从自己构建一个Web框架开始，让大家能够稍微理解一个框架的架构，所以代码难免会粗糙，剩下来的内容全凭读者自己去完成，这一方面节省了笔者大量的时间，另一方面能够留给大家足够动手的乐趣。</p>
+
+<p>如果阅读完整个教程，你还有什么意见或者建议，都可以通过文章下面的联系方式，联系到我，最后，希望大家读完能够有所收获，(:</p>
+
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（三）- 事件分发@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial%20laravel/从头开始搭建Web框架（三）- 事件分发"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
