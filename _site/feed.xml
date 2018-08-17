@@ -5,9 +5,107 @@
     <description>A Simple Jekyll Blog Theme.</description>
     <link>http://www.blue7wings.com/</link>
     <atom:link href="http://www.blue7wings.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 16 Aug 2018 22:50:56 +0800</pubDate>
-    <lastBuildDate>Thu, 16 Aug 2018 22:50:56 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Aug 2018 11:06:56 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Aug 2018 11:06:56 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>PHP代码规范</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;代码要有洁癖。—— LiamHsia&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;上面这段话是我对自己的写代码的要求，好的代码习惯的作用无疑是巨大的，甚至超过代码本身，优美的代码可以带来更好的可阅读性，更少的BUG，以及更加灵活的复用。但是，鉴于PHP是一门弱类型语言，想要写好优美的代码，并不是那么容易的一件事情，这就需要一些规范来进行约束。&lt;/p&gt;
+
+&lt;p&gt;下面是一些我个人的代码规范，希望读者能够有所借鉴，当然，个人规范并不是适用每个人，适合自己，适合团队才是最好的。&lt;/p&gt;
+
+&lt;h2 id=&quot;强制性规范&quot;&gt;强制性规范&lt;/h2&gt;
+&lt;p&gt;每一个PHP程序员都应该阅读PHP-FIG制定的&lt;a href=&quot;https://www.php-fig.org/psr/&quot;&gt;PSR规范&lt;/a&gt;，这里是我对自己强制性要求，包括：&lt;a href=&quot;https://www.php-fig.org/psr/psr-1/&quot;&gt;基础编码规范&lt;/a&gt;，&lt;a href=&quot;https://www.php-fig.org/psr/psr-2/&quot;&gt;编码风格规范&lt;/a&gt;，&lt;a href=&quot;https://www.php-fig.org/psr/psr-4/&quot;&gt;自动加载规范&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180817-010946.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;solid原则&quot;&gt;SOLID原则&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;在 程序设计领域， SOLID（单一功能、开闭原则、里氏替换、接口隔离以及依赖反转）是由罗伯特·C·马丁在21世纪早期引入的记忆术首字母缩略字。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在前面的文章，已经介绍过SOLID原则，其中值得我们着重注意的是&lt;code class=&quot;highlighter-rouge&quot;&gt;单一功能原则&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;开放封闭原则&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;依赖翻转原则&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;单一功能原则&quot;&gt;单一功能原则&lt;/h3&gt;
+&lt;p&gt;一个类只应承担一种责任。换句话说，让一个类只做一件事。如果需要承担更多的工作，那么分解这个类。&lt;/p&gt;
+
+&lt;p&gt;这个原则保证了代码的低耦合性，从横向的业务逻辑来说，不同职责的类应该拆分开来，比如说：登录和注册两个功能就应该要分开，不能掺杂在一起。并且，从纵向项目架构来说，&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Model&lt;/code&gt;等分层逻辑也应该明确各自的职责。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Controller 用来接收通过路由传递过来的数据，并对数据进行清洗和整理，递交给 Service&lt;/li&gt;
+  &lt;li&gt;Service 层更加贴近业务逻辑，复杂的逻辑在这里开始分解，组合。&lt;/li&gt;
+  &lt;li&gt;Repository 层更加贴近数据逻辑，对数据库的读写操作。&lt;/li&gt;
+  &lt;li&gt;Model 仅仅当做Eloquent的类，无其他实质作用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;开放封闭原则&quot;&gt;开放封闭原则&lt;/h3&gt;
+&lt;p&gt;实体应该对扩展是开放的，对修改是封闭的。即，可扩展(extension)，不可修改(modification)。这也是为什么我们在框架中使用事件分发，而不是直接在控制器中编写逻辑代码的原因。&lt;/p&gt;
+
+&lt;h3 id=&quot;依赖反转原则&quot;&gt;依赖反转原则&lt;/h3&gt;
+&lt;p&gt;依赖反转原则的目的是把高层次组件从对低层次组件的依赖中解耦出来，这样使得重用不同层级的组件实现变得可能。在Laravel框架中，主要体现在&lt;a href=&quot;https://laravel.com/docs/5.6/container&quot;&gt;依赖注入&lt;/a&gt;上，灵活地使用依赖注入可以大大简化代码的耦合性。&lt;/p&gt;
+
+&lt;h2 id=&quot;代码的自解释性&quot;&gt;代码的自解释性&lt;/h2&gt;
+&lt;p&gt;当一段代码没有注释的时候，这段代码也能被人读懂，这被称之为自解释性，这就要求我们尽量去写简洁易懂的代码，以下几点需要注意：&lt;/p&gt;
+
+&lt;h3 id=&quot;代码分块&quot;&gt;代码分块&lt;/h3&gt;
+&lt;p&gt;相同功能的代码尽量放在一块，然后用回车做分隔，比如，若干个变量赋值。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-100813.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;表达式提取为变量&quot;&gt;表达式提取为变量&lt;/h3&gt;
+&lt;p&gt;一个表达式如果包含两个以上的逻辑，就可以提取为变量，而不是直接使用，比如，判断报名人数是否超过最大人数，最大人数为-1表示不限制。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-102701.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以改写为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-102900.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里只是举个例子，具体的应用场景需要大家自己判断。&lt;/p&gt;
+
+&lt;h2 id=&quot;变量和函数命名&quot;&gt;变量和函数命名&lt;/h2&gt;
+
+&lt;p&gt;最重要的一点是，要和团队保持一致，和整体保持一致，不能驼峰法和下划线混用。&lt;/p&gt;
+
+&lt;p&gt;由于每个人的英语水平参差不齐，但还是要保证变量命名的准确性，千万不能用&lt;code class=&quot;highlighter-rouge&quot;&gt;$a&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;$b&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;$temp&lt;/code&gt;这类初级者使用的变量名。&lt;/p&gt;
+
+&lt;p&gt;函数命名可以遵循下面几点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;避免使用语义模糊的动词，比如“handle”或“manage”：handleLinks(), manageObjects() 我们很难理解这些方法到底是用来干什么的？&lt;/li&gt;
+  &lt;li&gt;使用主动动词：cutGrass(), sendFile()；&lt;/li&gt;
+  &lt;li&gt;暗示返回值：getMagicBullet(), readFile()；&lt;/li&gt;
+  &lt;li&gt;使用类型约束，如果是PHP7以后的版本使用返回值类型申明。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-104234.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;更多代码自解释性内容，可以参见下面的地址：&lt;a href=&quot;http://bubkoo.com/2016/09/08/15-ways-to-write-self-documenting-javascript&quot;&gt;http://bubkoo.com/2016/09/08/15-ways-to-write-self-documenting-javascript&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;代码注释&quot;&gt;代码注释&lt;/h2&gt;
+&lt;p&gt;每个函数都应该在函数定义前写上注释，其中包括，参数名，参数类型，和参数大意，以及返回值类型，参考可见上图。&lt;/p&gt;
+
+&lt;p&gt;变量的注释并不是必须的，当该变量名无法更好体现本身的意思时需要加上注释。&lt;/p&gt;
+
+&lt;h2 id=&quot;和团队风格保持一致&quot;&gt;和团队风格保持一致&lt;/h2&gt;
+&lt;p&gt;一个人写代码风格可以多变，但在一个团队中，跟其他人合作就需要注意要保持风格的一致了，比如，等号对不对齐，下划线还是驼峰法，等等，这些需要入职的时候，仔细阅读团队代码，然后再动手开始编写。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 17 Aug 2018 00:00:00 +0800</pubDate>
+        <link>http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
+        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
+        
+        <category>PHP</category>
+        
+        
+        <category>PHP Tutorial</category>
+        
+      </item>
     
       <item>
         <title>从头开始搭建Web框架（三）- 事件分发</title>
@@ -928,84 +1026,6 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
         
         
         <category>译文</category>
-        
-      </item>
-    
-      <item>
-        <title>更好的PHP开发环境-Valet篇</title>
-        <description>&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-
-&lt;p&gt;在前面的文章里，我介绍了&lt;a href=&quot;http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html&quot;&gt;Vagrant&lt;/a&gt;和&lt;a href=&quot;http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Docker.html&quot;&gt;Docker&lt;/a&gt;这两种开发环境的搭建，归根到底这两种开发环境都是基于虚拟环境的技术来实现的，对于一个Mac用户来说，本身系统就是类Linux的Unix操作系统，差异不大，完全没必要去安装一个虚拟机，在Mac上使用Linux操作系统。而大多数人的痛点就是，我不关心究竟用的是什么技术，只想把项目运行起来，而整个开发环境配置过于麻烦，&lt;code class=&quot;highlighter-rouge&quot;&gt;Nginx&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP&lt;/code&gt; 这一套从安装到配置就得不少时间。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;的出现就解决了这一痛点。&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;是一套PHP开发套件，基于本地的PHP，&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;解决了配置难的问题，一条指令就能完成所有的配置，非常之方便。&lt;/p&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;p&gt;默认你的Mac电脑上已经安装完&lt;code class=&quot;highlighter-rouge&quot;&gt;PHP&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Composer&lt;/code&gt;，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;Composer&lt;/code&gt;来安装&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;composer global require laravel/valet
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-171418%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;valet install 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;安装和配置所需要的组件，并且注册开机启动。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-172924%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如果安装成功，可以发现，&lt;code class=&quot;highlighter-rouge&quot;&gt;.test&lt;/code&gt;后缀的域名可以Ping通。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-173152%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;使用&quot;&gt;使用&lt;/h2&gt;
-&lt;p&gt;使用简单是&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;的最大的特色，进入我们Laravel项目所在的项目，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;valet link app-name&lt;/code&gt;来启动这个项目，然后用&lt;code class=&quot;highlighter-rouge&quot;&gt;valet links&lt;/code&gt;可以查看所有已经启动的项目，和关联的文件目录。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-174549%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;访问&lt;code class=&quot;highlighter-rouge&quot;&gt;la.test&lt;/code&gt;，可以发现这个项目已经成功部署了。如果想要取消关联此项目，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;valet unlink app-name&lt;/code&gt;即可。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-11-Jietu20180811-174832%402x.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;可以看到，&lt;code class=&quot;highlighter-rouge&quot;&gt;valet&lt;/code&gt;大大简化了我们配置一个项目的过程，尤其是&lt;code class=&quot;highlighter-rouge&quot;&gt;Nginx&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;PHP&lt;/code&gt;的配置，只需要使用&lt;code class=&quot;highlighter-rouge&quot;&gt;valet link&lt;/code&gt;即可完成替我们完成所有的配置项。但需要注意的是，&lt;code class=&quot;highlighter-rouge&quot;&gt;Valet&lt;/code&gt;现在只支持特定的PHP框架，如果，你使用的框架不再下面的列表中，可以参见&lt;a href=&quot;https://laravel.com/docs/5.6/valet#custom-valet-drivers&quot;&gt;https://laravel.com/docs/5.6/valet#custom-valet-drivers&lt;/a&gt; 来进行自定义配置。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Laravel&lt;/li&gt;
-  &lt;li&gt;Lumen&lt;/li&gt;
-  &lt;li&gt;Bedrock&lt;/li&gt;
-  &lt;li&gt;CakePHP 3&lt;/li&gt;
-  &lt;li&gt;Concrete5&lt;/li&gt;
-  &lt;li&gt;Contao&lt;/li&gt;
-  &lt;li&gt;Craft&lt;/li&gt;
-  &lt;li&gt;Drupal&lt;/li&gt;
-  &lt;li&gt;Jigsaw&lt;/li&gt;
-  &lt;li&gt;Joomla&lt;/li&gt;
-  &lt;li&gt;Katana&lt;/li&gt;
-  &lt;li&gt;Kirby&lt;/li&gt;
-  &lt;li&gt;Magento&lt;/li&gt;
-  &lt;li&gt;OctoberCMS&lt;/li&gt;
-  &lt;li&gt;Sculpin&lt;/li&gt;
-  &lt;li&gt;Slim&lt;/li&gt;
-  &lt;li&gt;Statamic&lt;/li&gt;
-  &lt;li&gt;Static HTML&lt;/li&gt;
-  &lt;li&gt;Symfony&lt;/li&gt;
-  &lt;li&gt;WordPress&lt;/li&gt;
-  &lt;li&gt;Zend&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 11 May 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirentment-Valet.html</guid>
-        
-        <category>PHP</category>
-        
-        <category>开发环境</category>
-        
-        
-        <category>PHP Tutorial</category>
         
       </item>
     

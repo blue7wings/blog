@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PHP代码规范</title>
+  <meta name="description" content="  代码要有洁癖。—— LiamHsia">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">PHP代码规范</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="17 Aug 2018" itemprop="datePublished">Aug 17 2018</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p></p>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<blockquote>
+  <p>代码要有洁癖。—— LiamHsia</p>
+</blockquote>
+
+<p>上面这段话是我对自己的写代码的要求，好的代码习惯的作用无疑是巨大的，甚至超过代码本身，优美的代码可以带来更好的可阅读性，更少的BUG，以及更加灵活的复用。但是，鉴于PHP是一门弱类型语言，想要写好优美的代码，并不是那么容易的一件事情，这就需要一些规范来进行约束。</p>
+
+<p>下面是一些我个人的代码规范，希望读者能够有所借鉴，当然，个人规范并不是适用每个人，适合自己，适合团队才是最好的。</p>
+
+<h2 id="强制性规范">强制性规范</h2>
+<p>每一个PHP程序员都应该阅读PHP-FIG制定的<a href="https://www.php-fig.org/psr/">PSR规范</a>，这里是我对自己强制性要求，包括：<a href="https://www.php-fig.org/psr/psr-1/">基础编码规范</a>，<a href="https://www.php-fig.org/psr/psr-2/">编码风格规范</a>，<a href="https://www.php-fig.org/psr/psr-4/">自动加载规范</a></p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180817-010946.png" alt="" /></p>
+
+<h2 id="solid原则">SOLID原则</h2>
+<blockquote>
+  <p>在 程序设计领域， SOLID（单一功能、开闭原则、里氏替换、接口隔离以及依赖反转）是由罗伯特·C·马丁在21世纪早期引入的记忆术首字母缩略字。</p>
+</blockquote>
+
+<p>在前面的文章，已经介绍过SOLID原则，其中值得我们着重注意的是<code class="highlighter-rouge">单一功能原则</code>，<code class="highlighter-rouge">开放封闭原则</code>和<code class="highlighter-rouge">依赖翻转原则</code>。</p>
+
+<h3 id="单一功能原则">单一功能原则</h3>
+<p>一个类只应承担一种责任。换句话说，让一个类只做一件事。如果需要承担更多的工作，那么分解这个类。</p>
+
+<p>这个原则保证了代码的低耦合性，从横向的业务逻辑来说，不同职责的类应该拆分开来，比如说：登录和注册两个功能就应该要分开，不能掺杂在一起。并且，从纵向项目架构来说，<code class="highlighter-rouge">Controller</code>，<code class="highlighter-rouge">Service</code>，<code class="highlighter-rouge">Repository</code>，<code class="highlighter-rouge">Model</code>等分层逻辑也应该明确各自的职责。</p>
+
+<ul>
+  <li>Controller 用来接收通过路由传递过来的数据，并对数据进行清洗和整理，递交给 Service</li>
+  <li>Service 层更加贴近业务逻辑，复杂的逻辑在这里开始分解，组合。</li>
+  <li>Repository 层更加贴近数据逻辑，对数据库的读写操作。</li>
+  <li>Model 仅仅当做Eloquent的类，无其他实质作用。</li>
+</ul>
+
+<h3 id="开放封闭原则">开放封闭原则</h3>
+<p>实体应该对扩展是开放的，对修改是封闭的。即，可扩展(extension)，不可修改(modification)。这也是为什么我们在框架中使用事件分发，而不是直接在控制器中编写逻辑代码的原因。</p>
+
+<h3 id="依赖反转原则">依赖反转原则</h3>
+<p>依赖反转原则的目的是把高层次组件从对低层次组件的依赖中解耦出来，这样使得重用不同层级的组件实现变得可能。在Laravel框架中，主要体现在<a href="https://laravel.com/docs/5.6/container">依赖注入</a>上，灵活地使用依赖注入可以大大简化代码的耦合性。</p>
+
+<h2 id="代码的自解释性">代码的自解释性</h2>
+<p>当一段代码没有注释的时候，这段代码也能被人读懂，这被称之为自解释性，这就要求我们尽量去写简洁易懂的代码，以下几点需要注意：</p>
+
+<h3 id="代码分块">代码分块</h3>
+<p>相同功能的代码尽量放在一块，然后用回车做分隔，比如，若干个变量赋值。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-100813.png" alt="" /></p>
+
+<h3 id="表达式提取为变量">表达式提取为变量</h3>
+<p>一个表达式如果包含两个以上的逻辑，就可以提取为变量，而不是直接使用，比如，判断报名人数是否超过最大人数，最大人数为-1表示不限制。</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-102701.png" alt="" /></p>
+
+<p>可以改写为：</p>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-102900.png" alt="" /></p>
+
+<p>这里只是举个例子，具体的应用场景需要大家自己判断。</p>
+
+<h2 id="变量和函数命名">变量和函数命名</h2>
+
+<p>最重要的一点是，要和团队保持一致，和整体保持一致，不能驼峰法和下划线混用。</p>
+
+<p>由于每个人的英语水平参差不齐，但还是要保证变量命名的准确性，千万不能用<code class="highlighter-rouge">$a</code>，<code class="highlighter-rouge">$b</code>，<code class="highlighter-rouge">$temp</code>这类初级者使用的变量名。</p>
+
+<p>函数命名可以遵循下面几点：</p>
+
+<ul>
+  <li>避免使用语义模糊的动词，比如“handle”或“manage”：handleLinks(), manageObjects() 我们很难理解这些方法到底是用来干什么的？</li>
+  <li>使用主动动词：cutGrass(), sendFile()；</li>
+  <li>暗示返回值：getMagicBullet(), readFile()；</li>
+  <li>使用类型约束，如果是PHP7以后的版本使用返回值类型申明。</li>
+</ul>
+
+<p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-17-Jietu20180817-104234.png" alt="" /></p>
+
+<p>更多代码自解释性内容，可以参见下面的地址：<a href="http://bubkoo.com/2016/09/08/15-ways-to-write-self-documenting-javascript">http://bubkoo.com/2016/09/08/15-ways-to-write-self-documenting-javascript</a></p>
+
+<h2 id="代码注释">代码注释</h2>
+<p>每个函数都应该在函数定义前写上注释，其中包括，参数名，参数类型，和参数大意，以及返回值类型，参考可见上图。</p>
+
+<p>变量的注释并不是必须的，当该变量名无法更好体现本身的意思时需要加上注释。</p>
+
+<h2 id="和团队风格保持一致">和团队风格保持一致</h2>
+<p>一个人写代码风格可以多变，但在一个团队中，跟其他人合作就需要注意要保持风格的一致了，比如，等号对不对齐，下划线还是驼峰法，等等，这些需要入职的时候，仔细阅读团队代码，然后再动手开始编写。</p>
+
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=PHP代码规范@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/php%20tutorial/PHP代码规范"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
