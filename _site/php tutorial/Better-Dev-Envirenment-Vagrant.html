@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -63,9 +63,9 @@
         
         <div class="post-tags">
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">PHP</a>
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">开发环境</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">开发环境</a>
         
 	</div>
     </center>
@@ -110,23 +110,20 @@
 <p>在<a href="https://www.vagrantup.com/downloads.html">下载页面</a>，选择你的操作系统对应的版本，然后安装。</p>
 
 <p>安装完毕，尝试在终端中输入：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant --version
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant --version
+</code></pre></div></div>
 <p>此外还需要安装Virtualbox或者VMWare，Virtualbox开源且免费，默认我选择此虚拟机，可以在 <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a> 选择合适的版本。</p>
 <h2 id="选择合适的镜像">选择合适的镜像</h2>
 <p>我们把镜像称之为box，添加一个镜像也很简单。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant box add centos/7
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant box add centos/7
+</code></pre></div></div>
 <p>很简单就添加了centos7的开发镜像，当然你还可以选择其他的镜像，在 <a href="https://atlas.hashicorp.com/boxes/search">https://atlas.hashicorp.com/boxes/search</a> 选择适合你的。</p>
 
 <p>由于国内网络的原因，直接使用<code class="highlighter-rouge">add</code>命名，下载镜像的速度实在太慢(Fuck GFW)，我们不妨事先下载好镜像，然后再<code class="highlighter-rouge">add</code>进去，我们在 <a href="http://www.vagrantbox.es/">http://www.vagrantbox.es/</a>选择和下载镜像。</p>
 
 <p>我们下载好镜像，放在目录下，执行：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant box add [名称] [镜像地址]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant box add [名称] [镜像地址]
+</code></pre></div></div>
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/udvKh" alt="Untitled Image" /></p>
 
 <p>我们再运行<code class="highlighter-rouge">vagrant box list</code>命令，便能看到一个名为server的镜像。</p>
@@ -135,15 +132,13 @@
 
 <h2 id="启动开发环境">启动开发环境</h2>
 <p>首先要初始化此开发环境，在任意文件夹下执行：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant init [镜像名称]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant init [镜像名称]
+</code></pre></div></div>
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/llgLq" alt="Untitled Image" /></p>
 
 <p>初始化完成之后，会在当前文件夹下创建一个<code class="highlighter-rouge">Vagrantfile</code>的配置文件，至于有哪些配置项，先放在一边，先启动我们的开发镜像，在<strong>此文件夹</strong>下执行：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant up
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant up
+</code></pre></div></div>
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/6BHhy" alt="Untitled Image" /></p>
 
 <p>成功启动，如果你打开Virtualbox，还可以发现vagrant镜像正在运行。
@@ -156,9 +151,8 @@
 <p>由于Windows原生不支持SSH，使用<code class="highlighter-rouge">vagrant ssh-config</code>来取得SSH配置，用第三方的SSH软件来连接。</p>
 
 <p>连接上我们的开发环境，执行命令：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; uname -a 
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; uname -a 
+</code></pre></div></div>
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/ApRkM" alt="Untitled Image" /></p>
 
 <p>wow，熟悉的Linux系统又回来了，我啰啰嗦嗦写了这么多，其实简单几步就创建好了一个开发环境，你现在便可以在本地用着QQ，而在开发环境装LNMP，进行开发工作了。</p>
@@ -168,9 +162,8 @@
 
 <h3 id="共享文件夹配置">共享文件夹配置</h3>
 <p>打开<code class="highlighter-rouge">Vagrantfile</code>，在42至46行告诉我们，共享文件夹是在这里配置，第一个配置参数是本地目录，第二个参数是开发环境要同步的目录。在本地新建<code class="highlighter-rouge">code/</code>文件夹，并且在开发环境新建文件夹<code class="highlighter-rouge">/home/code</code>，想要本地和开发环境共享文件，便可以这么写：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>config.vm.synced_folder "./code", "/home/code"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config.vm.synced_folder "./code", "/home/code"
+</code></pre></div></div>
 <p>取消该行代码的注释，保存，<code class="highlighter-rouge">vagrant reload</code> 命令重新启动虚拟机。</p>
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/BC4Dn" alt="文件挂载成功" /></p>
@@ -186,13 +179,11 @@
 </ol>
 
 <p>我比较偏向于第三种私有网络的方式，修改配置文件：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>config.vm.network "private_network", ip: "192.168.33.10"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config.vm.network "private_network", ip: "192.168.33.10"
+</code></pre></div></div>
 <p>保存，<code class="highlighter-rouge">vagrant reload</code>命令重启虚拟机。如果你已经装完Nginx，直接访问<code class="highlighter-rouge">192.168.33.10</code>即可看到成功页面了。出现拒绝访问的话，关闭开发环境的防火墙即可。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>systemctl disable firewalld
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl disable firewalld
+</code></pre></div></div>
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/TRWMT" alt="Nginx成功页面" /></p>
 
@@ -200,14 +191,12 @@
 <p>你安装完LNMP环境，甚至还装了Redis和Python，作为开发环境用得很是顺畅，旁边的小张也受够了WampServer这种不专业的东西，但他懒到都不愿意花半个小时读一下这篇文章，仅仅想要你的开发环境。</p>
 
 <p>大可不用去拷贝虚拟机文件，Vagrant为我们准备好了备份的工具。</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant package
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant package
+</code></pre></div></div>
 <p>vagrant会将我们现在运行的开发环境打包成一个新的box，此镜像包含我们已经安装的所有的东西，再把Vagrantfile拷贝过去，两条命令就可以重现当前的开发环境，</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; vagrant box add server package.box
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vagrant box add server package.box
 &gt; vagrant up
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>BOOM！你的开发环境完整的就移植过去了。此方法也可以用作你开发系统的备份，想要一份祖传的开发环境？打包一份传到网盘，随时随地任何机器都可以使用。</p>
 
 	<hr>
@@ -222,21 +211,21 @@
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=更好的PHP开发环境-Vagrant篇@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=更好的PHP开发环境-Vagrant篇@Liam_Hsia&amp;url=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -255,7 +244,7 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/php%20tutorial/Better-Dev-Envirenment-Vagrant.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/php%20tutorial/Better-Dev-Envirenment-Vagrant.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/php%20tutorial/Better-Dev-Envirenment-Vagrant"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 

@@ -3,11 +3,69 @@
   <channel>
     <title>LiamHsia's Blog</title>
     <description>A Simple Jekyll Blog Theme.</description>
-    <link>http://www.blue7wings.com/</link>
-    <atom:link href="http://www.blue7wings.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 17 Aug 2018 11:06:56 +0800</pubDate>
-    <lastBuildDate>Fri, 17 Aug 2018 11:06:56 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Jan 2019 14:16:00 +0800</pubDate>
+    <lastBuildDate>Sun, 06 Jan 2019 14:16:00 +0800</lastBuildDate>
+    <generator>Jekyll v3.7.4</generator>
+    
+      <item>
+        <title>2018年总结</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;2018年过去了，我很怀念它&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这本是电影「甲方乙方」的一句台词，我觉得很好，套用一下，一年又一年，过去了便有点怀念。&lt;/p&gt;
+
+&lt;p&gt;今年去了新的公司，比以前的小作坊稍大了一些，大大小小的总结写个没完，自然也是少不了最后的年终总结和展望，这让我写得恶心和难受，一向不喜欢这种有点体制内表忠心的东西的，草草写了几笔交上去应付，但随之带来的，今年自己对一年的思考也不想动笔了，拖了将近一周的时间，开了一个脑洞，如果我能够跟去年的自己对话应该挺有意思，「我」跟「他」想聊一聊这一年。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;我：2019年年初的我&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;他：2018年年初的我&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;他：好久不见呐！恍恍惚一年时光，你好像颓废了点，胖了点。&lt;/p&gt;
+
+&lt;p&gt;我：哈哈，胖是胖了点，颓废也倒是实话，毕竟没你现在这么轻松啦，无根之水是最为轻盈嘛。&lt;/p&gt;
+
+&lt;p&gt;他：那些文绉绉的话还是少说地好，太酸，恶心，这次给你个机会，用一个词总结下你今年吧？&lt;/p&gt;
+
+&lt;p&gt;我：「幸」吧，「幸福」和「幸运」的「幸」&lt;/p&gt;
+
+&lt;p&gt;他：为什么是这个词呢？&lt;/p&gt;
+
+&lt;p&gt;我：你看，我已经给你解释了，今年无论是工作也好，生活也好，苦闷和无助也是常事，但能够遇到我现在的女朋友，真的还是一件幸福和幸运的事。&lt;/p&gt;
+
+&lt;p&gt;他：哟，可真酸，我还想你这辈子可能就是屌丝一个，孤独终老呢，没想到呐，哈哈哈，这是生活上的，那工作方面有没有什么总结呢？&lt;/p&gt;
+
+&lt;p&gt;我：7月份的时候换了工作，从一个小作坊式的公司，到了一个稍微大一点的企业，一开始我并不想去这类公司的，和很多程序员一样，我们总是排斥着我们不想接触的事物，把喜欢的编程语言奉为圭臬，对看不惯的语言嗤之以鼻，我们在温室里待太久就习惯了，后来我女朋友鼓励我，去尝试一下不同的公司氛围吧，不要老是在创业园拖鞋大裤衩了，去CBD西装皮鞋也是锻炼，虽然我们不会这么穿。刚到公司肯定是不适应的，感觉到非常的机械和枯燥，其实现在也是这样，只不过现在能够平衡「需要做的事」和「想要做的事」罢了，拿钱办事，在哪里都是不变的真理，事情做好，再去考虑如何利用这个平台提升自己，总之，能够突破自己舒适区不是一件坏事。&lt;/p&gt;
+
+&lt;p&gt;他：看样子这份工作真的让你有收获嘛，不然就跟我一样，只会觉得，还挺好，开开心心就过去了。&lt;/p&gt;
+
+&lt;p&gt;我：其实也不能这么说吧，每个人在每个阶段都有不一样的想法，活得真实就好。&lt;/p&gt;
+
+&lt;p&gt;他：「痛苦和幸福本来就分不清楚，我只求过得真实」还是蛮有道理的。来年在工作上还有没有什么打算呢？&lt;/p&gt;
+
+&lt;p&gt;我：「计算机网络」「操作系统」「数据结构和算法」和「GO语言」应该是我明年的主要学习方向了，如果有机会的话，想换GO写一写。&lt;/p&gt;
+
+&lt;p&gt;他：其实我一直打算学这些内容，买了书还没来得及看，希望你明年能够完成这些目标吧。生活方面，有没有什么计划呢？&lt;/p&gt;
+
+&lt;p&gt;我：其实今年我是没有什么计划的，有些事情做与不做都是内心的想法，想做的事是憋不住的，计划只是丈量自己完成的程度罢了，所以，今年没什么具体的计划，做自己想做的，并且做好就是计划吧。&lt;/p&gt;
+
+&lt;p&gt;他：倒也是，懂得那么多大道理不也过不好这一生么？最后，总结一下吧？&lt;/p&gt;
+
+&lt;p&gt;我：2018年过去了，我很怀念它，我也很怀念你，但时光是容不下这些情感的，我们都将成为更好的人，再见。&lt;/p&gt;
+
+&lt;p&gt;他：再见。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 01 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</guid>
+        
+        
+        <category>随笔</category>
+        
+      </item>
     
       <item>
         <title>PHP代码规范</title>
@@ -97,8 +155,8 @@
 
 </description>
         <pubDate>Fri, 17 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
+        <link>http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
         
         <category>PHP</category>
         
@@ -117,9 +175,8 @@
 
 &lt;h2 id=&quot;event-dispatcher&quot;&gt;event-dispatcher&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/event-dispatcher
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/event-dispatcher
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;事件分发器，相当于整个流程中的一个调度员，通过监听注册的事件，然后触发对应的逻辑，中间件是一个比较好的例子，监听HTTP的请求，以处理对应的逻辑，比如：用户的验证，Log服务，响应数据的同一格式化处理等等。&lt;/p&gt;
 
@@ -127,15 +184,14 @@
 
 &lt;p&gt;在使用之前，新建两个目录&lt;code class=&quot;highlighter-rouge&quot;&gt;Events&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Listeners&lt;/code&gt;，分别对应触发事件和监听器，不要忘了在&lt;code class=&quot;highlighter-rouge&quot;&gt;composer.json&lt;/code&gt;中添加对应的&lt;code class=&quot;highlighter-rouge&quot;&gt;autoload&lt;/code&gt;配置项。&lt;/p&gt;
 
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;autoload&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;psr-4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;Controller\\&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Controller/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;Listeners\\&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Listeners/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;Events\\&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Events/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;autoload&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;psr-4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Controller&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Controller/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Listeners&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Listeners/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Events&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Events/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;现在开始新建我们的第一个事件，请求事件，在&lt;code class=&quot;highlighter-rouge&quot;&gt;Events&lt;/code&gt;中新建&lt;code class=&quot;highlighter-rouge&quot;&gt;RequestEvent.php&lt;/code&gt;内容如下：&lt;/p&gt;
 
@@ -153,7 +209,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-215313.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 
  &lt;span class=&quot;nv&quot;&gt;$dispatcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'request'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;\Events\RequestEvent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$requestEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
         &lt;span class=&quot;nv&quot;&gt;$listeners&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
@@ -167,25 +223,22 @@
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
     
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;此段代码很容易理解，表示增加一个监听&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;事件的监听器，如果接收到，则通过回调函数将&lt;code class=&quot;highlighter-rouge&quot;&gt;RequestEvent&lt;/code&gt;递交过来处理，为了保持可扩展性，并没有直接实例化&lt;code class=&quot;highlighter-rouge&quot;&gt;AuthListener&lt;/code&gt;，而是将其放在数组中，遍历调用，当然你可以将其放在某个配置文件中读取过来，则是更加灵活的方式。&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 
 &lt;span class=&quot;nv&quot;&gt;$dispatcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'request'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;\Events\RequestEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这里是显而易见的分发&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;事件，第一个参数是事件名，第二参数则是分发内容。需要注意的是，分发的操作一定要放在&lt;code class=&quot;highlighter-rouge&quot;&gt;$response-&amp;gt;send()&lt;/code&gt;之前，不在此之前整个生命周期就已经结束，再也无法触发了。&lt;/p&gt;
 
 &lt;p&gt;不出意外，重新刷新浏览器，会出现如下结果：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You have been banned
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You have been banned
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;整个事件分发的开发就已经结束了，也非常之简单吧。&lt;/p&gt;
 
@@ -202,8 +255,8 @@
 
 </description>
         <pubDate>Sat, 11 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
         
         <category>PHP</category>
         
@@ -222,27 +275,24 @@
 
 &lt;h2 id=&quot;http-kernel&quot;&gt;http-kernel&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/http-kernel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/http-kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;安装完此模块之后，我们先不着急使用，先新建出我们控制器所在的目录，并在&lt;code class=&quot;highlighter-rouge&quot;&gt;composer.json&lt;/code&gt;中将此目录添加到&lt;code class=&quot;highlighter-rouge&quot;&gt;autoload&lt;/code&gt;。&lt;/p&gt;
 
 &lt;p&gt;我在&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;的同级新建一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt;目录，用来存放控制器文件，并在&lt;code class=&quot;highlighter-rouge&quot;&gt;composer.json&lt;/code&gt;中添加如下内容：&lt;/p&gt;
 
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;autoload&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;psr-4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;Controller\\&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;controller/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;autoload&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;psr-4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Controller&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;controller/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;然后运行：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer dump-autoload
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer dump-autoload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;文件，修改原来的路由添加的代码如下：&lt;/p&gt;
 
@@ -255,9 +305,8 @@
 &lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-151833.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在初始化&lt;code class=&quot;highlighter-rouge&quot;&gt;ControllerResolver&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;ArgumentResolver&lt;/code&gt;之后，将路由匹配的参数添加到&lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;对象中，也就是：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$request-&amp;gt;attributes-&amp;gt;add($attributes);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$request-&amp;gt;attributes-&amp;gt;add($attributes);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;arguments&lt;/code&gt;便是由此解析而来。如果你点到&lt;code class=&quot;highlighter-rouge&quot;&gt;getController()&lt;/code&gt;里面看一看，就可以发现，源码也是如此的简单。&lt;/p&gt;
 
@@ -276,9 +325,8 @@
 
 &lt;p&gt;重新刷新页面，我们可以看到如下的结果：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:7777/hello =&amp;gt; Hello World and your Languages is zh_CN
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:7777/hello =&amp;gt; Hello World and your Languages is zh_CN
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;至此，就完成路由到控制器的流程，整个过程是非常简单的，但是如果你想深入，也是可以通过阅读里面的部分源码来深入了解整个解析器模块，如何解析出控制器实力，如何解析出参数等等。&lt;/p&gt;
 
@@ -287,7 +335,7 @@
 &lt;p&gt;我会讨论更加有意思的事件分发模块&lt;code class=&quot;highlighter-rouge&quot;&gt;symfony/event-dispatcher&lt;/code&gt;，让我们的框架更容易扩展，更加灵活。&lt;/p&gt;
 
 &lt;h2 id=&quot;代码片段&quot;&gt;代码片段&lt;/h2&gt;
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;require_once&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;__DIR__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/vendor/autoload.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -340,8 +388,7 @@
 
     &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://symfony.com/doc/current/create_framework/http_kernel_controller_resolver.html&quot;&gt;https://symfony.com/doc/current/create_framework/http_kernel_controller_resolver.html&lt;/a&gt;&lt;/p&gt;
@@ -350,8 +397,8 @@
 
 </description>
         <pubDate>Thu, 09 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
         
         <category>PHP</category>
         
@@ -396,9 +443,8 @@
 
 &lt;p&gt;我们使用&lt;code class=&quot;highlighter-rouge&quot;&gt;http-foundation&lt;/code&gt;这个组件对这个最基本的功能进行扩展。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/http-foundation
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/http-foundation
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;代码就可以修改为如下内容：&lt;/p&gt;
 
@@ -406,90 +452,83 @@
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$request = Request::createFromGlobals();&lt;/code&gt;表示创建的&lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;对象是基于PHP全局变量(&lt;code class=&quot;highlighter-rouge&quot;&gt;$_GET&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_POST&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_FILE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_COOKIE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$_SESSION&lt;/code&gt;等等)的，&lt;code class=&quot;highlighter-rouge&quot;&gt;send()&lt;/code&gt;方法则将&lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;对象返回给客户端，这种面向对象类型的编程方式，大大改善了代码可用性和稳健性。&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-// 获取URL中路径
-$request-&amp;gt;getPathInfo();
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// 获取URL中路径
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPathInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
-// 获取GET或POST请求中的参数对应的值
-$request-&amp;gt;query-&amp;gt;get('foo');
-$request-&amp;gt;request-&amp;gt;get('bar', 'default value if bar does not exist');
+&lt;span class=&quot;c1&quot;&gt;// 获取GET或POST请求中的参数对应的值
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'default value if bar does not exist'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-// 获取 SERVER 的变量信息
-$request-&amp;gt;server-&amp;gt;get('HTTP_HOST');
+&lt;span class=&quot;c1&quot;&gt;// 获取 SERVER 的变量信息
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'HTTP_HOST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-// 获取上传的文件
-$request-&amp;gt;files-&amp;gt;get('foo');
+&lt;span class=&quot;c1&quot;&gt;// 获取上传的文件
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'foo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-// 获取Cookie的值
-$request-&amp;gt;cookies-&amp;gt;get('PHPSESSID');
+&lt;span class=&quot;c1&quot;&gt;// 获取Cookie的值
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'PHPSESSID'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-// 获取header头相关的信息
-$request-&amp;gt;headers-&amp;gt;get('host');
-$request-&amp;gt;headers-&amp;gt;get('content_type');
+&lt;span class=&quot;c1&quot;&gt;// 获取header头相关的信息
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'host'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'content_type'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-$request-&amp;gt;getMethod();    // 获取请求方式：GET, POST, PUT, DELETE, HEAD
-$request-&amp;gt;getLanguages(); // 获取接受的语言
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// 获取请求方式：GET, POST, PUT, DELETE, HEAD
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLanguages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 获取接受的语言
+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;routing&quot;&gt;Routing&lt;/h2&gt;
 
 &lt;p&gt;要知道，我们不可能用一个PHP文件只处理来自一个URL的请求，这时候还需要用路由做分发，这时候，我们需要第二个模块&lt;code class=&quot;highlighter-rouge&quot;&gt;http-kernel&lt;/code&gt;。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/routing
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; composer require symfony/routing
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;则将我们的代码修改成如下：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-111657.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$routes-&amp;gt;add('hello', new Route('/hello/{name}', array('name' =&amp;gt; 'World')));
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/hello/{name}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这是我们添加的第一个路由规则，&lt;code class=&quot;highlighter-rouge&quot;&gt;hello&lt;/code&gt;为路由名，而&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;则为匹配到的变量名，默认值为&lt;code class=&quot;highlighter-rouge&quot;&gt;World&lt;/code&gt;。&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$attributes = $matcher-&amp;gt;match($request-&amp;gt;getPathInfo());
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$attributes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$matcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPathInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;经过路由匹配器的匹配之后，会分解出包含&lt;code class=&quot;highlighter-rouge&quot;&gt;_route&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;的数组。&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; [
-        '_route' =&amp;gt; 'hello',
-        'name'   =&amp;gt; 'World'
- ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'_route'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'World'&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;知道路由名和取得的参数，我们便可以实现业务逻辑：&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        extract($attributes);
-        if($_route == 'hello') {
-            $content = 'Hello ' . $name;
-        }
-        $response = new Response($content, 200);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;nb&quot;&gt;extract&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_route&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;在终端中运行&lt;code class=&quot;highlighter-rouge&quot;&gt;php -S 127.0.0.1:7777&lt;/code&gt;,  在浏览器中访问对应的路由可得到如下的结果：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:7777/hello =&amp;gt; Hello World
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:7777/hello =&amp;gt; Hello World
 
 http://127.0.0.1:7777/hello/Liam =&amp;gt; Hello Liam
 
 http://127.0.0.1:7777/foo =&amp;gt; Not Found
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;至此，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;http-foundation&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;http-routing&lt;/code&gt;这两个组件就基本上实现了我们的路由功能，在下个部分，会带大家使用控制器去实现逻辑代码。&lt;/p&gt;
 
 &lt;h2 id=&quot;代码片段&quot;&gt;代码片段&lt;/h2&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;require_once&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;__DIR__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/vendor/autoload.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
     &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\HttpFoundation\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -530,8 +569,7 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
     &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component&quot;&gt;https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component&lt;/a&gt;&lt;/p&gt;
@@ -541,8 +579,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;&lt;a href=&quot;http://php.net/manual/zh/function.extract.php&quot;&gt;http://php.net/manual/zh/function.extract.php&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
         
         <category>PHP</category>
         
@@ -604,8 +642,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;知道如此对代码分层，这就需要我们写代码的时候，要有一定的构思，更低粒度的数据层操作放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repostory&lt;/code&gt;，代码逻辑放在&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;，围绕这两点，代码则会越来越精简，复用性更加地好。&lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</guid>
         
         <category>PHP</category>
         
@@ -705,8 +743,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 
 </description>
         <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</guid>
         
         <category>PHP</category>
         
@@ -762,8 +800,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;: 好的，谢谢你邀请我来，跟你讨论这些非常的有趣。&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</guid>
+        <link>http://localhost:4000/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</guid>
         
         
         <category>译文</category>
@@ -838,8 +876,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 
 </description>
         <pubDate>Tue, 26 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</guid>
+        <link>http://localhost:4000/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</guid>
         
         
         <category>译文</category>
@@ -859,7 +897,7 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;h2 id=&quot;热加载实现&quot;&gt;热加载实现&lt;/h2&gt;
 &lt;p&gt;在实现热加载之前我们先看一看代码，主文件&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;，加载的文件&lt;code class=&quot;highlighter-rouge&quot;&gt;greet.php&lt;/code&gt;。&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -873,15 +911,13 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 
 &lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;请注意&lt;code class=&quot;highlighter-rouge&quot;&gt; include_once 'greet.php';&lt;/code&gt;这句并没有像我们以前写PHP代码放在文件的第一句，而是放在&lt;code class=&quot;highlighter-rouge&quot;&gt;$http-&amp;gt;on()&lt;/code&gt;的回调函数中，这是因为Worker进程因为致命错误而重启，但是Manager进程可不会，如果放在代码第一行，就表示只有Manager进程重启才会生效，这显然不是我们需要的。&lt;/p&gt;
 
@@ -890,9 +926,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;h3 id=&quot;方法一&quot;&gt;方法一&lt;/h3&gt;
 &lt;p&gt;向Master进程发送&lt;code class=&quot;highlighter-rouge&quot;&gt;USR1信号&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;USR1信号&lt;/code&gt;通过Manager进程转发给Worker进程，Worker进程便会重启，我们如下实现：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -USR1 master_pid 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -USR1 master_pid 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;查看Swoole的进程信息：
 &lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2017%E6%97%B607%E5%88%8629%E7%A7%92.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
@@ -913,7 +948,7 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 
 &lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;如下：&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -931,8 +966,7 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 
 &lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;greet.php&lt;/code&gt;的内容，重新刷新页面，内容已经改变，我们的热加载功能也实现了。&lt;/p&gt;
 
@@ -941,91 +975,11 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;a href=&quot;https://wiki.swoole.com/wiki/page/300.html&quot;&gt;max_request&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 13 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/swoole/Swoole-Autoload.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/swoole/Swoole-Autoload.html</guid>
+        <link>http://localhost:4000/swoole/Swoole-Autoload.html</link>
+        <guid isPermaLink="true">http://localhost:4000/swoole/Swoole-Autoload.html</guid>
         
         
         <category>Swoole</category>
-        
-      </item>
-    
-      <item>
-        <title>一种极简的的生活方式</title>
-        <description>&lt;p&gt;原文：&lt;a href=&quot;https://medium.com/s/story/a-minimalist-lifestyle-6c2872c28473&quot;&gt;https://medium.com/s/story/a-minimalist-lifestyle-6c2872c28473&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;极简的生活方式对每个人来说可能都是不同的，对于我而言，这种生活方式帮我在两年付清了42000美元的学生贷款，让我的重心回归我喜欢的事物，并且使我的生活重回正轨，在过去的六个月中，我感到非常的幸福，身心健康，还有内心的平静。&lt;/p&gt;
-
-&lt;p&gt;但是，我无法保证在我生活中使用的具体的方式同样对你有效，但愿这些方法能够给你的生活带来一点指导。&lt;/p&gt;
-
-&lt;h2 id=&quot;缩减你身边的东西&quot;&gt;缩减你身边的东西&lt;/h2&gt;
-
-&lt;p&gt;就我而言，我通过各种非盈利机构捐掉了身边几乎70%的衣服，我逐渐意识到那些衣服一个月也穿不了几次，如果不喜欢，便不再保留它们，为了减少这些无用的东西，每过一个月我就会重新检查一遍衣橱。&lt;/p&gt;
-
-&lt;p&gt;我同样也会渐渐的捐掉鞋子，包，书，马克杯，电子产品，甚至是一些工艺品。我想我可能会后悔，事实上，当捐掉这些东西之后的一段时间里，我甚至都忘了有这回事。我们生活中所需要的东西，其实并没有想象中的那么多。当然了，我仍然会保留着一些特殊意义的东西（比如，女朋友送给我的每张卡片，积少成多，现在也很可观了），这些东西，我也不在意它们多占用一点空间:)&lt;/p&gt;
-
-&lt;p&gt;如果你和我一样生活在一个逼仄的房间里（合租的房子里有狗，兔子，但自己只有一间卧室），学会丢掉房间里从来没有用过和完全没有价值的东西来争取一点空间。&lt;/p&gt;
-
-&lt;h2 id=&quot;关掉手机的所有通知&quot;&gt;关掉手机的所有通知&lt;/h2&gt;
-
-&lt;p&gt;我手机上唯一的通知就是接收短信，通常还是女朋友给我发的，我相当确定我对她而言还是非常重要人，至于，邮件，新闻，社交网络，或者其他辅助性质的软件，统统关掉，并且不允许后台刷新。&lt;/p&gt;
-
-&lt;p&gt;事实上，删掉手机上的社交软件对你并没有什么影响，几周前，我从手机上删掉了Twitter，Medium，Quora，Twitch，终于意识到我被这些操控着，很多人无论在哪都抱着手机，地铁上，电梯上，甚至是在走路，就是为了逃避短暂的无聊，我想更加无拘无束一点，最终，我也做到了。&lt;/p&gt;
-
-&lt;p&gt;我还是保留着Instagram，不是不想删掉，而是没办法再网页上长传图片，除此之外，手机上基本上没什么软件了，只剩下，短信，播客，和笔记，仅此而已。没了手机的束缚，我更加积极，把注意力更多的放在这个多彩的世界上。最棒的是，当我用电脑浏览社交网络的时候，其实也完全没有落下什么内容嘛。&lt;/p&gt;
-
-&lt;h2 id=&quot;选择简单健康的食物&quot;&gt;选择简单健康的食物&lt;/h2&gt;
-
-&lt;p&gt;在每周我都会选择作一些简单健康的食物，煎三个鸡蛋，应付早饭，中午就是素食炒菜，晚饭一些沙拉就好，可能这些食物略显乏味，对我而言，每餐只要简单，有营养，够饱就好。想要健康的饮食的起点也不是那么高，在此之前，我的哲学都是，吃得相对健康一点，偶尔放纵一下自己，来点没那么多营养的小点心其实也挺好。保持食物的简单，去超市的次数也多了，不用一次买那么多一次吃不完的失误，准备食物的时间也越来越少，在饮食方面的生活开支也大大减少。&lt;/p&gt;
-
-&lt;h2 id=&quot;除非特别喜欢纸质书在kindle上买电子书&quot;&gt;除非特别喜欢纸质书，在Kindle上买电子书&lt;/h2&gt;
-
-&lt;p&gt;立志成为一个作家的我，把阅读看做一种使命。我每个月能看完四本书，为了保证自己卧室的整洁有序，减少杂乱，我只从图书馆借书，或者在Kindle上买书，把iPad丢进工作包，在通勤的时候便可以阅读。&lt;/p&gt;
-
-&lt;h2 id=&quot;简化你的消费&quot;&gt;简化你的消费&lt;/h2&gt;
-
-&lt;p&gt;极简的生活对我最大的影响便是改变了我高消费的习惯，曾经和大多数人一样，买东西都是用信用卡，现在我会估算每个月最低的消费，把这些钱放进借记卡里，从那里面进行消费。&lt;/p&gt;
-
-&lt;p&gt;现在我制作&lt;a href=&quot;https://jennifertchan.net/blog/a-step-by-step-guide-on-how-to-make-the-perfect-budget&quot;&gt;一个简单的消费管理系统&lt;/a&gt; ，这使我在两年多的时间里减少了80%的消费，这个系统包括制定预算，建立紧急储备金，投资低息基金，我也会用现金和信用卡支付一些日常花销。&lt;/p&gt;
-
-&lt;p&gt;我不仅会刻意的控制消费，还会预估一些生活中可能的麻烦而带来的经济焦虑，培养少买东西和自我投资（比如，书本）的意识，这会让你深深意识到其实自己已经很充实了。&lt;/p&gt;
-
-&lt;h2 id=&quot;极简的生活方式是一场永无止境的人生之旅&quot;&gt;极简的生活方式是一场永无止境的人生之旅。&lt;/h2&gt;
-
-&lt;p&gt;我接触过很多种方式来减少房间的杂乱，极简并不是你拥有什么东西，而是减少生活中无用的东西，以此来给那些对你真正有用的东西腾出空间，这便是少即是多的艺术。&lt;/p&gt;
-
-&lt;p&gt;极简主义被很多精英人士奉为圭臬，对于那些低收入的穷人来说，好像并不能很好的运用到生活中，但在我对极简的定义并非如此，这不是白墙靠着昂贵精致的衣橱，摆放它们以达到极简的美感。&lt;/p&gt;
-
-&lt;p&gt;对我来说，极简主义始终都是内心的改变，愈发聒噪世界里的安定，我猪脑袋里面闪过千万个想法的宁静，允许自己放慢步调的生活方式。&lt;/p&gt;
-
-&lt;p&gt;通过减少作抉择，可以避免精神的消耗，建立简单的生活系统，比如饮食，金钱，我能够更加专注真正在意的东西：健康，工作还有我爱的人，自从这种转变，我变得更加幸福，冷静，还有更加不受束缚。&lt;/p&gt;
-
-&lt;p&gt;正如极简主义者Joshua Fields Millburn和Ryan Nicodemus所指出的：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;每个人都有自己的极简方式，但每个方式都通向了同一个地方：拥有更多时间，金钱，自由，和意义非凡的生活。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;如果极简的生活方式仍然不适合你，我倒也是可以理解，没有一种生活方式，生活哲学是适合所有人的，但这些大量极简生活方式中的理念可以变通为我们所用。&lt;/p&gt;
-
-&lt;p&gt;对于我，简单生活的确是非常有效的，它让我在混乱生活环境保持冷静，高压的工作环境中保持理智，最重要的是，它让我能够以正确的角度看待日常的问题。&lt;/p&gt;
-
-&lt;p&gt;我仍然不能说采用极简的生活方式能够解决我所有的问题，但可以自信的说，它使我的生活，无论是在私人还是工作层面上，都变得更加从容不迫。&lt;/p&gt;
-
-&lt;p&gt;（完）&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;读完这篇文章之后，对我颇有启发，便把翻译成中文，希望能多的人能够有所感悟，全文有部分删节，总觉得原封不动翻译过来，做为亚洲人，读起来怪怪的，所以在保证不改变原意的情况下，做了部分删减和改动，当然能够阅读原文是最好的，原文链接放在了文章的最开头。&lt;/p&gt;
-
-&lt;p&gt;回头说一说极简的生活方式，诚如作者所说的那样，这不是一种精致主义对美的追求，而是内心的改变，少即是多的生活哲学，这不是说，让我们减少欲望，让我们成为「佛系」青年，而是一种克制，无穷无尽的欲望是痛苦的根源，收拾房间，将那些根本用不到或者对我们没有任何意义的东西清理出去，给最需的东西让出地方，生活也是相同的道理，克己复礼为仁。&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 07 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E8%AF%91%E6%96%87/Translate-A-Minimalist-Lifestyle.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E8%AF%91%E6%96%87/Translate-A-Minimalist-Lifestyle.html</guid>
-        
-        
-        <category>译文</category>
         
       </item>
     

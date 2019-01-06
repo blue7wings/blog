@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/python/Python-objects-mutable-vs-immutable.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/python/Python-objects-mutable-vs-immutable.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -112,15 +112,14 @@
 <h2 id="不可变和可变对象带来的小思考">不可变和可变对象带来的小思考</h2>
 <p>理解不可变对象和可变对象看似是无关痛痒的知识点，如果我们能够灵活运用，能有效提高我们代码运行的效率，我们看下面合并字符串的例子：</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">string_build</span> <span class="o">=</span> <span class="s">""</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">string_build</span> <span class="o">=</span> <span class="s">""</span>
 <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
     <span class="n">string_build</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>实际上，这段代码效率是非常低下的，字符串是不可变对象类型，当合并两个字符串的时候，会创建第三个字符串，迭代次数过多或者数据量很大的字符串合并，就会在创建第三个字符串的时候浪费掉很多的内存空间，不仅如此，在迭代最后一次，为最后的结果还会开辟更大的空间来存储，实在是太浪费。</p>
 
 <p>下面是更加有效和哲学（pythonic）的方式：</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">builder_list</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
     <span class="n">builder_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">builder_list</span><span class="p">)</span>
@@ -130,30 +129,27 @@
  
 <span class="c">### 或者使用map函数</span>
 <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">container</span><span class="p">))</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>上面的代码，就充分利用了可变对象特点，当数据要更新的时候，不开辟新的空间，而是在原先的空间上增加，大大减少了空间的使用，提高了代码执行的效率。</p>
 
 <p>我们再看一个可变类型对象的坑。</p>
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="p">[]):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="p">[]):</span>
     <span class="n">param</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"thing"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">param</span>
  
 <span class="n">my_function</span><span class="p">()</span> <span class="c"># returns ["thing"]</span>
 <span class="n">my_function</span><span class="p">()</span> <span class="c"># returns ["thing", "thing"]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>对于刚接触python的人来说，看到这个结果可能是一脸懵逼，what？为什么两次函数调用使用的是一个默认参数？这是因为，默认参数在函数声明的时候就已经被定义，此时变量<code class="highlighter-rouge">param</code>指向<code class="highlighter-rouge">[]</code>，在以后的调用，这种指向关系都不会改变，直到被重新赋值，python的这种值传递方式，叫对象引用传递，如果听起来有点模糊，可以读一读我上一篇文章，<a href="http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html">Python变量赋值方式</a>。</p>
 
 <p>所以说，我们尽量不要使用可变类型对象作为函数的参数，如果想要使用，应当给予判断：</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function2</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">param</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">param</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"thing"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">param</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="reference">Reference</h2>
 <ul>
@@ -173,21 +169,21 @@
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=Python对象：可变和不可变对象类型@Liam_Hsia&amp;url=http://www.blue7wings.com/python/Python-objects-mutable-vs-immutable.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=Python对象：可变和不可变对象类型@Liam_Hsia&amp;url=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/python/Python-objects-mutable-vs-immutable.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/python/Python-objects-mutable-vs-immutable.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/python/Python-objects-mutable-vs-immutable.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -206,7 +202,7 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/python/Python-objects-mutable-vs-immutable.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/python/Python-objects-mutable-vs-immutable.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/python/Python-objects-mutable-vs-immutable"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 

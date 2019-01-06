@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -63,9 +63,9 @@
         
         <div class="post-tags">
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">PHP</a>
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">Laravel</a>
         
 	</div>
     </center>
@@ -92,9 +92,8 @@
 
 <h2 id="event-dispatcher">event-dispatcher</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/event-dispatcher
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; composer require symfony/event-dispatcher
+</code></pre></div></div>
 
 <p>事件分发器，相当于整个流程中的一个调度员，通过监听注册的事件，然后触发对应的逻辑，中间件是一个比较好的例子，监听HTTP的请求，以处理对应的逻辑，比如：用户的验证，Log服务，响应数据的同一格式化处理等等。</p>
 
@@ -102,15 +101,14 @@
 
 <p>在使用之前，新建两个目录<code class="highlighter-rouge">Events</code>和<code class="highlighter-rouge">Listeners</code>，分别对应触发事件和监听器，不要忘了在<code class="highlighter-rouge">composer.json</code>中添加对应的<code class="highlighter-rouge">autoload</code>配置项。</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="s2">"autoload"</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"Controller\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Controller/"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"Listeners\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Listeners/"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"Events\\"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Events/"</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Controller</span><span class="se">\\</span><span class="s2">"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Controller/"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Listeners</span><span class="se">\\</span><span class="s2">"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Listeners/"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Events</span><span class="se">\\</span><span class="s2">"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Events/"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>现在开始新建我们的第一个事件，请求事件，在<code class="highlighter-rouge">Events</code>中新建<code class="highlighter-rouge">RequestEvent.php</code>内容如下：</p>
 
@@ -128,7 +126,7 @@
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-215313.png" alt="" /></p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
  <span class="nv">$dispatcher</span><span class="o">-&gt;</span><span class="na">addListener</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">\Events\RequestEvent</span> <span class="nv">$requestEvent</span><span class="p">){</span>
         <span class="nv">$listeners</span> <span class="o">=</span> <span class="p">[</span>
@@ -142,25 +140,22 @@
         <span class="p">}</span>
     <span class="p">});</span>
     
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>此段代码很容易理解，表示增加一个监听<code class="highlighter-rouge">request</code>事件的监听器，如果接收到，则通过回调函数将<code class="highlighter-rouge">RequestEvent</code>递交过来处理，为了保持可扩展性，并没有直接实例化<code class="highlighter-rouge">AuthListener</code>，而是将其放在数组中，遍历调用，当然你可以将其放在某个配置文件中读取过来，则是更加灵活的方式。</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$dispatcher</span><span class="o">-&gt;</span><span class="na">dispatch</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">\Events\RequestEvent</span><span class="p">(</span><span class="nv">$response</span><span class="p">,</span> <span class="nv">$request</span><span class="p">));</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>这里是显而易见的分发<code class="highlighter-rouge">request</code>事件，第一个参数是事件名，第二参数则是分发内容。需要注意的是，分发的操作一定要放在<code class="highlighter-rouge">$response-&gt;send()</code>之前，不在此之前整个生命周期就已经结束，再也无法触发了。</p>
 
 <p>不出意外，重新刷新浏览器，会出现如下结果：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>You have been banned
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You have been banned
+</code></pre></div></div>
 
 <p>整个事件分发的开发就已经结束了，也非常之简单吧。</p>
 
@@ -188,21 +183,21 @@
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（三）- 事件分发@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（三）- 事件分发@Liam_Hsia&amp;url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -221,7 +216,7 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/php%20tutorial%20laravel/从头开始搭建Web框架（三）- 事件分发"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 

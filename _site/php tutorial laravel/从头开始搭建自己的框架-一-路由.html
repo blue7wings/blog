@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -63,9 +63,9 @@
         
         <div class="post-tags">
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">PHP</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">PHP</a>
         
-		<a class="post-tags-item" href="http://www.blue7wings.com/tags/">Laravel</a>
+		<a class="post-tags-item" href="http://localhost:4000/tags/">Laravel</a>
         
 	</div>
     </center>
@@ -116,9 +116,8 @@
 
 <p>我们使用<code class="highlighter-rouge">http-foundation</code>这个组件对这个最基本的功能进行扩展。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/http-foundation
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; composer require symfony/http-foundation
+</code></pre></div></div>
 
 <p>代码就可以修改为如下内容：</p>
 
@@ -126,90 +125,83 @@
 
 <p><code class="highlighter-rouge">$request = Request::createFromGlobals();</code>表示创建的<code class="highlighter-rouge">Request</code>对象是基于PHP全局变量(<code class="highlighter-rouge">$_GET</code>, <code class="highlighter-rouge">$_POST</code>, <code class="highlighter-rouge">$_FILE</code>, <code class="highlighter-rouge">$_COOKIE</code>, <code class="highlighter-rouge">$_SESSION</code>等等)的，<code class="highlighter-rouge">send()</code>方法则将<code class="highlighter-rouge">Response</code>对象返回给客户端，这种面向对象类型的编程方式，大大改善了代码可用性和稳健性。</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>
-// 获取URL中路径
-$request-&gt;getPathInfo();
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// 获取URL中路径
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPathInfo</span><span class="p">();</span>
 
-// 获取GET或POST请求中的参数对应的值
-$request-&gt;query-&gt;get('foo');
-$request-&gt;request-&gt;get('bar', 'default value if bar does not exist');
+<span class="c1">// 获取GET或POST请求中的参数对应的值
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'default value if bar does not exist'</span><span class="p">);</span>
 
-// 获取 SERVER 的变量信息
-$request-&gt;server-&gt;get('HTTP_HOST');
+<span class="c1">// 获取 SERVER 的变量信息
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">server</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'HTTP_HOST'</span><span class="p">);</span>
 
-// 获取上传的文件
-$request-&gt;files-&gt;get('foo');
+<span class="c1">// 获取上传的文件
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">files</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
 
-// 获取Cookie的值
-$request-&gt;cookies-&gt;get('PHPSESSID');
+<span class="c1">// 获取Cookie的值
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">cookies</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'PHPSESSID'</span><span class="p">);</span>
 
-// 获取header头相关的信息
-$request-&gt;headers-&gt;get('host');
-$request-&gt;headers-&gt;get('content_type');
+<span class="c1">// 获取header头相关的信息
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'host'</span><span class="p">);</span>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'content_type'</span><span class="p">);</span>
 
-$request-&gt;getMethod();    // 获取请求方式：GET, POST, PUT, DELETE, HEAD
-$request-&gt;getLanguages(); // 获取接受的语言
-
-</code></pre>
-</div>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>    <span class="c1">// 获取请求方式：GET, POST, PUT, DELETE, HEAD
+</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getLanguages</span><span class="p">();</span> <span class="c1">// 获取接受的语言
+</span>
+</code></pre></div></div>
 
 <h2 id="routing">Routing</h2>
 
 <p>要知道，我们不可能用一个PHP文件只处理来自一个URL的请求，这时候还需要用路由做分发，这时候，我们需要第二个模块<code class="highlighter-rouge">http-kernel</code>。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt; composer require symfony/routing
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; composer require symfony/routing
+</code></pre></div></div>
 
 <p>则将我们的代码修改成如下：</p>
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-08-16-Jietu20180816-111657.png" alt="" /></p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$routes-&gt;add('hello', new Route('/hello/{name}', array('name' =&gt; 'World')));
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">'/hello/{name}'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'World'</span><span class="p">)));</span>
+</code></pre></div></div>
 
 <p>这是我们添加的第一个路由规则，<code class="highlighter-rouge">hello</code>为路由名，而<code class="highlighter-rouge">name</code>则为匹配到的变量名，默认值为<code class="highlighter-rouge">World</code>。</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$attributes = $matcher-&gt;match($request-&gt;getPathInfo());
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$attributes</span> <span class="o">=</span> <span class="nv">$matcher</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPathInfo</span><span class="p">());</span>
+</code></pre></div></div>
 
 <p>经过路由匹配器的匹配之后，会分解出包含<code class="highlighter-rouge">_route</code>和<code class="highlighter-rouge">name</code>的数组。</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code> [
-        '_route' =&gt; 'hello',
-        'name'   =&gt; 'World'
- ]
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="p">[</span>
+        <span class="s1">'_route'</span> <span class="o">=&gt;</span> <span class="s1">'hello'</span><span class="p">,</span>
+        <span class="s1">'name'</span>   <span class="o">=&gt;</span> <span class="s1">'World'</span>
+ <span class="p">]</span>
+</code></pre></div></div>
 
 <p>知道路由名和取得的参数，我们便可以实现业务逻辑：</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>        extract($attributes);
-        if($_route == 'hello') {
-            $content = 'Hello ' . $name;
-        }
-        $response = new Response($content, 200);
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="nb">extract</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$_route</span> <span class="o">==</span> <span class="s1">'hello'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$content</span> <span class="o">=</span> <span class="s1">'Hello '</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+</code></pre></div></div>
 
 <p>在终端中运行<code class="highlighter-rouge">php -S 127.0.0.1:7777</code>,  在浏览器中访问对应的路由可得到如下的结果：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>http://127.0.0.1:7777/hello =&gt; Hello World
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:7777/hello =&gt; Hello World
 
 http://127.0.0.1:7777/hello/Liam =&gt; Hello Liam
 
 http://127.0.0.1:7777/foo =&gt; Not Found
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>至此，使用<code class="highlighter-rouge">http-foundation</code>和<code class="highlighter-rouge">http-routing</code>这两个组件就基本上实现了我们的路由功能，在下个部分，会带大家使用控制器去实现逻辑代码。</p>
 
 <h2 id="代码片段">代码片段</h2>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
     <span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/vendor/autoload.php'</span><span class="p">;</span>
 
     <span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
@@ -250,8 +242,7 @@ http://127.0.0.1:7777/foo =&gt; Not Found
     <span class="p">}</span>
 
     <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="参考">参考</h2>
 <p><a href="https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component">https://symfony.com/doc/current/create_framework/http_foundation.html#going-oop-with-the-httpfoundation-component</a></p>
@@ -272,21 +263,21 @@ http://127.0.0.1:7777/foo =&gt; Not Found
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（一）- 路由@Liam_Hsia&amp;url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=从头开始搭建Web框架（一）- 路由@Liam_Hsia&amp;url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -305,7 +296,7 @@ http://127.0.0.1:7777/foo =&gt; Not Found
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/php%20tutorial%20laravel/从头开始搭建自己的框架（一）- 路由"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 

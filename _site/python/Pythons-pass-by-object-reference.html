@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/python/Pythons-pass-by-object-reference.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -81,7 +81,7 @@
 
 <div class="post-content" itemprop="articleBody">
 	<h2 id="奇奇怪怪的python变量">奇奇怪怪的Python变量</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; list_a = [1, 2, 3]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; list_a = [1, 2, 3]
 
 &gt;&gt;&gt; list_b = list_a
 
@@ -100,13 +100,12 @@
 
 &gt;&gt;&gt; print(list_b)
 [1, 2, 3, 4]
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>我们看到这个结果，就感到很奇怪，如果是<strong>值传递</strong>的话，为什么<code class="highlighter-rouge">list_a.append(4)</code>操作之后，<code class="highlighter-rouge">list_b</code>的值也会变呢？那么肯定是<strong>引用传递</strong>，那么<code class="highlighter-rouge">list_a = [5, 6, 7]</code>操作之后，<code class="highlighter-rouge">list_b</code>的值也理所应当会改变，但事实并没有。</p>
 
 <p>再来看一个函数的例子：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; def reassign(list):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; def reassign(list):
       list = [0, 1]
 
 &gt;&gt;&gt; def append(list):
@@ -120,8 +119,7 @@
 &gt;&gt;&gt; append(list)
 &gt;&gt;&gt; print(list)
 [0, 1]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="值传递--引用传递--对象引用传递">值传递 &amp; 引用传递 &amp; 对象引用传递</h2>
 <blockquote>
@@ -131,9 +129,8 @@
 
 <p>标签，事物，指向该事物的标签，这三者的区别显而易见，<strong>名字叫做莎士比亚的人</strong> 才是作者，<strong>莎士比亚</strong>仅仅只是个名字而已，这点放到Python中也是合情合理的。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a = []
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = []
+</code></pre></div></div>
 <p><code class="highlighter-rouge">[]</code>是一个空的列表，<code class="highlighter-rouge">a</code>是指向该空列表的变量，但是<code class="highlighter-rouge">a</code>本身并不是空的, 我通常喜欢用包含对象的盒子来表示变量，就像下图那样：</p>
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/Uz0IE" alt="用来表示变量的盒子" /></p>
@@ -207,21 +204,21 @@
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=Python变量赋值方式@Liam_Hsia&amp;url=http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=Python变量赋值方式@Liam_Hsia&amp;url=http://localhost:4000/python/Pythons-pass-by-object-reference.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/python/Pythons-pass-by-object-reference.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/python/Pythons-pass-by-object-reference.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -240,7 +237,7 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/python/Pythons-pass-by-object-reference.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/python/Pythons-pass-by-object-reference.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/python/Pythons-pass-by-object-reference"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 

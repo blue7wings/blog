@@ -13,8 +13,8 @@
 <!-- CSS -->
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://www.blue7wings.com/tutorial/MySQL-Union-Tutorial.html">
-  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/tutorial/MySQL-Union-Tutorial.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
 
 <!-- Google font -->
 
@@ -86,13 +86,12 @@
 <h2 id="用法">用法</h2>
 <p>在MySQL数据库中，<code class="highlighter-rouge">UNION</code>操作符允许你合并多个查询结果集，下面是<code class="highlighter-rouge">UNION</code>操作符的语法：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT column_list
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT column_list
 UNION [DISTINCT | ALL]
 SELECT column_list
 UNION [DISTINCT | ALL]
 SELECT column_list
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>想要使用<code class="highlighter-rouge">UNIOIN</code>合并多个查询结果集，下面是必须遵守的规则：</p>
 
@@ -105,7 +104,7 @@ SELECT column_list
 
 <p>好了，让我们看看下面的例子，表：<code class="highlighter-rouge">t1</code>和<code class="highlighter-rouge">t2</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>DROP TABLE IF EXISTS t1;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DROP TABLE IF EXISTS t1;
 DROP TABLE IF EXISTS t2;
  
 CREATE TABLE t1 (
@@ -118,22 +117,20 @@ CREATE TABLE t2 (
  
 INSERT INTO t1 VALUES (1),(2),(3);
 INSERT INTO t2 VALUES (2),(3),(4);
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>下面的<code class="highlighter-rouge">UNION</code>就会合并从<code class="highlighter-rouge">t1</code>和<code class="highlighter-rouge">t2</code>中取得的数据：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT id
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT id
 FROM t1
 UNION
 SELECT id
 FROM t2;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>但最终的结果是去重的：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+----+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+----+
 | id |
 +----+
 |  1 |
@@ -142,8 +139,7 @@ FROM t2;
 |  4 |
 +----+
 4 rows in set (0.00 sec)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">UNIOIN</code>去掉了<code class="highlighter-rouge">2</code>,<code class="highlighter-rouge">3</code>，只会保留一个有效的值，诚如上面所说的，你可以加上<code class="highlighter-rouge">UNION ALL</code>来避免。</p>
 
@@ -153,15 +149,14 @@ FROM t2;
 
 <p>如果你使用<code class="highlighter-rouge">UNION ALL</code>，重复的数据便会保留下来，由于不处理重复数据，它的速度会比<code class="highlighter-rouge">UNIOIN DISTINCT</code>快很多。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT id
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT id
 FROM t1
 UNION ALL
 SELECT id
 FROM t2;
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>+----+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+----+
 | id |
 +----+
 |  1 |
@@ -172,8 +167,7 @@ FROM t2;
 |  4 |
 +----+
 6 rows in set (0.00 sec)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>看到了吧，在使用<code class="highlighter-rouge">UNIOIN ALL</code>语句之后，重复的数据又重新回来了。</p>
 
@@ -195,7 +189,7 @@ FROM t2;
 
 <p>假如你想要查询出雇员和顾客的名字，并且合并姓和名到一个结果集中，<code class="highlighter-rouge">UNIOIN</code>此时便可以很好的解决。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 
     firstName, 
     lastName
 FROM
@@ -206,8 +200,7 @@ SELECT
     contactLastName
 FROM
     customers;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>结果如下：</p>
 
@@ -215,7 +208,7 @@ FROM
 
 <p>正如你所见，<code class="highlighter-rouge">UNION</code>会使用第一个<code class="highlighter-rouge">SELECT</code>语句的列名作为输出的名字，如果你想使用自己的别名，也很简单，在第一个<code class="highlighter-rouge">SELECT</code>语句中设置即可。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 
     concat(firstName,' ',lastName) fullname
 FROM
     employees 
@@ -223,8 +216,7 @@ UNION SELECT
     concat(contactFirstName,' ',contactLastName)
 FROM
     customers;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>新的结果：</p>
 
@@ -233,7 +225,7 @@ FROM
 <h2 id="对结果排序">对结果排序</h2>
 <p>在最后一个<code class="highlighter-rouge">SELECT</code>语句之后，使用<code class="highlighter-rouge">ORDER BY</code>便可以对整个得到的结果集进行排序。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 
     concat(firstName,' ',lastName) fullname
 FROM
     employees 
@@ -242,8 +234,7 @@ UNION SELECT
 FROM
     customers
 ORDER BY fullname;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="http://ooyc2y4k2.bkt.clouddn.com/2018-03-28-MySQL-UNION-and-ORDER-BY-example.png" alt="" /></p>
 
@@ -251,7 +242,7 @@ ORDER BY fullname;
 
 <p>MySQL同样支持通过数据集所在位置排序的功能，如下使用<code class="highlighter-rouge">ORDER BY</code>即可：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT 
     concat(firstName,' ',lastName) fullname
 FROM
     employees 
@@ -260,8 +251,7 @@ UNION SELECT
 FROM
     customers
 ORDER BY 1;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>通过这个教程，你一定学会和如何用<code class="highlighter-rouge">UNION</code>指令来合并多个查询语句的结果.</p>
 
@@ -280,21 +270,21 @@ ORDER BY 1;
 
 <div class="share">
     <p>Share this post with: </p>
-	<a href="https://twitter.com/intent/tweet?text=MySQL UNION用法@Liam_Hsia&amp;url=http://www.blue7wings.com/tutorial/MySQL-Union-Tutorial.html" class="twitter-share">
+	<a href="https://twitter.com/intent/tweet?text=MySQL UNION用法@Liam_Hsia&amp;url=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="twitter-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/tutorial/MySQL-Union-Tutorial.html" class="facebook-share">
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="facebook-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 		</span>
 	</a>
     
-	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/tutorial/MySQL-Union-Tutorial.html" class="googleplus-share">
+	<a href="https://plus.google.com/share?url=http://localhost:4000/tutorial/MySQL-Union-Tutorial.html" class="googleplus-share">
 		<span class="fa-stack fa-lg">
 			<i class="fa fa-circle fa-stack-2x"></i>
 			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
@@ -313,7 +303,7 @@ ORDER BY 1;
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "http://www.blue7wings.com/tutorial/MySQL-Union-Tutorial.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.url = "http://localhost:4000/tutorial/MySQL-Union-Tutorial.html";  // Replace PAGE_URL with your page's canonical URL variable
 this.page.identifier = "/tutorial/MySQL-Union-Tutorial"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
