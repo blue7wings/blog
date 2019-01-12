@@ -5,9 +5,149 @@
     <description>A Simple Jekyll Blog Theme.</description>
     <link>http://www.blue7wings.com/</link>
     <atom:link href="http://www.blue7wings.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Jan 2019 14:20:53 +0800</pubDate>
-    <lastBuildDate>Sun, 06 Jan 2019 14:20:53 +0800</lastBuildDate>
+    <pubDate>Sun, 13 Jan 2019 00:52:51 +0800</pubDate>
+    <lastBuildDate>Sun, 13 Jan 2019 00:52:51 +0800</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
+    
+      <item>
+        <title>[leetcode 852] 山脉数组的峰顶索引</title>
+        <description>&lt;h3 id=&quot;problem&quot;&gt;Problem:&lt;/h3&gt;
+
+&lt;p&gt;我们把符合下列属性的数组 &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; 称作山脉：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A.length &amp;gt;= 3&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;0 &amp;lt; i &amp;lt; A.length - 1&lt;/code&gt; 使得&lt;code class=&quot;highlighter-rouge&quot;&gt;A[0] &amp;lt; A[1] &amp;lt; ... A[i-1] &amp;lt; A[i] &amp;gt; A[i+1] &amp;gt; ... &amp;gt; A[A.length - 1]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;给定一个确定为山脉的数组，返回任何满足 &lt;code class=&quot;highlighter-rouge&quot;&gt;A[0] &amp;lt; A[1] &amp;lt; ... A[i-1] &amp;lt; A[i] &amp;gt; A[i+1] &amp;gt; ... &amp;gt; A[A.length - 1]&lt;/code&gt; 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; 的值。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[0,1,0]
+输出：1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[0,2,1,0]
+输出：1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;3 &amp;lt;= A.length &amp;lt;= 10000&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;0 &amp;lt;= A[i] &amp;lt;= 10^6&lt;/li&gt;
+  &lt;li&gt;A 是如上定义的山脉&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution:&lt;/h3&gt;
+
+&lt;p&gt;如果一个数组是山脉数组，所以该数组一定是先上升，然后又下降的，所以找到该数组的最大值的下标即使峰顶，我们可以用普通的循环遍历的方式，时间复杂度为O(N）。&lt;/p&gt;
+
+&lt;h4 id=&quot;-1--查找最大值&quot;&gt;# 1 : 查找最大值&lt;/h4&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peakIndexInMountainArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxValue&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxValue&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;-2-查找山峰的拐点山顶&quot;&gt;# 2 ：查找山峰的拐点(山顶)&lt;/h4&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peakIndexInMountainArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peakIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peakIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peakIndex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 13 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</link>
+        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</guid>
+        
+        
+        <category>算法 leetcode</category>
+        
+      </item>
+    
+      <item>
+        <title>[leetcode 1] 两数之和</title>
+        <description>&lt;h3 id=&quot;problem&quot;&gt;Problem:&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;两数之和&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;给定一个整数数组 &lt;code class=&quot;highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和一个目标值 &lt;code class=&quot;highlighter-rouge&quot;&gt;target&lt;/code&gt;，请你在该数组中找出和为目标值的那 &lt;strong&gt;两个&lt;/strong&gt; 整数，并返回他们的数组下标。&lt;/p&gt;
+
+&lt;p&gt;你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;给定 nums = [2, 7, 11, 15], target = 9
+
+因为 nums[0] + nums[1] = 2 + 7 = 9
+所以返回 [0, 1]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution：&lt;/h3&gt;
+&lt;h4 id=&quot;-1-遍历求和&quot;&gt;# 1 遍历求和&lt;/h4&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;twoSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+				&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;-2-哈希表&quot;&gt;# 2 哈希表&lt;/h4&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;twoSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapData&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exsited&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exsited&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 05 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</link>
+        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</guid>
+        
+        
+        <category>算法 leetcode</category>
+        
+      </item>
     
       <item>
         <title>2018年总结</title>
@@ -805,181 +945,6 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
         
         
         <category>译文</category>
-        
-      </item>
-    
-      <item>
-        <title>Node.JS 创始人 Ryan Dahl 专访（一）</title>
-        <description>&lt;p&gt;原文链接：&lt;a href=&quot;https://www.mappingthejourney.com/single-post/2017/08/31/episode-8-interview-with-ryan-dahl-creator-of-nodejs/&quot;&gt;Episode 8: Interview with Ryan Dahl, Creator of Node.js - Mapping The Journey&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-06-26-image.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Ryan现在是谷歌大脑的一名软件工程师，他是Node.js的作者，一个基于Chrome V8引擎的JavaScript的运行时环境。现在，他的工作方向是深度学习，主要专注于图像之间的转换，比如彩色化，提升像素，他在不同的项目都有所贡献，像 HTTP 解析器，libuv等。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：大家好，欢迎大家踏上今天的采访之旅，当我们听到Node.js的时候，第一时间想到的就是Ryan Dahl。他向我们展示了一种全新的异步编程模型，以前我们所做的I/O可能都是完全是错的。今天我们请到的就是Ryan，一名黑客，卓越的编程者，Node的作者。我非常激动和荣幸Ryan能来参加今天的采访，欢迎你，Ryan。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：大家好，非常高兴能接受这个采访。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：我们都知你是Node的作者，你稍微说一说你在从事科技行业之前你的生活么？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：当然，我是在圣地亚哥长大的，母亲在我6岁的时候买了一台Apple 2C电脑，这是我最早接触到的电脑。我现在36岁，换句话说，我的年龄和互联网的年龄一样大。我先是在圣地亚哥的社区大学读书，然后去了加利福尼亚大学圣地亚哥分校读数学，后来，在罗切斯特大学的研究生学院读数学。&lt;/p&gt;
-
-&lt;p&gt;我在那里研究代数拓扑学，一门非常抽象的学科，刚开始的几年感觉这门学科非常优美，后来就渐渐的觉得无聊，因为实在是没有什么实际应用的场景。在研究生毕业之后，就顺其自然地读了Ph.D。在某一天，我突然意识到，我真的不想在我余生成为一名数学家，然后就退学了。然后，买了一张去美国南部的单程机票并在那呆了一年，在那里我依然保持着学生的刻苦学习，和Eric一起做一些网页开发，这也就是编程职业生涯的开端。那时候是为一家滑雪板公司做网页，基于ROR的网页开发。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：从Ph.D退学，去美国南部做网页开发一定是一次无比正确的经历吧。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是啊，我的意思是，从研究生学院出来，曾经解决都是非常抽象的问题，然而网页开发则是一种混合的过程，我还尝试把我在研究生学院学到的优雅的数学知识融入进去，这也是我非常喜欢用Ruby开发的原因吧，你可以用Ruby更好的表达的意图，这是非常有意思的，Rails框架在这方面就体现得很好，它发明了一种「模型，视图，控制器」架构，也许不是第一个，但是一定是Rails让这种架构流行起来的，数学的优雅和编程的应用，这两者的结合，真的非常吸引我。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：编写网页程序的确十分有趣，Ruby也是一个非常完美的工具。接下来，你在德国以自由工作者的方式接着工作，其中一个项目就是Node，为此你为Node连续工作了六到八个月？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，在从美国南部离开之后，便和女朋友搬到了德国，因为她是一个德国人，而且必须返回大学。就在从那开始，我开始参加那里的Ruby大会，在那里大家开始讨论这种MVC模型，其中有一个叫Chris Neukirchen的小伙伴，他开发了一个叫做Rack的项目，一个精简抽象的网页服务器程序，它将网页服务器集合到一个单函数接口中，接收到请求，你便可以返回一个响应。&lt;/p&gt;
-
-&lt;p&gt;于此同时，我正在为一家公司做一些Nngix扩展的开发工作，在Nginx的世界中，所有的一切都是异步的，所以说，当你开发Nginx扩展的时候就必须特别小心拥塞的问题，这个时候，我开始思考如何把Chris的Rack项目和Nginx的非拥塞模型合并在一起呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：那时你就有些关于Rack和Nginx的想法了，那么你是如何说服你自己花费六个月的时间，实现一个能够运行在服务端端javascript框架，以此来提升性能的想法呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：这其中有两个部分，一个部分是简单的服务器接口，Rack，另一个是完全异步的部分就是Nginx，我开始思考这两者，就在这个时候，Chrome在2008年的12月发布，同时发布的还有V8引擎，我开始在这个V8引擎中摸索，它看起来如此让人着迷，简洁，高效，此时我突然明白，javascript就是单线程，但所有处理都是非阻塞的。&lt;/p&gt;
-
-&lt;p&gt;这让我觉得有点匪夷所思，但是网页浏览器的确所有请求都是非阻塞的啊，无论是AJAX请求还是其他，然后我就在想如果javascript加上异步IO加上一些HTTP服务器的内容，一定会是一件非常酷的事情，对于这个想法我非常兴奋，并坚持不懈的为此工作了四年。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：的确是这样，Javascript加上异步IO起到了非常好的效果，我想开发者们都在寻找一种如此实现的框架。在那段困惑的事情，有没有人给你一些建议呢？还是就仅仅是你一个人？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：就仅仅是我一个，编程界的一些朋友也给了我一点建议，但最初的工作就仅仅是我在家里编写出来的，后来，搬到旧金山，见了一些编程界大牛，这些人给了很多的想法也为后来的Node作出了很大的贡献。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：从你2009年以来开始开发Node，在这段时间，你的心路历程是怎样的呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：我认为至少对我来说，在我人生中，没有比那时更加棒了。Node就是那个等着我去做并且不得不做事情。也许其他人也有此类的想法，但是我能够实现的的原因，主要得益于我的自由工作，这使我有大量的自由时间，可以连续不停地好几个月为之编写代码，这也是一个项目的初始版本所必要的条件，无论怎么说，这段经历非常棒，也非常有意思。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：这真是非常美妙的经历，你做的非常棒。Node是基于「完全异步」的模型的，你为这个想法做了哪些工作呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：这也是个非常有趣的问题，我现在已经好几年没有为Node编写任何代码了，当Node刚诞生的时候，我到处去演讲，希望可以说服更多的人，让他们相信以前我们所做的I/O操作可能都是错的，我们可以用异步的方式来操作所有的事情，这也能解决编程方面上很多的难题。比如，即使是在单进程的情况下，通过异步也能处理非常大流量的请求，在那段时光里，我是强烈相信这个理念的，但是在后来的几年里，我 也意识到异步不是编程最终解决方案，而是仅仅是个开始，尤其是，当Go语言诞生以后。&lt;/p&gt;
-
-&lt;p&gt;Go语言诞生已经有很长一段时间了，我是大约2012年才第一次接触到Go，Go语言拥有非常漂亮的运行时环境，还有特别健康的线程管理，非常便于使用。&lt;/p&gt;
-
-&lt;p&gt;Go语言给编程人员所提供的接口看似是堵塞的，其实不然，这真的是非常好的一种编程模型。在很多情况下，同步的编程方式是更要简单的，不必关心各种回调的嵌套问题，在Node中，想要实现就困单得多，你不得不在回调函数中去使用。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：我也非常喜欢Go的编程模型，使用goroutine真的非常简单和充满乐趣，现实中，我们就是用Go来搭建分布式应用。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：Go语言对应用级开发真的是合适，如果你要是构建服务层的应用，真的没有比Go更加合适的了。也就是说，我认为Node的非堵塞编程模型在javascript上表现得不错，因为不需要考虑线程的问题，但是回调地狱真的让人头疼，你不得不不停的在回调函数中做处理，但随着async关键词的出现，在javascript也能进行同步的操作了。&lt;/p&gt;
-
-&lt;p&gt;我认为Node绝对不是构建大型网页服务的最好选择，我会用Go而不是Node，讲真的，这也是我离开Node的原因。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：选择正确的工具对开发者来说真的是非常重要，你现在对Node真的没有一点偏袒。当你在2009年柏林的JsConf上，向开发者介绍了Node.js，当时你对这些突如其来的成功感到惊喜么？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，我四年都在这种连续不断的惊喜中，Node成长得非常快，越来越多的人喜欢Node。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：后来，你加入了Joyant公司，并在那里全职为Node工作，然后搬到了旧金山对吧？这段经历是怎么样的？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：在这段人生经历中，我感到大家以我为中心，无论是在各种开发者大会中，还是其他地方。有一次，我去了日本，大家都来找我合影，我就感觉怪怪的。在线上也是同样的情况，无论什么时候发表什么评论，大概都会有100多个人的回复。&lt;/p&gt;
-
-&lt;p&gt;所以，我不得不谨慎地选择自己的措辞，因为很多人在关注你，这实在是太奇怪了！我非常不喜欢这种感觉，作为一个程序员，我只想写点代码，不必顾虑太多就能分享自己的观点，所以这种感觉让我不是特别喜欢。&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 26 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-20-E5-88-9B-E5-A7-8B-E4-BA-BA-20Ryan-20Dahl-20-E4-B8-93-E8-AE-BF-EF-BC-88-E4-B8-80-EF-BC-89.html</guid>
-        
-        
-        <category>译文</category>
-        
-      </item>
-    
-      <item>
-        <title>Swoole如何实现热加载(autoload)</title>
-        <description>&lt;p&gt;Swoole的确是一款非常优秀的PHP框架，在性能上给予了PHP质的飞跃，在将部分业务逻辑嫁接到Swoole上之后，性能就提升了将近4倍，这还仅仅是没有使用异步等操作的情况下，如果有兴趣，可以查看&lt;a href=&quot;https://www.youtube.com/watch?v=IKF5IdBPlWY&quot;&gt;对比视频&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2016%E6%97%B609%E5%88%8622%E7%A7%92.png&quot; alt=&quot;&quot; /&gt;
-但是Swoole现有的文档非常之匮乏，你可以把现有的文档看成API文档，而不是面向新手的教程，在使用Swoole的过程中，遇到的第一个问题，Swoole如何才能热加载呢？每次修改完代码还需要关闭服务然后重启，才能让新的文件加载进去，非常之不友好，在接下来的的内容中，便会解决这个问题。&lt;/p&gt;
-
-&lt;h2 id=&quot;swoole的加载机制&quot;&gt;Swoole的加载机制&lt;/h2&gt;
-&lt;p&gt;Swoole性能之所以如此优秀，很大原因是改变了以往每次请求便加载一遍文件的模式，而改成在服务器启动的时候统一加载所有的文件，在每次请求的时候不会进行再次加载和初始化，从而大大减少了请求的消耗。如果你已经了解一点Swoole的实现，可以知道Swoole在启动的时候，Manager进程会创建N个Worker进程来接受/发送数据，实现业务逻辑，当Worker进程因为致命错误而关闭，Manager进程会重新创建，便会重新加载文件。&lt;/p&gt;
-
-&lt;h2 id=&quot;热加载实现&quot;&gt;热加载实现&lt;/h2&gt;
-&lt;p&gt;在实现热加载之前我们先看一看代码，主文件&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;，加载的文件&lt;code class=&quot;highlighter-rouge&quot;&gt;greet.php&lt;/code&gt;。&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9501&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;request&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;include_once&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'greet.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;text/plain&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;请注意&lt;code class=&quot;highlighter-rouge&quot;&gt; include_once 'greet.php';&lt;/code&gt;这句并没有像我们以前写PHP代码放在文件的第一句，而是放在&lt;code class=&quot;highlighter-rouge&quot;&gt;$http-&amp;gt;on()&lt;/code&gt;的回调函数中，这是因为Worker进程因为致命错误而重启，但是Manager进程可不会，如果放在代码第一行，就表示只有Manager进程重启才会生效，这显然不是我们需要的。&lt;/p&gt;
-
-&lt;p&gt;知道上面的加载机制，我们就可以想办法让Worker进程重启。&lt;/p&gt;
-
-&lt;h3 id=&quot;方法一&quot;&gt;方法一&lt;/h3&gt;
-&lt;p&gt;向Master进程发送&lt;code class=&quot;highlighter-rouge&quot;&gt;USR1信号&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;USR1信号&lt;/code&gt;通过Manager进程转发给Worker进程，Worker进程便会重启，我们如下实现：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -USR1 master_pid 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;查看Swoole的进程信息：
-&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2017%E6%97%B607%E5%88%8629%E7%A7%92.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;30322&lt;/code&gt;便是我们的主进程ID，&lt;code class=&quot;highlighter-rouge&quot;&gt;kill -USR1 30322&lt;/code&gt; Woker进程会关闭，并被Manager重启，通过下面的图可以看到，Worker进程已经改变，但主进程进程却没有任何变化。
-&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-06-13-%E6%88%AA%E5%9B%BE%202018-06-13%2017%E6%97%B610%E5%88%8604%E7%A7%92.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;每次在&lt;code class=&quot;highlighter-rouge&quot;&gt;greet.php&lt;/code&gt;中修改完代码，用&lt;code class=&quot;highlighter-rouge&quot;&gt;kill -USR1 30322&lt;/code&gt; 重启Worker进程，代码便会重新加载进去。这种方法缺陷也很明显，需要手动去给主进程发送信号，如果想要实现监听文件改动，自动发送信号，还需要继续编写代码，倒是有点得不偿失了。&lt;/p&gt;
-
-&lt;h3 id=&quot;方法二&quot;&gt;方法二&lt;/h3&gt;
-&lt;p&gt;可以同配置&lt;code class=&quot;highlighter-rouge&quot;&gt;max_request&lt;/code&gt;来控制Worker进程的最大任务数。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;一个Worker进程在处理完超过此数值的任务后将自动退出，进程退出后会释放所有内存和资源。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;这也变向地实现了Worker进程的自动重启，给&lt;code class=&quot;highlighter-rouge&quot;&gt;max_request&lt;/code&gt;设置值为1，也就是说当一次请求之后，Worker进程便会重启。&lt;/p&gt;
-
-&lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;index.php&lt;/code&gt;如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swoole\Http\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9501&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'max_request'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;request&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;include_once&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'greet.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;text/plain&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;greet.php&lt;/code&gt;的内容，重新刷新页面，内容已经改变，我们的热加载功能也实现了。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.catplanet.me/?id=10&quot;&gt;Swoole编程指南-2.6 热加载&lt;/a&gt;
-&lt;a href=&quot;https://wiki.swoole.com/wiki/page/300.html&quot;&gt;max_request&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 13 Jun 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/swoole/Swoole-Autoload.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/swoole/Swoole-Autoload.html</guid>
-        
-        
-        <category>Swoole</category>
         
       </item>
     
