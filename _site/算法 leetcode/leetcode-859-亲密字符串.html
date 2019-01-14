@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>[leetcode 859] 亲密字符串</title>
+  <meta name="description" content="Problem:">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">[leetcode 859] 亲密字符串</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="13 Jan 2019" itemprop="datePublished">Jan 13 2019</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<h3 id="problem">Problem:</h3>
+
+<p><strong>859. 亲密字符串</strong></p>
+
+<p>给定两个由小写字母构成的字符串 <code class="highlighter-rouge">A</code> 和 <code class="highlighter-rouge">B</code> ，只要我们可以通过交换 <code class="highlighter-rouge">A</code> 中的两个字母得到与 <code class="highlighter-rouge">B</code> 相等的结果，就返回 <code class="highlighter-rouge">true</code> ；否则返回 <code class="highlighter-rouge">false</code> 。</p>
+
+<p><strong>示例 1：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入： A = "ab", B = "ba"
+输出： true
+</code></pre></div></div>
+
+<p><strong>示例 2：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入： A = "ab", B = "ab"
+输出： false
+</code></pre></div></div>
+
+<p><strong>示例 3:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入： A = "aa", B = "aa"
+输出： true
+</code></pre></div></div>
+
+<p><strong>示例 4：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入： A = "aaaaaaabc", B = "aaaaaaacb"
+输出： true
+</code></pre></div></div>
+
+<p><strong>示例 5：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入： A = "", B = "aa"
+输出： false
+</code></pre></div></div>
+
+<p><strong>提示：</strong></p>
+
+<ol>
+  <li><code class="highlighter-rouge">0 &lt;= A.length &lt;= 20000</code></li>
+  <li><code class="highlighter-rouge">0 &lt;= B.length &lt;= 20000</code></li>
+  <li><code class="highlighter-rouge">A</code> 和 <code class="highlighter-rouge">B</code> 仅由小写字母构成。</li>
+</ol>
+
+<h3 id="solution">Solution:</h3>
+
+<p><img src="http://liam-images.oss-cn-shanghai.aliyuncs.com/2019-01-14-%E5%85%84%E5%BC%9F%E5%AD%97%E7%AC%A6%E4%B8%B2-1.png" alt="" /></p>
+
+<p>这道题需要我们判断的情况很多，如上面的思维导图所示，第一判断条件是字符串长度是否相同，不相同肯定不是兄弟字符串，如果相同，进行正常的判断逻辑。</p>
+
+<p><strong>如果两个字符串相等</strong></p>
+
+<p>因为还是需要进行一步交换操作，所以就要保证，字符串中必须包含两个以上的相同字符串，比如：<code class="highlighter-rouge">aab</code> 或者 <code class="highlighter-rouge">aaa</code> 此类的字符串。</p>
+
+<p><strong>如果两个字符串不相等</strong></p>
+
+<p>因为是一步交换，所以必须要保证，两个字符串对比，有且只有两个不同的字符，找到这两个字符，交换位置，如果相同，表示为兄弟字符串。</p>
+
+<p><strong>时间复杂度O(N)</strong></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span><span class="x"> </span><span class="n">buddyStrings</span><span class="p">(</span><span class="n">A</span><span class="x"> </span><span class="kt">string</span><span class="p">,</span><span class="x"> </span><span class="n">B</span><span class="x"> </span><span class="kt">string</span><span class="p">)</span><span class="x"> </span><span class="kt">bool</span><span class="x"> </span><span class="p">{</span><span class="x">
+	</span><span class="n">isBuddyStrings</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="no">true</span><span class="x">
+	</span><span class="k">var</span><span class="x"> </span><span class="n">diffA</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="x">
+	</span><span class="k">var</span><span class="x"> </span><span class="n">diffB</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="x">
+	</span><span class="k">var</span><span class="x"> </span><span class="n">isSameWordExistedString</span><span class="x"> </span><span class="kt">bool</span><span class="x">
+
+	</span><span class="c">// 如果两个字符串长度不同，不是兄弟字符串</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffA</span><span class="p">)</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffB</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">return</span><span class="x"> </span><span class="no">false</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+	</span><span class="n">tempStrMap</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">bool</span><span class="p">)</span><span class="x">
+	</span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="m">0</span><span class="p">;</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">);</span><span class="x"> </span><span class="n">i</span><span class="o">++</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="c">// 每个位置不相同的字符</span><span class="x">
+		</span><span class="k">if</span><span class="x"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="p">{</span><span class="x">
+			</span><span class="n">diffA</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="nb">append</span><span class="p">(</span><span class="n">diffA</span><span class="p">,</span><span class="x"> </span><span class="kt">string</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="x">
+			</span><span class="n">diffB</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="nb">append</span><span class="p">(</span><span class="n">diffB</span><span class="p">,</span><span class="x"> </span><span class="kt">string</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="x">
+		</span><span class="p">}</span><span class="x">
+
+		</span><span class="c">// 判断有没有出现两个以上相同字符</span><span class="x">
+		</span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">existed</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">tempStrMap</span><span class="p">[</span><span class="kt">string</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span><span class="x">
+		</span><span class="k">if</span><span class="x"> </span><span class="n">existed</span><span class="x"> </span><span class="p">{</span><span class="x">
+			</span><span class="n">isSameWordExistedString</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="no">true</span><span class="x">
+		</span><span class="p">}</span><span class="x">
+		</span><span class="n">tempStrMap</span><span class="p">[</span><span class="kt">string</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="no">true</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+	</span><span class="c">// 如果两个字符串相同，判断是否包含相同字母</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffA</span><span class="p">)</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="m">0</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffB</span><span class="p">)</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="m">0</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">if</span><span class="x"> </span><span class="n">isSameWordExistedString</span><span class="x"> </span><span class="p">{</span><span class="x">
+			</span><span class="k">return</span><span class="x"> </span><span class="no">true</span><span class="x">
+		</span><span class="p">}</span><span class="x">
+
+		</span><span class="k">return</span><span class="x"> </span><span class="no">false</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// 如果两个字符串不相同，判断是不是有且只有两个不同字符</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffA</span><span class="p">)</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="m">2</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">diffB</span><span class="p">)</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="m">2</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">return</span><span class="x"> </span><span class="no">false</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+	
+    </span><span class="c">// 如果两个字符串不相同，判断交换后的字符是不是相同</span><span class="x">
+	</span><span class="k">if</span><span class="x"> </span><span class="n">diffA</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">diffB</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">diffA</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="n">diffB</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">return</span><span class="x"> </span><span class="no">false</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+	</span><span class="k">return</span><span class="x"> </span><span class="n">isBuddyStrings</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span></code></pre></div></div>
+
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=[leetcode 859] 亲密字符串@Liam_Hsia&amp;url=http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/%E7%AE%97%E6%B3%95%20leetcode/[leetcode 859]亲密字符串"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>

@@ -3,11 +3,134 @@
   <channel>
     <title>LiamHsia's Blog</title>
     <description>A Simple Jekyll Blog Theme.</description>
-    <link>http://www.blue7wings.com/</link>
-    <atom:link href="http://www.blue7wings.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 13 Jan 2019 00:52:51 +0800</pubDate>
-    <lastBuildDate>Sun, 13 Jan 2019 00:52:51 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 14 Jan 2019 15:19:22 +0800</pubDate>
+    <lastBuildDate>Mon, 14 Jan 2019 15:19:22 +0800</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
+    
+      <item>
+        <title>[leetcode 859] 亲密字符串</title>
+        <description>&lt;h3 id=&quot;problem&quot;&gt;Problem:&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;859. 亲密字符串&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;给定两个由小写字母构成的字符串 &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; ，只要我们可以通过交换 &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; 中的两个字母得到与 &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; 相等的结果，就返回 &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; ；否则返回 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入： A = &quot;ab&quot;, B = &quot;ba&quot;
+输出： true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入： A = &quot;ab&quot;, B = &quot;ab&quot;
+输出： false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入： A = &quot;aa&quot;, B = &quot;aa&quot;
+输出： true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入： A = &quot;aaaaaaabc&quot;, B = &quot;aaaaaaacb&quot;
+输出： true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 5：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入： A = &quot;&quot;, B = &quot;aa&quot;
+输出： false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 &amp;lt;= A.length &amp;lt;= 20000&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 &amp;lt;= B.length &amp;lt;= 20000&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; 仅由小写字母构成。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution:&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://liam-images.oss-cn-shanghai.aliyuncs.com/2019-01-14-%E5%85%84%E5%BC%9F%E5%AD%97%E7%AC%A6%E4%B8%B2-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这道题需要我们判断的情况很多，如上面的思维导图所示，第一判断条件是字符串长度是否相同，不相同肯定不是兄弟字符串，如果相同，进行正常的判断逻辑。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如果两个字符串相等&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;因为还是需要进行一步交换操作，所以就要保证，字符串中必须包含两个以上的相同字符串，比如：&lt;code class=&quot;highlighter-rouge&quot;&gt;aab&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;aaa&lt;/code&gt; 此类的字符串。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如果两个字符串不相等&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;因为是一步交换，所以必须要保证，两个字符串对比，有且只有两个不同的字符，找到这两个字符，交换位置，如果相同，表示为兄弟字符串。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;时间复杂度O(N)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buddyStrings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isBuddyStrings&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSameWordExistedString&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 如果两个字符串长度不同，不是兄弟字符串&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempStrMap&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 每个位置不相同的字符&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+		&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 判断有没有出现两个以上相同字符&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;existed&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempStrMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;existed&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSameWordExistedString&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tempStrMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 如果两个字符串相同，判断是否包含相同字母&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSameWordExistedString&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 如果两个字符串不相同，判断是不是有且只有两个不同字符&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	
+    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// 如果两个字符串不相同，判断交换后的字符是不是相同&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;||&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diffB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isBuddyStrings&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 13 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</guid>
+        
+        
+        <category>算法 leetcode</category>
+        
+      </item>
     
       <item>
         <title>[leetcode 852] 山脉数组的峰顶索引</title>
@@ -79,8 +202,8 @@
 
 </description>
         <pubDate>Sun, 13 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -141,8 +264,8 @@
 
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -199,8 +322,8 @@
 
 </description>
         <pubDate>Tue, 01 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</guid>
+        <link>http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</guid>
         
         
         <category>随笔</category>
@@ -295,8 +418,8 @@
 
 </description>
         <pubDate>Fri, 17 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
+        <link>http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
         
         <category>PHP</category>
         
@@ -395,8 +518,8 @@
 
 </description>
         <pubDate>Sat, 11 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
         
         <category>PHP</category>
         
@@ -537,8 +660,8 @@
 
 </description>
         <pubDate>Thu, 09 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
         
         <category>PHP</category>
         
@@ -719,8 +842,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;&lt;a href=&quot;http://php.net/manual/zh/function.extract.php&quot;&gt;http://php.net/manual/zh/function.extract.php&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
         
         <category>PHP</category>
         
@@ -782,8 +905,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;知道如此对代码分层，这就需要我们写代码的时候，要有一定的构思，更低粒度的数据层操作放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repostory&lt;/code&gt;，代码逻辑放在&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;，围绕这两点，代码则会越来越精简，复用性更加地好。&lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</guid>
         
         <category>PHP</category>
         
@@ -883,8 +1006,8 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 
 </description>
         <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-B8-80)-20-20-E8-B7-AF-E7-94-B1-E5-92-8C-E4-B8-AD-E9-97-B4-E4-BB-B6.html</guid>
         
         <category>PHP</category>
         
@@ -894,57 +1017,6 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
         
         
         <category>PHP Tutorial Laravel</category>
-        
-      </item>
-    
-      <item>
-        <title>Node.JS 创始人 Ryan Dahl 专访（二）</title>
-        <description>&lt;p&gt;原文链接：&lt;a href=&quot;https://www.mappingthejourney.com/single-post/2017/08/31/episode-8-interview-with-ryan-dahl-creator-of-nodejs/&quot;&gt;Episode 8: Interview with Ryan Dahl, Creator of Node.js - Mapping The Journey&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：你在Node之旅结束之后，你又什么新的打算呢？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;: 在Node之后，我离开了Joyent并且退出了Node项目，我搬到了纽约，把工作的一些时间用到了个人项目上，所以，我启动了一大堆的项目，与此同时，Instagram横空出世，作为一个全新的搅局者，它看起来却如此简单，所有人都说，这太简单了，我也能构建一个。我情不自禁地也有如此的想法，所以呢，我创建了一个社交网络的项目，还有为C++创建的构建系统，另一个是HTML的构建系统，有点像Browserify，可以更加方便地打包Javascript和HTML。&lt;/p&gt;
-
-&lt;p&gt;我有非常多的个人项目，但我认为没一个是成功的，其中有很多放在现在也是无关紧要的东西，比如社交网络的项目。后来我了解了卷积网络和图片分类，这使我对机器学习非常感兴趣。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Pramod&lt;/strong&gt;:你也参加了谷歌大脑的常驻计划，这段经历是怎么样的。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，我在山景城度过了一年的时间，所以，回头看看，TensorFlow两年前就发布了。&lt;/p&gt;
-
-&lt;p&gt;随之，他们宣布了谷歌大脑的常驻计划，他们邀请了大概20个人来到谷歌大脑，谷歌机器学习研究实验室的一部分。我认为这个计划并不是让那些研究机器学习的人来参与，而是让一些有数学和编程经验并且对机器学习感兴趣的人去发现新的点子，因为机器学习实在是变化太快了，需要非常大的工作量。&lt;/p&gt;
-
-&lt;p&gt;但是现在整个社区都致力于在机器学习最有用的部分：神经网络，也吸引了非常多的人参与其中，新的机器学习框架TensorFlow也带来了很多很有意思的点子。我在那里度过了一年的时光，基本上都是在写编程模型和相关的论文，主要工作的内容是图像之间的转换问题，比如，如果你输入一些图片，你想预测输出的图片是什么。我发现这个问题非常有意思。&lt;/p&gt;
-
-&lt;p&gt;比如，彩色化问题，你可以用一张黑白照片作为输入，然后就可以预测作为输出图片的色彩，这个问题酷的地方在于你可以有无限的训练数据，随便取一张彩色照片，然后降低其饱和度，这就是你可以输入的图片了。&lt;/p&gt;
-
-&lt;p&gt;主持人：TensorFlow对于机器学习来说是非常好的平台，可以解决比如图像分类，图像转换等问题，我虽然知之甚少，但是我相信这一定是非常美妙的。你会接着为机器学习贡献你的力量吗？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，至少目前是这样，我仍然在谷歌工作，解决这一系列的问题，并且尝试帮助更多的研究者去构建下一代系统，下一代的模型。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Pramod&lt;/strong&gt;：研究机器学习模型和Javascript, Node或者网络开发有非常大的不同吧。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：我想是这样的，但是我是从数学开始的，我又非常坚实的数学基础，人们总是把自己固定在某一个领域，我是非常不认同的，我不认为自己会是一个专门写Javascript的人，也不会是一个专门从事机器学习的人，兴趣会带来无限的可能，最让人兴奋的是创建一些自己从未做过的并且能够让人类收益的事。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：是啊，机器学习需要非常好的数学背景。你在Optimistic Nihilism上发表的最近的文章写到，我们有可能在将来的某一天模拟大脑，并且构建出能够理解人类行为的系统，距离这些还有多远能够达到？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：是的，我必须对此类的预言必须小心谨慎，在我看来，我们永远都无法到达与人类的智力程度，我们使用的机器学习系统是非常非常简单的，根本无法工作。事实上，我有一篇关于我的实习的博客文章，其中列举了开发这些模型的所有困难。我认为不从事这一领域工作的人会有这样的想法，你可以利用这个模型并通过它推送一些数据，它就会起作用。但事实并非如此。这些事情都是非常挑剔的，而且不容易理解，并且需要花费很多、很多个月的仔细调整和实验才能得到哪怕是最差的结果。&lt;/p&gt;
-
-&lt;p&gt;所以说，我们离那还差得很远很远，但是作为基础，最近一些非常有前途的技术得到了很大的改进，比如卷积网络，一些传播法等等。这些东西都是建立在训练模型上的，神经网络模型并不像我们的大脑，大脑是可以受到启发而学习，这才是真正迷人的地方。当然了我们也有大量的GPU，可以通过分布式GPU来进行训练的扩展，所以我认为基础构建越大，系统也会越智能。就我个人而言，作为一个无神论者，我相信我们大脑里面除了化学物质和神经元之外没有其他的什么东西。我认为我们的意识都是以编码的方式，在神经元之间传播互动，所以，在这个领域有足够多的研究，去模仿这种行为，也是有可能的实现的。但这实在是太遥远了，也无法预测多久能够实现。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：在接下来的20年，你希望科技发展有哪些变革？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;：我对机器学习和它所带来的可能性感到兴奋，即使在人工智能真正开始之前，机器学习仍然有非常多应用前景。比如，智能眼镜都会给你带来非常大的帮助，我们可以从中获益颇多。因此，有无数的工业过程可以利用机器学习来改善，比如回收中心，拥有电脑视觉处理的分类回收，等等。会有很多很多的系统会从机器学习中受益，这将对科技领域产生重大影响，对全人类都产生重大影响。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主持人&lt;/strong&gt;：机器学习的确非常让人兴奋，当我在山景城看到无人驾驶汽车的时候，我觉得非常新奇。总有一天，我就仅仅坐在车里，然后完全让车自己控制。谢谢你，Ryan，为我们带来了Node，同样感谢你今天的采访。希望你再以后的项目里能够越来越好。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ryan&lt;/strong&gt;: 好的，谢谢你邀请我来，跟你讨论这些非常的有趣。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 11 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E8%AF%91%E6%96%87/Node.JS-%E5%88%9B%E5%A7%8B%E4%BA%BA-Ryan-Dahl-%E4%B8%93%E8%AE%BF-%E4%BA%8C.html</guid>
-        
-        
-        <category>译文</category>
         
       </item>
     
