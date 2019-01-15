@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html">
+  <link rel="alternate" type="application/rss+xml" title="LiamHsia's Blog" href="http://www.blue7wings.com/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>[leetcode 121] 买卖股票的最佳时机</title>
+  <meta name="description" content="Problem">
+</head>
+
+
+  <div class="wrapper">
+          <header class="post-header">
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62637431" charset="UTF-8"></script>
+				
+    <center><div class="post-title" itemprop="name headline">[leetcode 121] 买卖股票的最佳时机</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="14 Jan 2019" itemprop="datePublished">Jan 14 2019</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">LiamHsia</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+	</div>
+    </center>
+    
+</header>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+    </center>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+	<h3 id="problem">Problem</h3>
+
+<p><strong>121. 买卖股票的最佳时机</strong></p>
+
+<p>给定一个数组，它的第 <em>i</em> 个元素是一支给定股票第 <em>i</em> 天的价格。</p>
+
+<p>如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。</p>
+
+<p>注意你不能在买入股票前卖出股票。</p>
+
+<p><strong>示例 1:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入: [7,1,5,3,6,4]
+输出: 5
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+</code></pre></div></div>
+
+<p><strong>示例 2:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+</code></pre></div></div>
+
+<h3 id="solution">Solution</h3>
+
+<p><img src="http://liam-images.oss-cn-shanghai.aliyuncs.com/2019-01-14-141931.png" alt="" /></p>
+
+<p>时间复杂度为O(N^2)的两遍遍历的方法在此就不做赘述了，下面着重介绍这种时间复杂度为O(N)的算法。</p>
+
+<p>其实这种O(N)的方法也是比较简单，在一遍遍历的时候，需要两个判断：</p>
+
+<ol>
+  <li>该节点是不是最小值（买股票）</li>
+  <li>该节点值 - 最小值 是不是最大利润（卖股票）</li>
+</ol>
+
+<p>因为是从头至尾遍历，还避免了2出现在1之前的情况。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span><span class="x"> </span><span class="n">maxProfit</span><span class="p">(</span><span class="n">prices</span><span class="x"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="x"> </span><span class="kt">int</span><span class="x"> </span><span class="p">{</span><span class="x">
+
+	</span><span class="n">length</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span><span class="x">
+
+	</span><span class="k">if</span><span class="x"> </span><span class="n">length</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="m">2</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">return</span><span class="x"> </span><span class="m">0</span><span class="x">
+	</span><span class="p">}</span><span class="x">
+
+	</span><span class="n">minPrice</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">prices</span><span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="x">
+	</span><span class="n">maxProfit</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="m">0</span><span class="x">
+
+	</span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="m">1</span><span class="p">;</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">length</span><span class="p">;</span><span class="x"> </span><span class="n">i</span><span class="o">++</span><span class="x"> </span><span class="p">{</span><span class="x">
+		</span><span class="k">if</span><span class="x"> </span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">minPrice</span><span class="x"> </span><span class="p">{</span><span class="x">
+			</span><span class="n">minPrice</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x">
+		</span><span class="p">}</span><span class="x">
+
+		</span><span class="k">if</span><span class="x"> </span><span class="n">maxProfit</span><span class="x"> </span><span class="o">&lt;</span><span class="x"> </span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">minPrice</span><span class="x"> </span><span class="p">{</span><span class="x">
+			</span><span class="n">maxProfit</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">-</span><span class="x"> </span><span class="n">minPrice</span><span class="x">
+		</span><span class="p">}</span><span class="x">
+
+	</span><span class="p">}</span><span class="x">
+	</span><span class="k">return</span><span class="x"> </span><span class="n">maxProfit</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div></div>
+
+
+	<hr>
+	<p>If You Have <b>Any</b> Question, You Can Contact Me Through <a href="mailto:liam@blue7wings.com">liam@blue7wings.com</a>, <a href="https://weibo.com/blue7wings">@Blue7Wings</a>, <a href="https://twitter.com/Liam_Hsia">#Liam_Hsia</a></p>
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+
+<div class="share">
+    <p>Share this post with: </p>
+	<a href="https://twitter.com/intent/tweet?text=[leetcode 121] 买卖股票的最佳时机@Liam_Hsia&amp;url=http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html" class="twitter-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html" class="facebook-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+    
+	<a href="https://plus.google.com/share?url=http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html" class="googleplus-share">
+		<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+		</span>
+	</a>
+</div>
+
+
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/%E7%AE%97%E6%B3%95%20leetcode/[leetcode 121]买卖股票的最佳时机"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://liam-hsia.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> 
+
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a> 
+		<!-- <a class="link" href="/contact/">Contact</a> -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="">LiamHsia</a>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+<script src="/js/main.js"></script>
+
+</foot>
+
+
+</foot>
+
+</html>
