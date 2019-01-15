@@ -3,11 +3,93 @@
   <channel>
     <title>LiamHsia's Blog</title>
     <description>A Simple Jekyll Blog Theme.</description>
-    <link>http://www.blue7wings.com/</link>
-    <atom:link href="http://www.blue7wings.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 15 Jan 2019 13:42:39 +0800</pubDate>
-    <lastBuildDate>Tue, 15 Jan 2019 13:42:39 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 15 Jan 2019 23:52:24 +0800</pubDate>
+    <lastBuildDate>Tue, 15 Jan 2019 23:52:24 +0800</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
+    
+      <item>
+        <title>[leetcode 122] 买卖股票的最佳时机II</title>
+        <description>&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+
+&lt;p&gt;给定一个数组，它的第 &lt;em&gt;i&lt;/em&gt; 个元素是一支给定股票第 &lt;em&gt;i&lt;/em&gt; 天的价格。&lt;/p&gt;
+
+&lt;p&gt;设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。
+     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://liam-images.oss-cn-shanghai.aliyuncs.com/2019-01-15-111953.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;时间复杂度为O(N^2)的暴力法在此不再赘述。将股票的价格，以图的形式表现出来，形成上面的价格走势图，通过上图我们可以发现，最大利润为每段最大利润之和，也就是红线表示的部分，那么如何计算每段最大利润呢？即峰顶值减去谷底值，如何确定这两个值可以参见&lt;a href=&quot;http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html&quot;&gt;山脉数组的峰顶索引&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;此外，我们还可以用另一种方式实现峰顶和谷底的差值：在上坡的每两点差值之和，以第二段红线为例：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;8 - 2 = (3 - 2) + (5 - 3) + (8 - 5)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;所以问题就转换为两个条件：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;是不是在上坡？(右边的值 &amp;gt; 左边的值)&lt;/li&gt;
+  &lt;li&gt;和是多少？&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;代码如下，时间复杂度O(N)&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxProfit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumProfit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumProfit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;profit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+			&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumProfit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumProfit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;profit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+		&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumProfit&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 15 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II.html</guid>
+        
+        
+        <category>算法 leetcode</category>
+        
+      </item>
     
       <item>
         <title>[leetcode 121] 买卖股票的最佳时机</title>
@@ -78,8 +160,8 @@
 
 </description>
         <pubDate>Mon, 14 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -201,8 +283,8 @@
 
 </description>
         <pubDate>Sun, 13 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-859-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -279,8 +361,8 @@
 
 </description>
         <pubDate>Sun, 13 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-852-%E5%B1%B1%E8%84%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%B3%B0%E9%A1%B6%E7%B4%A2%E5%BC%95.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -341,8 +423,8 @@
 
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</guid>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%20leetcode/leetcode-1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html</guid>
         
         
         <category>算法 leetcode</category>
@@ -399,8 +481,8 @@
 
 </description>
         <pubDate>Tue, 01 Jan 2019 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</guid>
+        <link>http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E9%9A%8F%E7%AC%94/2018%E5%B9%B4%E6%80%BB%E7%BB%93.html</guid>
         
         
         <category>随笔</category>
@@ -495,8 +577,8 @@
 
 </description>
         <pubDate>Fri, 17 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
+        <link>http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial/PHP%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83.html</guid>
         
         <category>PHP</category>
         
@@ -595,8 +677,8 @@
 
 </description>
         <pubDate>Sat, 11 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%B8%89-%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91.html</guid>
         
         <category>PHP</category>
         
@@ -737,8 +819,8 @@
 
 </description>
         <pubDate>Thu, 09 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAWeb%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8E%A7%E5%88%B6%E5%99%A8.html</guid>
         
         <category>PHP</category>
         
@@ -919,75 +1001,10 @@ http://127.0.0.1:7777/foo =&amp;gt; Not Found
 &lt;p&gt;&lt;a href=&quot;http://php.net/manual/zh/function.extract.php&quot;&gt;http://php.net/manual/zh/function.extract.php&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Aug 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
+        <link>http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/php%20tutorial%20laravel/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A1%86%E6%9E%B6-%E4%B8%80-%E8%B7%AF%E7%94%B1.html</guid>
         
         <category>PHP</category>
-        
-        <category>Laravel</category>
-        
-        
-        <category>PHP Tutorial Laravel</category>
-        
-      </item>
-    
-      <item>
-        <title>中型Laravel项目架构(二) - 控制器和模型</title>
-        <description>&lt;p&gt;在上篇文章中，我介绍了路由层和中间件层可以优化的地方，此篇便开始介绍中型Laravel架构中普遍存在的问题：控制器和模型&lt;/p&gt;
-
-&lt;p&gt;很多人在初次接触到Laravel此类MVC框架的时候，开发没有任何规范，完全靠着Laravel项目路径在走，控制器写逻辑代码，模型写数据层代码，刚开始的逻辑代码可能全部都堆积在控制器，后来日益增加的复用压力，让很多人把代码写到了模型层，导致无论是控制器还是模型里，都堆积着大量冗余的代码，给复用，重构，都带来不小的压力和不便。&lt;/p&gt;
-
-&lt;p&gt;User的Model里面包含着非常多的逻辑代码：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-Jietu20180813-235521.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;service-和-repository&quot;&gt;Service 和 Repository&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-13-service-repository-pattern.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;为了解决代码过于冗余的问题，最简单的方法就是将代码逻辑分更多的层，只有更细的粒度，才能更好的复用，所以，引入了 &lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;，那么既然都是 &lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Model&lt;/code&gt; 之间一层，那么这两层有什么区别呢？正如上图所表示的：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Service 层更加贴近业务逻辑，复杂的逻辑在这里开始分解，组合。&lt;/li&gt;
-  &lt;li&gt;Repository 层更加贴近数据逻辑，对数据库的读写操作。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;有了&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;Model&lt;/code&gt;功能就大大弱化了，但还是有非常重要的作用。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Controller 用来接收通过路由传递过来的数据，并对数据进行清洗和整理，递交给 Service&lt;/li&gt;
-  &lt;li&gt;Model 仅仅当做Eloquent的类，无其他实质作用。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;整个结构划分的过程中，我们要谨记&lt;a href=&quot;https://www.wikiwand.com/en/SOLID&quot;&gt;SOLID原则&lt;/a&gt;中的两个原则：&lt;code class=&quot;highlighter-rouge&quot;&gt;单一职责&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;依赖注入&lt;/code&gt;。&lt;code class=&quot;highlighter-rouge&quot;&gt;单一职责&lt;/code&gt;前面已经说过，&lt;code class=&quot;highlighter-rouge&quot;&gt;依赖注入&lt;/code&gt;是通过Laravel特性完成。&lt;/p&gt;
-
-&lt;h2 id=&quot;代码示例&quot;&gt;代码示例&lt;/h2&gt;
-&lt;p&gt;通过一个简单的用户创建的例子，来说明&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Model&lt;/code&gt;如何配合起来的。&lt;/p&gt;
-
-&lt;p&gt;在接受到从路由传递过来的参数，&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt;对参数进行接受和处理，并调用&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;实现逻辑：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-105903.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们可以看到，&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; 的调用，并不是通过实例化来实现的，而是通过&lt;a href=&quot;https://laravel.com/docs/5.3/container&quot;&gt;依赖注入&lt;/a&gt;的方式，后面 &lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; 调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;也是同样的方式。&lt;/p&gt;
-
-&lt;p&gt;可以看到，&lt;code class=&quot;highlighter-rouge&quot;&gt;Controller&lt;/code&gt; 里面基本是没什么逻辑代码的，仅仅只作接受和响应的处理。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-110854.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; 中，所有的逻辑代码都是在这里，首先检查一下手机已经注册，如果没注册就进行创建操作，这里只是实现逻辑，而具体数据层的实现，则放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repository&lt;/code&gt;中。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ooyc2y4k2.bkt.clouddn.com/2018-08-14-Jietu20180814-140926.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;小结&quot;&gt;小结&lt;/h2&gt;
-&lt;p&gt;知道如此对代码分层，这就需要我们写代码的时候，要有一定的构思，更低粒度的数据层操作放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Repostory&lt;/code&gt;，代码逻辑放在&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;，围绕这两点，代码则会越来越精简，复用性更加地好。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 18 Jul 2018 00:00:00 +0800</pubDate>
-        <link>http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</link>
-        <guid isPermaLink="true">http://www.blue7wings.com/php%20tutorial%20laravel/E4-B8-AD-E5-9E-8BLaravel-E9-A1-B9-E7-9B-AE-E6-9E-B6-E6-9E-84(-E4-BA-8C)-20-20-E6-8E-A7-E5-88-B6-E5-99-A8-E5-92-8C-E6-A8-A1-E5-9E-8B.html</guid>
-        
-        <category>PHP</category>
-        
-        <category>开发环境</category>
         
         <category>Laravel</category>
         
